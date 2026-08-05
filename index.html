@@ -327,6 +327,30 @@
   .note-tbd svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; }
   @media (max-width: 920px) { .nav, .topbar-cta { display: none; } .hamburger { display: inline-flex; } .mobile-cta { display: block; } body { padding-bottom: 80px; } .pagehead { padding-top: 12px; } }
 
+  /* ===== Collapsible course blocks (Peer-to-Peer resources) ===== */
+  .course-list { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 14px; }
+  .course-block { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .course-block > summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 20px; cursor: pointer; list-style: none; }
+  .course-block > summary::-webkit-details-marker { display: none; }
+  .course-block > summary:hover { background: var(--primary-softer); }
+  .course-name { font-family: "Iowan Old Style", "Source Serif Pro", "Charter", Georgia, serif; font-weight: 600; font-size: 1.05rem; color: var(--ink); }
+  .course-count { font-size: .72rem; font-weight: 700; background: var(--primary-softer); color: var(--primary-ink); padding: 3px 10px; border-radius: 999px; flex-shrink: 0; }
+  .course-count::after { content: " resources"; font-weight: 500; }
+  .course-block[open] > summary { border-bottom: 1px solid var(--line); background: var(--primary-softer); }
+  .course-block ul { list-style: none; margin: 0; padding: 6px 20px 14px; }
+  .course-block li { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-top: 1px solid var(--line); font-size: .88rem; min-height: 42px; }
+  .course-block li:first-child { border-top: 0; }
+  .course-block li .lbl { flex: 1; min-width: 0; }
+  .course-block li .meta { font-size: .72rem; color: var(--ink-faint); white-space: nowrap; }
+  .course-block li a { font-weight: 600; color: var(--primary); white-space: nowrap; }
+  @media (max-width: 620px) {
+    .course-block li { flex-wrap: wrap; gap: 4px 10px; }
+    .course-block li .meta { width: 100%; order: 3; white-space: normal; }
+    .course-block > summary { padding: 14px 16px; }
+    .course-block ul { padding: 6px 16px 14px; }
+    .course-count::after { content: ""; }
+  }
+
   /* ===== Featured guide cards ===== */
   .guide-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 20px 0 8px; }
   @media (max-width: 720px) { .guide-grid { grid-template-columns: 1fr; } }
@@ -510,7 +534,7 @@
 </section>
 
 <section class="page" id="page-resources">
-  <div class="pagehead"><span class="pill">Resources</span><h1>Built around your year.</h1></div>
+  <div class="pagehead"><span class="pill">Resources</span><h1>Built around your year.</h1><p class="lead">Study resources for every course and clerkship, mirrored from the NYMC library's <a href="https://guides.library.nymc.edu/SOM_PeerToPeerResources/Home" target="_blank" rel="noopener">SOM Peer to Peer guide</a>. Tap a subject to expand.</p></div>
 
   <div class="guide-grid">
     <a class="guide-card" href="https://docs.google.com/document/d/1lBilPXWGLYrGsAqhDG32dsTvkfw60sV8R-keWYuO3cU/edit?usp=sharing" target="_blank" rel="noopener">
@@ -536,74 +560,261 @@
     </div>
   </div>
   <div id="year-m1" class="year-block">
-    <div class="resource-list">
-      <div class="res-cat"><h3>📘 Survival guide</h3><ul>
-        <li><span class="lbl"><strong>NYMC Survival Guide 2026</strong></span><span class="meta">The real thing · student-written</span><a href="https://docs.google.com/document/d/1lBilPXWGLYrGsAqhDG32dsTvkfw60sV8R-keWYuO3cU/edit?usp=sharing" target="_blank" rel="noopener">Open →</a></li>
-        <li><span class="lbl">AOA First Year Guide</span><span class="meta">NYMC library guide</span><a href="https://guides.library.nymc.edu/ld.php?content_id=56348468" target="_blank" rel="noopener">Open →</a></li>
-        <li><span class="lbl">First-week checklist</span><span class="meta">PDF · 2 min</span><a href="#">Open →</a></li>
-        <li><span class="lbl">Anatomy lab tips from M2s</span><span class="meta">Updated Mar 2026</span><a href="#">Open →</a></li>
-        <li><span class="lbl">"What I wish I knew" — class of 2027</span><span class="meta">Synapse archive</span><a href="#">Open →</a></li>
-      </ul></div>
-      <div class="res-cat"><h3>🧠 FPoL Anki decks</h3><ul>
-        <li><span class="lbl">Block 1 — Foundations</span><span class="meta">2,140 cards · vetted</span><a href="#">Get →</a></li>
-        <li><span class="lbl">Block 2 — Hematology</span><span class="meta">1,820 cards · vetted</span><a href="#">Get →</a></li>
-        <li><span class="lbl">Block 3 — Cardio</span><span class="meta">⚠ Needs contributor</span><a href="#">Help →</a></li>
-      </ul></div>
-      <div class="res-cat"><h3>💳 Subscriptions worth it</h3><ul>
-        <li><span class="lbl">Boards &amp; Beyond</span><span class="meta">Group rate active</span><a href="#">Sign up →</a></li>
-        <li><span class="lbl">AnkiHub</span><span class="meta">M2+ recommended</span><a href="#">Compare →</a></li>
-        <li><span class="lbl">UWorld</span><span class="meta">Wait until M2 spring</span><a href="#">Notes →</a></li>
-      </ul></div>
-      <div class="res-cat"><h3>🏠 Living at NYMC</h3><ul>
-        <li><span class="lbl">Housing breakdown by building</span><span class="meta">Updated this sem</span><a href="#">Open →</a></li>
-        <li><span class="lbl">Best grocery / food options</span><span class="meta">Crowdsourced map</span><a href="#">Map →</a></li>
-        <li><span class="lbl">Gym &amp; library hours</span><span class="meta">Always current</span><a href="#">Open →</a></li>
-      </ul></div>
+    <div class="resource-list" style="grid-template-columns:1fr;">
+      <div class="res-cat"><h3>🚀 Start here</h3><ul>
+          <li><span class="lbl">NYMC Survival Guide 2026</span><span class="meta">Student-written</span><a href="https://docs.google.com/document/d/1lBilPXWGLYrGsAqhDG32dsTvkfw60sV8R-keWYuO3cU/edit?usp=sharing" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">AOA First Year Guide</span><span class="meta">NYMC library</span><a href="https://guides.library.nymc.edu/ld.php?content_id=56348468" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Library Step 1 Guide</span><span class="meta">What the library has</span><a href="https://guides.library.nymc.edu/USMLEstep1" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">USMLE Step 1 — official</span><span class="meta">usmle.org</span><a href="https://www.usmle.org/step-exams/step-1" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Peer to Peer Resources (full guide)</span><span class="meta">Source of everything below</span><a href="https://guides.library.nymc.edu/SOM_PeerToPeerResources/Home" target="_blank" rel="noopener">Open →</a></li>
+        </ul></div>
+    </div>
+    <div class="course-list">
+      <details class="course-block" open>
+        <summary><span class="course-name">🦴 Gross Anatomy &amp; Embryology</span><span class="course-count">18</span></summary>
+        <ul>
+          <li><span class="lbl">Moore&#x27;s Clinical Anatomy Review — PrepU</span><span class="meta">Adaptive quizzes</span><a href="https://thepoint.lww.com/Book/Show/245450#/about-this-product?groupby=learningactivity&amp;ts=1560536209231" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Netter&#x27;s Anatomy Flash Cards</span><span class="meta">3-Day Reserve QS17 H2492n 2018 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=150578" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Dartmouth Anatomy</span><span class="meta">Free · images + quizzes</span><a href="https://www.dartmouth.edu/~anatomy/" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Primal Pictures Interactive Anatomy</span><span class="meta">3D models · via library</span><a href="https://widgets.ebscohost.com/prod/customlink/proxify/proxify.php?count=1&amp;encode=1&amp;proxy=https%3A%2F%2Fgo.openathens.net%2Fredirector%2Ftouro.edu%3Furl%3D&amp;target=http://www.anatomy.tv/new_home.aspx?startapp=&amp;startres=&amp;startstudyguide=&amp;S=&amp;ReturnUrl=&amp;lpuserid=&amp;" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Atlas of Human Anatomy (Netter)</span><span class="meta">Online only</span><a href="https://widgets.ebscohost.com/prod/customlink/proxify/proxify.php?count=1&amp;encode=1&amp;proxy=https%3A%2F%2Fgo.openathens.net%2Fredirector%2Ftouro.edu%3Furl%3D&amp;target=https://www.clinicalkey.com/dura/browse/bookChapter/3-s2.0-C20140050319" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Moore&#x27;s Clinically Oriented Anatomy</span><span class="meta">Main Collection QS4 M822c 2014</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=47750" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Moore&#x27;s Anatomy Flashcards</span><span class="meta">1-Day Reserve QS17 G696m 2014</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=150599" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">PreTest: Anatomy, Histology, and Cell Biology</span><span class="meta">Main QS18.2 A535 2010 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=59359" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Teach Me Anatomy</span><span class="meta">Free · 1000+ images</span><a href="http://teachmeanatomy.info/" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">U. Michigan foundational anatomy</span><span class="meta">M1 curriculum site</span><a href="https://sites.google.com/a/umich.edu/bluelink/curricula/first-year-medical-curriculum" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Color Atlas of Anatomy (Rohen)</span><span class="meta">2-Hour Reserve QS17 R737c 2011 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=42814" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Complete Anatomy App</span><span class="meta">3D platform</span><a href="https://3d4medical.com/press-category/complete-anatomy" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Grant&#x27;s Atlas of Anatomy</span><span class="meta">2-Hour Reserve QS17 A284g 2017</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=212004" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Lippincott&#x27;s Illustrated Q&amp;A</span><span class="meta">3-Day Reserve QS18.2 L222L 2011 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=96272" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Lippincott Illustrated Reviews: Anatomy</span><span class="meta">3-Day Reserve QS18.2 H296a 2019 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=150579" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Rohen&#x27;s Photographic Anatomy Flashcards</span><span class="meta">3-Day Reserve QS17 V699r 2016 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=150582" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Ask Anatomist!</span><span class="meta">Podcast + #AnatQ</span><a href="http://www.askanatomist.com/" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Case Files Anatomy</span><span class="meta">58 clinical cases</span><a href="https://widgets.ebscohost.com/prod/customlink/proxify/proxify.php?count=1&amp;encode=1&amp;proxy=https%3A%2F%2Fgo.openathens.net%2Fredirector%2Ftouro.edu%3Furl%3D&amp;target=https://accessmedicine.mhmedical.com/cases.aspx?gboscontainerid=62" target="_blank" rel="noopener">Open →</a></li>
+        </ul>
+      </details>
+      <details class="course-block">
+        <summary><span class="course-name">🔬 Histology &amp; Cell Biology</span><span class="course-count">7</span></summary>
+        <ul>
+          <li><span class="lbl">PreTest: Anatomy, Histology, and Cell Biology</span><span class="meta">Main QS18.2 A535 2010 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=59359" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">BRS: Cell Biology and Histology</span><span class="meta">Main QS18.2 G244c 2015 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=59224" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Histology: A Text and Atlas</span><span class="meta">2-Hour Reserve QS504 R825h 2016 · print</span><a href="https://www.amazon.com/Histology-Atlas-Correlated-Molecular-Biology/dp/1496383427" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Lippincott&#x27;s Illustrated Q&amp;A: Histology</span><span class="meta">Main QS518.2 Z63L 2015 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=96163" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Essential Cell Biology</span><span class="meta">3-Day Reserve QU300 E78 2014 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=59205" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Yale Histology &amp; Cell Biology</span><span class="meta">Free · lectures, images, quizzes</span><a href="http://medcell.org/histology/histology.php" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Histology Helpers (YouTube)</span><span class="meta">Free · 10–15 min videos</span><a href="https://www.youtube.com/channel/UCtmLAUMtGLtgEfZWWX81mkg/videos" target="_blank" rel="noopener">Open →</a></li>
+        </ul>
+      </details>
+      <details class="course-block">
+        <summary><span class="course-name">🧪 Biochemistry &amp; Molecular Biology</span><span class="course-count">12</span></summary>
+        <ul>
+          <li><span class="lbl">Lippincott&#x27;s Illustrated Q&amp;A: Biochemistry</span><span class="meta">3-Day Reserve QU18.2 L695L 2010 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=77299" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Lippincott Illustrated Reviews: Biochemistry</span><span class="meta">3-Day Reserve QU18.2 C451L 2017 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=77300" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">PreTest: Biochemistry and Genetics</span><span class="meta">Main QU18.2 W747b 2013 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=59358" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Rapid Review: Biochemistry</span><span class="meta">Main QU18.2 P389r 2011 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=94395" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">First Aid for the USMLE Step 1</span><span class="meta">Online via library</span><a href="https://widgets.ebscohost.com/prod/customlink/proxify/proxify.php?count=1&amp;encode=1&amp;proxy=https%3A%2F%2Fgo.openathens.net%2Fredirector%2Ftouro.edu%3Furl%3D&amp;target=https://mhebooklibrary.com/doi/book/10.1036/9781260143683" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Pre-Made Anki Decks</span><span class="meta">r/medicalschoolanki</span><a href="https://www.reddit.com/r/medicalschoolanki/" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Boards &amp; Beyond — Biochemistry</span><span class="meta">Video lectures</span><a href="https://www.boardsbeyond.com/module?moduleID=55" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Kaplan Biochemistry Review Videos</span><span class="meta">31h run time</span><a href="https://www.kaptest.com/usmle/courses/step-1-at-home" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Pathways of Human Metabolism (Stanford)</span><span class="meta">Free · pathway diagrams</span><a href="https://metabolicpathways.stanford.edu/" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Case Files Biochemistry</span><span class="meta">53 clinical cases</span><a href="https://widgets.ebscohost.com/prod/customlink/proxify/proxify.php?count=1&amp;encode=1&amp;proxy=https%3A%2F%2Fgo.openathens.net%2Fredirector%2Ftouro.edu%3Furl%3D&amp;target=https://accessmedicine.mhmedical.com/cases.aspx?gboscontainerid=63" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Pixorize</span><span class="meta">Visual mnemonics</span><a href="https://pixorize.com/" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">BRS Biochemistry, Molecular Biology, and Genetics</span><span class="meta">Step 1 prep</span><a href="https://www.amazon.com/Biochemistry-Molecular-Biology-Genetics-Review/dp/1451175361" target="_blank" rel="noopener">Open →</a></li>
+        </ul>
+      </details>
+      <details class="course-block">
+        <summary><span class="course-name">💓 Medical Physiology</span><span class="course-count">10</span></summary>
+        <ul>
+          <li><span class="lbl">Boards &amp; Beyond — Physiology</span><span class="meta">Video lectures</span><a href="https://www.boardsbeyond.com/modules" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">First Aid for the USMLE Step 1</span><span class="meta">Online via library</span><a href="https://widgets.ebscohost.com/prod/customlink/proxify/proxify.php?count=1&amp;encode=1&amp;proxy=https%3A%2F%2Fgo.openathens.net%2Fredirector%2Ftouro.edu%3Furl%3D&amp;target=https://mhebooklibrary.com/doi/book/10.1036/9781260143683" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">BRS: Physiology</span><span class="meta">2-Hour Reserve QT18.2 C838p 2019 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=96166" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Physiology — Costanzo</span><span class="meta">Online only</span><a href="https://www.clinicalkey.com/#!/browse/book/3-s2.0-C20190054726" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">CV Physiology</span><span class="meta">Free · cardiovascular concepts</span><a href="https://www.cvphysiology.com/" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">PreTest: Physiology</span><span class="meta">2-Hour Reserve QT18.2 P578 2014 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=59365" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Rapid Interpretation of EKG&#x27;s (Dubin)</span><span class="meta">2-Hour Reserve WG18.2 D814r · print + online</span><a href="https://widgets.ebscohost.com/prod/customlink/proxify/proxify.php?count=1&amp;encode=1&amp;proxy=https%3A%2F%2Fgo.openathens.net%2Fredirector%2Ftouro.edu%3Furl%3D&amp;target=https://www.r2library.com/Resource/Title/0912912065" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">The Only EKG Book You&#x27;ll Ever Need</span><span class="meta">Main WG140 T365o 2012 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=57108" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Case Files Physiology</span><span class="meta">50 clinical cases</span><a href="https://widgets.ebscohost.com/prod/customlink/proxify/proxify.php?count=1&amp;encode=1&amp;proxy=https%3A%2F%2Fgo.openathens.net%2Fredirector%2Ftouro.edu%3Furl%3D&amp;target=https://casefiles.mhmedical.com/cases.aspx?gboscontainerID=68" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Lippincott&#x27;s Illustrated Reviews: Physiology</span><span class="meta">Review book</span><a href="https://www.amazon.com/Lippincott-Illustrated-Reviews-Physiology/dp/1609132416" target="_blank" rel="noopener">Open →</a></li>
+        </ul>
+      </details>
+      <details class="course-block">
+        <summary><span class="course-name">🧠 Neurosciences</span><span class="course-count">13</span></summary>
+        <ul>
+          <li><span class="lbl">Fundamental Neuroscience for Basic and Clinical Applications</span><span class="meta">Online only</span><a href="https://widgets.ebscohost.com/prod/customlink/proxify/proxify.php?count=1&amp;encode=1&amp;proxy=https%3A%2F%2Fgo.openathens.net%2Fredirector%2Ftouro.edu%3Furl%3D&amp;target=https://www.clinicalkey.com/dura/browse/bookChapter/3-s2.0-C20140037185" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">High Yield Neuroanatomy</span><span class="meta">3-Day Reserve WL101 G696h 2016</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=150574" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Neuroanatomy: An Atlas</span><span class="meta">2-Hour Reserve WL17 H153n 2015 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=94435" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">BRS: Neuroanatomy</span><span class="meta">Main WL18.2 G696n 2014 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=59225" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Netter&#x27;s Atlas of Neuroscience</span><span class="meta">Online only</span><a href="https://widgets.ebscohost.com/prod/customlink/proxify/proxify.php?count=1&amp;encode=1&amp;proxy=https%3A%2F%2Fgo.openathens.net%2Fredirector%2Ftouro.edu%3Furl%3D&amp;target=https://www.clinicalkey.com/dura/browse/bookChapter/3-s2.0-C20130139700" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Lippincott&#x27;s Illustrated Q&amp;A: Neuroscience</span><span class="meta">3-Day Reserve WL18.2 H153L 2011 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=96273" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Lippincott Illustrated Reviews: Neuroscience</span><span class="meta">2-Hour Reserve WL18.2 K92n 2018 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=96178" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Coursera — Medical Neuroscience</span><span class="meta">Free course (Duke)</span><a href="https://www.coursera.org/learn/medical-neuroscience" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Radiopaedia</span><span class="meta">Free · open radiology reference</span><a href="https://radiopaedia.org/?lang=us" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">PreTest: Neuroscience</span><span class="meta">Main WL18.2 S571n 2013 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=59364" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">First Aid for the USMLE Step 1</span><span class="meta">Online via library</span><a href="https://widgets.ebscohost.com/prod/customlink/proxify/proxify.php?count=1&amp;encode=1&amp;proxy=https%3A%2F%2Fgo.openathens.net%2Fredirector%2Ftouro.edu%3Furl%3D&amp;target=https://mhebooklibrary.com/doi/book/10.1036/9781260143683" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Case Files Neuroscience</span><span class="meta">49 clinical cases</span><a href="https://widgets.ebscohost.com/prod/customlink/proxify/proxify.php?count=1&amp;encode=1&amp;proxy=https%3A%2F%2Fgo.openathens.net%2Fredirector%2Ftouro.edu%3Furl%3D&amp;target=https://casefiles.mhmedical.com/cases.aspx?gboscontainerID=65" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Essential Neuroscience</span><span class="meta">Textbook</span><a href="https://www.amazon.com/Essential-Neuroscience-Allan-Siegel-PhD/dp/1451189680" target="_blank" rel="noopener">Open →</a></li>
+        </ul>
+      </details>
+      <details class="course-block">
+        <summary><span class="course-name">🗣 Behavioral Sciences</span><span class="course-count">4</span></summary>
+        <ul>
+          <li><span class="lbl">BRS: Behavioral Science</span><span class="meta">2-Hour Reserve WM18.2 F144b 2017 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=98938" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Memorable Psychopharmacology</span><span class="meta">Mnemonics + practice Qs</span><a href="https://www.amazon.com/Memorable-Psychopharmacology-Jonathan-Heldt-M-D/dp/1535280344" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">PreTest: Behavioral Sciences</span><span class="meta">Main WM18 B394 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=11095" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">First Aid for the USMLE Step 1</span><span class="meta">Online via library</span><a href="https://widgets.ebscohost.com/prod/customlink/proxify/proxify.php?count=1&amp;encode=1&amp;proxy=https%3A%2F%2Fgo.openathens.net%2Fredirector%2Ftouro.edu%3Furl%3D&amp;target=https://mhebooklibrary.com/doi/book/10.1036/9781260143683" target="_blank" rel="noopener">Open →</a></li>
+        </ul>
+      </details>
     </div>
   </div>
+
   <div id="year-m2" class="year-block" style="display:none;">
-    <div class="resource-list">
-      <div class="res-cat"><h3>📚 Step 1 prep hub</h3><ul>
-        <li><span class="lbl"><strong>AOA M2 Study Guide</strong></span><span class="meta">How to study, from AOA</span><a href="https://drive.google.com/file/d/1ZwjvN2gO-MnR2Uc9MQzRm977_ct78V4l/view?usp=sharing" target="_blank" rel="noopener">Open →</a></li>
-        <li><span class="lbl">12-week dedicated timeline</span><span class="meta">4 templates</span><a href="#">Open →</a></li>
-        <li><span class="lbl">Past schedules from passed students</span><span class="meta">8 anonymized</span><a href="#">Browse →</a></li>
-        <li><span class="lbl">UWorld pacing calculator</span><span class="meta">Sheet</span><a href="#">Copy →</a></li>
-      </ul></div>
-      <div class="res-cat"><h3>🩺 Rotation prep</h3><ul>
-        <li><span class="lbl">What to expect: each core</span><span class="meta">8 specialties</span><a href="#">Browse →</a></li>
-        <li><span class="lbl">Day-1 packing list</span><span class="meta">PDF</span><a href="#">Open →</a></li>
-        <li><span class="lbl">EMR shortcuts cheat sheet</span><span class="meta">Site-specific</span><a href="#">Open →</a></li>
-      </ul></div>
-      <div class="res-cat"><h3>🚆 NJ transportation</h3><ul>
-        <li><span class="lbl">Commute coverage explained</span><span class="meta">Eligibility, $</span><a href="#">Open →</a></li>
-        <li><span class="lbl">Reimbursement form</span><span class="meta">Routes via feedback hub</span><a href="#">Submit →</a></li>
-      </ul></div>
-      <div class="res-cat"><h3>☀ Miami stipend</h3><ul>
-        <li><span class="lbl">Eligibility &amp; amount</span><span class="meta">Apr 2026</span><a href="#">Open →</a></li>
-        <li><span class="lbl">Application timeline</span><span class="meta">Deadlines</span><a href="#">Open →</a></li>
-      </ul></div>
+    <div class="resource-list" style="grid-template-columns:1fr;">
+      <div class="res-cat"><h3>🚀 Start here</h3><ul>
+          <li><span class="lbl">AOA M2 Study Guide</span><span class="meta">How to study — from AOA</span><a href="https://drive.google.com/file/d/1ZwjvN2gO-MnR2Uc9MQzRm977_ct78V4l/view?usp=sharing" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Library Step 1 Guide</span><span class="meta">What the library has</span><a href="https://guides.library.nymc.edu/USMLEstep1" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">USMLE Step 1 — official</span><span class="meta">usmle.org</span><a href="https://www.usmle.org/step-exams/step-1" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">First Aid for the USMLE Step 1</span><span class="meta">Online via library</span><a href="https://widgets.ebscohost.com/prod/customlink/proxify/proxify.php?count=1&amp;encode=1&amp;proxy=https%3A%2F%2Fgo.openathens.net%2Fredirector%2Ftouro.edu%3Furl%3D&amp;target=https://mhebooklibrary.com/doi/book/10.1036/9781260143683" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">UWorld</span><span class="meta">The QBank</span><a href="https://www.uworld.com/" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">USMLE-Rx</span><span class="meta">First Aid integration</span><a href="https://www.usmle-rx.com/" target="_blank" rel="noopener">Open →</a></li>
+        </ul></div>
+    </div>
+    <div class="course-list">
+      <details class="course-block" open>
+        <summary><span class="course-name">🦠 Medical Microbiology</span><span class="course-count">8</span></summary>
+        <ul>
+          <li><span class="lbl">Sketchy Micro</span><span class="meta">100+ videos</span><a href="https://www.sketchy.com/explore/medical-pre-clinical" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">PreTest: Microbiology</span><span class="meta">Main QW18.2 M6266 2014 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=59363" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">UWorld</span><span class="meta">QBank</span><a href="https://www.uworld.com/" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">USMLE-Rx</span><span class="meta">Questions, videos, flashcards</span><a href="https://www.usmle-rx.com/" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">First Aid for the USMLE Step 1</span><span class="meta">Online via library</span><a href="https://widgets.ebscohost.com/prod/customlink/proxify/proxify.php?count=1&amp;encode=1&amp;proxy=https%3A%2F%2Fgo.openathens.net%2Fredirector%2Ftouro.edu%3Furl%3D&amp;target=https://mhebooklibrary.com/doi/book/10.1036/9781260143683" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Case Files Microbiology</span><span class="meta">54 clinical cases</span><a href="https://widgets.ebscohost.com/prod/customlink/proxify/proxify.php?count=1&amp;encode=1&amp;proxy=https%3A%2F%2Fgo.openathens.net%2Fredirector%2Ftouro.edu%3Furl%3D&amp;target=https://casefiles.mhmedical.com/cases.aspx?gboscontainerID=64" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Microtosis</span><span class="meta">Animations + 350 board-style Qs</span><a href="https://microtosis.com/" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Immunology Review (YouTube)</span><span class="meta">By NYMC grad Mathias Palmer</span><a href="https://www.youtube.com/watch?app=desktop&amp;v=Xkt7xG4mHOk&amp;t=7109s" target="_blank" rel="noopener">Open →</a></li>
+        </ul>
+      </details>
+      <details class="course-block">
+        <summary><span class="course-name">💊 Medical Pharmacology</span><span class="course-count">9</span></summary>
+        <ul>
+          <li><span class="lbl">Sketchy Pharm</span><span class="meta">100+ videos</span><a href="https://www.sketchy.com/explore/medical-pre-clinical" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">PreTest: Pharmacology</span><span class="meta">Main QV18.2 P5366 2013 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=59357" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">UWorld</span><span class="meta">QBank</span><a href="https://www.uworld.com/" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">USMLE-Rx</span><span class="meta">Questions, videos, flashcards</span><a href="https://www.usmle-rx.com/" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">First Aid for the USMLE Step 1</span><span class="meta">Online via library</span><a href="https://widgets.ebscohost.com/prod/customlink/proxify/proxify.php?count=1&amp;encode=1&amp;proxy=https%3A%2F%2Fgo.openathens.net%2Fredirector%2Ftouro.edu%3Furl%3D&amp;target=https://mhebooklibrary.com/doi/book/10.1036/9781260143683" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Case Files Pharmacology</span><span class="meta">56 clinical cases</span><a href="https://widgets.ebscohost.com/prod/customlink/proxify/proxify.php?count=1&amp;encode=1&amp;proxy=https%3A%2F%2Fgo.openathens.net%2Fredirector%2Ftouro.edu%3Furl%3D&amp;target=https://casefiles.mhmedical.com/CaseTOC.aspx?gbosContainerID=67&amp;categoryID=40971" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Tulane Pharm WIKI</span><span class="meta">Free · drug info wiki</span><a href="http://tmedweb.tulane.edu/pharmwiki/doku.php/start" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Medical Pharmacology Questions/Exams</span><span class="meta">Free · practice exams</span><a href="https://www.pharmacology2000.com/learning2.htm" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">How to Pronounce the Top 250 Drugs</span><span class="meta">Free · pronunciation guide</span><a href="https://clincalc.com/PronounceTop200Drugs/" target="_blank" rel="noopener">Open →</a></li>
+        </ul>
+      </details>
+      <details class="course-block">
+        <summary><span class="course-name">🩻 Pathology &amp; Pathophysiology</span><span class="course-count">15</span></summary>
+        <ul>
+          <li><span class="lbl">Pathoma</span><span class="meta">3-Day Reserve · print + online</span><a href="https://www.pathoma.com/" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">PreTest: Pathology</span><span class="meta">Main QZ18.2 P297 2010 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=59356" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">UWorld</span><span class="meta">QBank</span><a href="https://www.uworld.com/" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">USMLE-Rx</span><span class="meta">Questions, videos, flashcards</span><a href="https://www.usmle-rx.com/" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">First Aid for the USMLE Step 1</span><span class="meta">Online via library</span><a href="https://widgets.ebscohost.com/prod/customlink/proxify/proxify.php?count=1&amp;encode=1&amp;proxy=https%3A%2F%2Fgo.openathens.net%2Fredirector%2Ftouro.edu%3Furl%3D&amp;target=https://mhebooklibrary.com/doi/book/10.1036/9781260143683" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Rapid Review Pathology</span><span class="meta">Main QZ18.2 G626r 2019 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=98948" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">OnlineMedEd</span><span class="meta">Video lessons</span><a href="https://onlinemeded.org" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">WebPath</span><span class="meta">Free · 2700+ images</span><a href="https://webpath.med.utah.edu/webpath.html" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Sketchy Path</span><span class="meta">150+ videos</span><a href="https://www.sketchy.com/explore/medical-pre-clinical" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Robbins &amp; Cotran Pathologic Basis of Disease</span><span class="meta">2-Hour Reserve · print + online</span><a href="https://widgets.ebscohost.com/prod/customlink/proxify/proxify.php?count=1&amp;encode=1&amp;proxy=https%3A%2F%2Fgo.openathens.net%2Fredirector%2Ftouro.edu%3Furl%3D&amp;target=https://www.clinicalkey.com/dura/browse/bookChapter/3-s2.0-C20110055734" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Robbins Basic Pathology</span><span class="meta">Online only</span><a href="https://widgets.ebscohost.com/prod/customlink/proxify/proxify.php?count=1&amp;encode=1&amp;proxy=https%3A%2F%2Fgo.openathens.net%2Fredirector%2Ftouro.edu%3Furl%3D&amp;target=https://www.clinicalkey.com/dura/browse/bookChapter/3-s2.0-C20140017194" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Robbins &amp; Cotran Review of Pathology</span><span class="meta">2-Hour Reserve QZ18.2 K63r 2015 · print</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=96162" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Skin Pathology across skin tones</span><span class="meta">Built by NYMC Class of 2020</span><a href="https://docs.google.com/document/d/1aMwvL1_k5U0P9uS-XQWW-Sp_HUluoGfjyjnqZUevt3M/edit" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Case Files Pathology</span><span class="meta">50+ clinical cases</span><a href="https://widgets.ebscohost.com/prod/customlink/proxify/proxify.php?count=1&amp;encode=1&amp;proxy=https%3A%2F%2Fgo.openathens.net%2Fredirector%2Ftouro.edu%3Furl%3D&amp;target=https://casefiles.mhmedical.com/cases.aspx?gboscontainerID=66" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Ninja Nerd Medicine</span><span class="meta">Free · YouTube</span><a href="https://www.youtube.com/c/NinjaNerdMedicine" target="_blank" rel="noopener">Open →</a></li>
+        </ul>
+      </details>
+      <details class="course-block">
+        <summary><span class="course-name">📊 Biostats, Epi &amp; Misc.</span><span class="course-count">6</span></summary>
+        <ul>
+          <li><span class="lbl">Jekel&#x27;s Epidemiology, Biostatistics &amp; Preventive Medicine</span><span class="meta">Textbook</span><a href="https://www.amazon.com/Jekels-Epidemiology-Biostatistics-Preventive-Medicine/dp/1455706582" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Population Health</span><span class="meta">Library catalog</span><a href="https://nymclibrary.bywatersolutions.com/cgi-bin/koha/opac-detail.pl?biblionumber=42953" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">CRMSynced</span><span class="meta">Interactive cardio-renal-metabolic</span><a href="https://www.cardio-renal-metabolic.com/crmsynced" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Medical Pronunciation Guide (Merck)</span><span class="meta">Free · A–Z</span><a href="https://www.merckmanuals.com/home/pronunciations" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Biostats Step 1 — The Basics (Randy Neil)</span><span class="meta">Free · YouTube</span><a href="https://www.youtube.com/watch?v=75pQPB1RF50" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Biostats Step 1 — Part II (Randy Neil)</span><span class="meta">Free · YouTube</span><a href="https://www.youtube.com/watch?v=VMI9UuNqoGI" target="_blank" rel="noopener">Open →</a></li>
+        </ul>
+      </details>
     </div>
   </div>
+
   <div id="year-m3" class="year-block" style="display:none;">
-    <div class="resource-list">
-      <div class="res-cat"><h3>🏥 Clerkship resources</h3><ul>
-        <li><span class="lbl">Site-specific guides</span><span class="meta">Westchester · Met · St. Vinny's</span><a href="#">Browse →</a></li>
-        <li><span class="lbl">Honors-track playbook</span><span class="meta">Recent grads</span><a href="#">Read →</a></li>
-        <li><span class="lbl">SOAP &amp; presentation templates</span><span class="meta">By specialty</span><a href="#">Open →</a></li>
-      </ul></div>
-      <div class="res-cat"><h3>📈 Step 2 CK</h3><ul>
-        <li><span class="lbl">Timing during rotations</span><span class="meta">3 schools of thought</span><a href="#">Open →</a></li>
-        <li><span class="lbl">Resource stack &amp; cost</span><span class="meta">Group discounts</span><a href="#">Open →</a></li>
-      </ul></div>
-      <div class="res-cat"><h3>🎯 Specialty exploration</h3><ul>
-        <li><span class="lbl">Advisor list by specialty</span><span class="meta">21 specialties</span><a href="#">Open →</a></li>
-        <li><span class="lbl">Sub-I planning guide</span><span class="meta">Timeline + away</span><a href="#">Open →</a></li>
-      </ul></div>
-      <div class="res-cat"><h3>📩 Post-match guidance</h3><ul>
-        <li><span class="lbl">Months between match &amp; intern year</span><span class="meta">From last year's M4s</span><a href="#">Open →</a></li>
-      </ul></div>
+      <div class="card soft" style="margin-bottom:14px;">
+        <h3 style="margin-bottom:8px;">🧭 AOA guidance for third year</h3>
+        <p style="font-size:.9rem;">Think about what worked (and didn't) in your first two years and adapt it. Try to study <em>every night</em> — on some rotations that won't feel realistic, but even a little each night beats cramming days before the shelf. Clinical duties take precedence, so use your time deliberately and <strong>start studying early</strong>.</p>
+        <details class="cmte-person" style="margin-top:6px;"><summary>How shelf questions are built — and what to study for</summary>
+          <p>Questions give you a case vignette with lab/radiology findings, then ask one of a few standard things: <em>what is the diagnosis</em>, <em>what is the next step in diagnosis/treatment</em>, <em>what is the pathogenesis</em>, <em>what was the patient treated with</em>, or <em>what is the physician's most appropriate response</em>. The first two years asked "what is it?" Third year shifts to: "we know you know what's going on — what do we do about it?" Study in that frame: how would I diagnose this, what's the next step in management.</p>
+          <p><strong>Step 2 CK UWorld QBank</strong> — useful for IM and Step 2 prep, with questions for most rotations. Most people use this as their main question source.<br/>
+          <strong>OnlineMedEd</strong> — free video series (paid tier adds notes, downloads, QBank). Great for all rotations, especially if you learn by listening.<br/>
+          <strong>Emma Holliday videos</strong> — free lectures, very good the day before a shelf. Slides are behind a password wall now, but the videos are on YouTube.<br/>
+          <strong>NBME practice exams</strong> — Clinical Skills Mastery Series, purchasable per shelf. Good for gauging where you are. Forms exist for Step 2 too.<br/>
+          <strong>USMLE Easy / PreTest</strong> — another QBank, useful for neurology, family medicine, and pediatrics.<br/>
+          <strong>Amboss</strong> — practice questions with unique features like a "what to pay attention to in the stem" highlighter.</p>
+        </details>
+      </div>
+    <div class="resource-list" style="grid-template-columns:1fr;">
+      <div class="res-cat"><h3>📕 AOA / PLP clerkship guides</h3><ul>
+          <li><span class="lbl">AOA/PLP Guide to Clerkships</span><span class="meta">PDF</span><a href="https://guides.library.nymc.edu/ld.php?content_id=67337815" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">AOA/PLP Step 2 CK Guide</span><span class="meta">PDF</span><a href="https://guides.library.nymc.edu/ld.php?content_id=56264283" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">OnlineMedEd Guide for Third Year Clerkships</span><span class="meta">PDF</span><a href="https://guides.library.nymc.edu/ld.php?content_id=53074091" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">USMLE Step 2 Sample Questions Packet</span><span class="meta">PDF</span><a href="https://guides.library.nymc.edu/ld.php?content_id=65444458" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">NBME — Unlocking Assessment video series</span><span class="meta">Understanding test questions</span><a href="https://www.nbme.org/news/new-video-series-helps-medical-students-understand-test-questions" target="_blank" rel="noopener">Open →</a></li>
+        </ul></div>
+    </div>
+    <div class="course-list">
+      <details class="course-block" open>
+        <summary><span class="course-name">🏥 Clerkship-specific resources</span><span class="course-count">7</span></summary>
+        <ul>
+          <li><span class="lbl">Internal Medicine</span><a href="https://guides.library.nymc.edu/SOM_PeerToPeerResources/InternalMedicine" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Obstetrics &amp; Gynecology</span><a href="https://guides.library.nymc.edu/SOM_PeerToPeerResources/OBGYN" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Pediatrics</span><a href="https://guides.library.nymc.edu/SOM_PeerToPeerResources/Pediatrics" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Family Medicine</span><a href="https://guides.library.nymc.edu/SOM_PeerToPeerResources/FamilyMedicine" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Psychiatry</span><a href="https://guides.library.nymc.edu/SOM_PeerToPeerResources/Psychiatry" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Neurology</span><a href="https://guides.library.nymc.edu/SOM_PeerToPeerResources/Neurology" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Surgery</span><a href="https://guides.library.nymc.edu/SOM_PeerToPeerResources/Surgery" target="_blank" rel="noopener">Open →</a></li>
+        </ul>
+      </details>
+      <details class="course-block">
+        <summary><span class="course-name">📱 Mobile apps for clerkships</span><span class="course-count">7</span></summary>
+        <ul>
+          <li><span class="lbl">UpToDate</span><span class="meta">AOA: read up on your patients</span><a href="https://guides.library.nymc.edu/uptodate" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Epocrates</span><span class="meta">AOA: drugs + interactions · free account</span><a href="https://www.epocrates.com/" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">AHRQ ePSS</span><span class="meta">AOA: USPSTF screening recs</span><a href="https://epss.ahrq.gov/PDA/index.jsp" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">ASCVD Risk Estimator</span><span class="meta">AOA: useful on IM + FM</span><a href="http://tools.acc.org/ASCVD-Risk-Estimator-Plus/#!/calculate/estimate/" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Shots Immunizations</span><span class="meta">AOA: peds, FM, IM</span><a href="https://www.aafp.org/family-physician/patient-care/prevention-wellness/immunizations-vaccines/shots-app.html" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Diagnosaurus</span><span class="meta">AOA: differentials from chief complaint</span><a href="https://widgets.ebscohost.com/prod/customlink/proxify/proxify.php?count=1&amp;encode=1&amp;proxy=https%3A%2F%2Fgo.openathens.net%2Fredirector%2Ftouro.edu%3Furl%3D&amp;target=https://accessmedicine.mhmedical.com/Diagnosaurus.aspx?categoryid=41309&amp;selectedletter=A" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Canopy Medical Translator</span><span class="meta">5,000+ phrases · 15+ languages</span><a href="https://www.withcanopy.com/" target="_blank" rel="noopener">Open →</a></li>
+        </ul>
+      </details>
+      <details class="course-block">
+        <summary><span class="course-name">📝 Step 2 CK prep</span><span class="course-count">8</span></summary>
+        <ul>
+          <li><span class="lbl">USMLE Step 2 CK — official</span><span class="meta">usmle.org</span><a href="https://usmle.org/step-2-ck/" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Library Step 2 Guide</span><span class="meta">What the library has</span><a href="https://guides.library.nymc.edu/USMLEstep2" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">USMLE Step 2 CK sample test questions</span><span class="meta">100+ questions · PDF + interactive</span><a href="https://www.usmle.org/prepare-your-exam/step-2-ck-materials/step-2-ck-sample-test-questions" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">USMLE Step 2 test question formats</span><span class="meta">Format review</span><a href="https://www.usmle.org/prepare-your-exam/step-2-ck-materials/step-2-ck-test-question-formats" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">NBME Step 2 practice exams (CCSSA)</span><span class="meta">Self-assessment forms</span><a href="https://www.nbme.org/examinees/nbme-self-assessments/comprehensive-clinical-science-self-assessment" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Divine Intervention Podcast</span><span class="meta">Free · high-yield review</span><a href="https://divineinterventionpodcasts.com/category/usmle-step-2-CK/" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Health Systems Science, 2nd ed.</span><span class="meta">Expanded Step 2 content</span><a href="https://www.elsevier.com/books/health-systems-science/skochelak/978-0-323-69462-9" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Dirty Medicine — Ethics playlist</span><span class="meta">Free · YouTube</span><a href="https://www.youtube.com/playlist?list=PL5rTEahBdxV5szNYtMDCm7YuiG51WUnZV" target="_blank" rel="noopener">Open →</a></li>
+        </ul>
+      </details>
+      <details class="course-block">
+        <summary><span class="course-name">🌐 Other virtual resources</span><span class="course-count">6</span></summary>
+        <ul>
+          <li><span class="lbl">MedEdPORTAL virtual collection</span><span class="meta">Free · peer-reviewed</span><a href="https://www.mededportal.org/collection/virtual/" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">U. Minnesota Global Health courses</span><span class="meta">Self-paced online</span><a href="https://med.umn.edu/dom/education/global-medicine/courses-certificates/online" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Free CME</span><span class="meta">Free · 100+ courses</span><a href="https://www.freecme.com/" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Introduction to Radiology</span><span class="meta">Free · UVA interactive</span><a href="https://introductiontoradiology.net/" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Medscape simulations</span><span class="meta">Patient scenarios</span><a href="https://www.medscape.org/simulation" target="_blank" rel="noopener">Open →</a></li>
+          <li><span class="lbl">Emergency Procedures Masterclass</span><span class="meta">Medmastery</span><a href="https://www.medmastery.com/course/emergency-procedures-masterclass" target="_blank" rel="noopener">Open →</a></li>
+        </ul>
+      </details>
     </div>
   </div>
+
   <div id="year-m4" class="year-block" style="display:none;">
     <div class="resource-list">
       <div class="res-cat"><h3>📝 Residency app</h3><ul>
