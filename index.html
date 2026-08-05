@@ -1386,28 +1386,7 @@
     });
   });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
-</script>
 
-<!--
-  EDIT HERE: ANALYTICS
-  --------------------
-  Add a lightweight, privacy-respecting analytics snippet here so
-  the Senate can see whether students are actually using the site
-  (which pages, which resources get clicked, feedback conversion,
-  etc.). Options:
-
-    Plausible (recommended — free for open-source projects):
-      <script defer data-domain="your-username.github.io"
-              src="https://plausible.io/js/script.js"></script>
-
-    Umami (self-host or umami.is):
-      <script defer src="https://cloud.umami.is/script.js"
-              data-website-id="YOUR_ID"></script>
-
-    Google Analytics 4 (heavier, but familiar):
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXX"></script>
-      <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-        gtag('js',new Date()); gtag('config','G-XXXX');
   // ===== Event list — fetch & render NYMC (Trumba) ICS =====
   // Trumba public ICS. If CORS is blocked in the browser console, the fallback
   // is: subscribe to this ICS inside a Google Calendar (which does allow CORS),
@@ -1542,8 +1521,31 @@
     }
   }
   loadNYMCEvents();
-
 </script>
+
+<!--
+  EDIT HERE: ANALYTICS
+  --------------------
+  Add a lightweight, privacy-respecting analytics snippet here so
+  the Senate can see whether students are actually using the site
+  (which pages, which resources get clicked, feedback conversion,
+  etc.). Options:
+
+    Plausible (recommended — free for open-source projects):
+      &lt;script defer data-domain="your-username.github.io"
+              src="https://plausible.io/js/script.js">&lt;/script&gt;
+
+    Umami (self-host or umami.is):
+      &lt;script defer src="https://cloud.umami.is/script.js"
+              data-website-id="YOUR_ID">&lt;/script&gt;
+
+    Google Analytics 4 (heavier, but familiar):
+      &lt;script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXX">&lt;/script&gt;
+      &lt;script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+        gtag('js',new Date()); gtag('config','G-XXXX');
+
+
+&lt;/script&gt;
 
   Don't paste all three. Pick one. Analytics should be disclosed in
   a small footer link ("Privacy") if you're using GA4.
