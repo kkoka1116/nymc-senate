@@ -1,0 +1,17 @@
+# Netlify configuration for NYMC Senate site.
+# This file tells Netlify where to find the serverless function that proxies
+# the NYMC Trumba calendar. Auto-detection would probably work without it, but
+# being explicit avoids surprises on drag-and-drop deploys.
+
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# Optional: friendly URL rewrite so /api/nymc-events works too.
+[[redirects]]
+  from = "/api/nymc-events"
+  to   = "/.netlify/functions/nymc-events"
+  status = 200

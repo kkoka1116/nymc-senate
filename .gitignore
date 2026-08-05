@@ -1,0 +1,32 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Local drafts / working files — don't commit these
+_drafts/
+*.draft.html
+*.backup.html
+notes.txt
+
+# Environment / secrets (in case anyone ever adds a build step)
+.env
+.env.local
+node_modules/
+
+# Internal working docs — not part of the public site
+senate-meeting-summary.md
+senate-redesign-mockup-v3-kathryn.html
+_test_write.txt
