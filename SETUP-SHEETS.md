@@ -1,22 +1,27 @@
 # Routing feedback into Google Sheets
 
 > **Status: live.** Sheet "NYMC Senate — Feedback", Apps Script deployed
-> (v2), and the Netlify webhook is wired to *any form*. Verified
-> end-to-end on Aug 6, 2026. The steps below document how it was built
-> and how to rebuild or hand it off.
+> (v2), and the site posts through a Netlify Function. Verified
+> end-to-end on Aug 6, 2026.
 
 Every feedback submission lands on its own tab — Housing, Cafeteria,
 Facilities, Class Year, Curriculum, Other — plus an **All Submissions**
 master tab for trend analysis.
 
 ```
-Student submits  →  Netlify Forms  →  outgoing webhook  →  Apps Script  →  Google Sheet
-                    (spam filter,                          (routes by
-                     dashboard, backup)                     form name)
+Student submits  →  /.netlify/functions/feedback  →  Apps Script  →  Google Sheet
+                    (honeypot + spam checks,          (routes by
+                     forwards server-side)             form name)
 ```
 
-Netlify stays in the loop, so you keep spam filtering, the dashboard, and
-a second copy of every submission if the Sheet ever breaks.
+**Netlify Forms is deliberately not used.** Its free tier stops at 100
+submissions/month, and quietly dropping student feedback is the worst way
+for this to fail. Netlify *Functions* allow 125k invocations/month.
+
+The function also keeps the request same-origin, so the page gets a real
+status code and can show a truthful success or error state. Posting
+straight from the browser to Apps Script would work but the response is
+blocked by CORS, so the UI would have to assume success.
 
 ---
 
@@ -56,17 +61,19 @@ Deploy, then **copy the Web app URL** — it ends in `/exec`.
 > is unguessable and the script only ever appends rows. Nobody can read
 > your Sheet through it.
 
-### 5. Point Netlify at it
+### 5. Give Netlify the URL
 
-Netlify dashboard → your site → **Forms → Form notifications → Add
-notification → Outgoing webhook**:
+Netlify dashboard → **Site configuration → Environment variables → Add a
+single variable**:
 
-- **Event to listen for:** New form submission
-- **URL to notify:** the `/exec` URL from step 4
-- **Form:** pick one
+| Key | Value |
+|---|---|
+| `APPS_SCRIPT_URL` | the `/exec` URL from step 4 |
 
-Save, then repeat for each of the six forms (same URL every time — the
-script reads the form name from the payload and routes it).
+Redeploy so the function picks it up.
+
+The URL lives here rather than in the repo because the repo is public and
+the endpoint accepts writes — anyone with it could append junk rows.
 
 ### 6. Test
 
@@ -90,31 +97,19 @@ Prefer to test without touching the site? In Apps Script, run
 
 ---
 
-## If you outgrow Netlify Forms
+## Spam handling
 
-Netlify's free tier allows **100 submissions/month** across all forms.
-For a school this size that may not last. Two options when you hit it:
+Netlify's Akismet came with Netlify Forms, so `netlify/functions/feedback.js`
+carries its own checks:
 
-**a) Pay** — Netlify Level 1 is $19/month for 1,000 submissions.
+- **Honeypot** — a hidden `bot-field`; if it's filled, the submission is
+  dropped and a 200 is returned so bots don't retry.
+- **Length cap** — details over 5,000 characters are rejected.
+- **Link heuristic** — more than 3 URLs in the details field is dropped.
+- **Form allowlist** — only the six known form names are accepted.
 
-**b) Skip Netlify Forms and post straight to Apps Script (free, unlimited).**
-In `index.html`, find `submitFb()` and change the fetch target:
-
-```js
-// from
-const res = await fetch('/', { … });
-
-// to
-const res = await fetch('https://script.google.com/macros/s/YOUR_ID/exec', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-  body: payload.toString(),
-});
-```
-
-`Code.gs` already accepts that format — no script changes needed. You'd
-lose Netlify's spam filtering and dashboard, so keep the honeypot field
-in place if you switch.
+If spam ever becomes a real problem, add a timestamp field to the form and
+reject anything submitted in under ~3 seconds.
 
 ---
 
@@ -122,7 +117,8 @@ in place if you switch.
 
 | Symptom | Cause |
 |---|---|
-| Rows never appear | Deployment isn't "Anyone" access, or the webhook URL is the `/dev` URL instead of `/exec` |
+| Rows never appear | `APPS_SCRIPT_URL` isn't set in Netlify, deployment isn't "Anyone" access, or the URL is the `/dev` one instead of `/exec` |
+| Form says "That didn't go through" | Check Netlify → Logs → Functions → `feedback` for the actual error |
 | Rows land only on "Other" | Form name didn't match — check the `TABS` map in `Code.gs` against Netlify's form names |
 | Nothing after editing the script | Apps Script serves the *deployed* version. **Deploy → Manage deployments → ✏️ → Version: New version** |
 | Want to see errors | Apps Script → **Executions** shows every call and its logs |

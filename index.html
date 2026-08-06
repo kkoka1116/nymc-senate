@@ -141,191 +141,79 @@
   .card h3 { margin-bottom: 6px; }
   .card .muted { color: var(--ink-faint); font-size: .85rem; }
   .cal-wrap { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
-  /* ===== Event list (custom rendered from ICS) ===== */
-  .cal-filters { display: flex; gap: 6px; padding: 5px; background: var(--bg); border: 1px solid var(--line); border-radius: 999px; width: fit-content; max-width: 100%; overflow-x: auto; margin-bottom: 14px; }
-  .cal-filter { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 999px; border: 0; background: transparent; color: var(--ink-soft); font-weight: 600; font-size: .88rem; cursor: pointer; white-space: nowrap; min-height: 36px; }
-  .cal-filter.active { background: var(--primary); color: #fff; }
-  .cal-filter[disabled] { opacity: .5; cursor: not-allowed; }
-  .cal-filter:hover:not(.active):not([disabled]) { background: var(--surface-2); color: var(--ink); }
-  .cal-filter-note { font-size: .68rem; font-weight: 500; opacity: .8; }
-  .cal-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
-  .cal-dot-senate { background: var(--primary); }
-  .cal-dot-nymc { background: var(--accent); }
-  .ev-list { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 12px; }
-  .ev-card { display: grid; grid-template-columns: 68px 1fr auto; gap: 14px; align-items: center; padding: 14px 16px; background: var(--bg); border: 1px solid var(--line); border-radius: 12px; transition: all .15s ease; }
-  .ev-card:hover { background: var(--surface); border-color: var(--primary); transform: translateX(2px); }
-  .ev-date { text-align: center; padding: 6px 0; border-radius: 10px; background: var(--primary-softer); color: var(--primary-ink); }
-  .ev-date-nymc { background: var(--accent-soft); color: var(--accent-ink); }
-  .ev-day { font-family: "Iowan Old Style", "Source Serif Pro", "Charter", Georgia, serif; font-size: 1.5rem; font-weight: 700; line-height: 1; }
+  /* ===== Calendar (month / week / list, rendered from the NYMC ICS feed) ===== */
+  .cal-bar { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; }
+  .cal-nav { display: flex; align-items: center; gap: 6px; }
+  .cal-arrow, .cal-today { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; cursor: pointer; color: var(--ink); font-weight: 600; }
+  .cal-arrow { width: 34px; height: 34px; font-size: 1.15rem; line-height: 1; }
+  .cal-today { height: 34px; padding: 0 14px; font-size: .84rem; }
+  .cal-arrow:hover, .cal-today:hover { background: var(--primary-softer); border-color: var(--primary); color: var(--primary-ink); }
+  .cal-title { margin: 0 0 0 8px; font-size: 1.15rem; white-space: nowrap; }
+  .cal-views { display: inline-flex; gap: 4px; padding: 4px; background: var(--bg); border: 1px solid var(--line); border-radius: 999px; }
+  .cal-view { padding: 7px 15px; border-radius: 999px; border: 0; background: transparent; color: var(--ink-soft); font-weight: 600; font-size: .85rem; cursor: pointer; }
+  .cal-view.active { background: var(--primary); color: #fff; }
+  .cal-view:hover:not(.active) { background: var(--surface-2); color: var(--ink); }
+
+  /* Month grid */
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .cal-dow { background: var(--surface-2); padding: 8px 6px; text-align: center; font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-faint); }
+  .cal-cell { background: var(--surface); min-height: 104px; padding: 6px; display: flex; flex-direction: column; gap: 3px; }
+  .cal-cell.dim { background: var(--bg); }
+  .cal-cell.dim .cal-num { color: var(--ink-faint); }
+  .cal-num { font-size: .8rem; font-weight: 600; color: var(--ink); width: 24px; height: 24px; display: grid; place-items: center; border-radius: 50%; flex-shrink: 0; }
+  .cal-cell.today .cal-num { background: var(--primary); color: #fff; }
+  .cal-chip { display: block; font-size: .68rem; line-height: 1.25; padding: 3px 6px; border-radius: 5px; background: var(--accent-soft); color: var(--accent-ink); border-left: 2px solid var(--accent); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; cursor: pointer; }
+  .cal-chip:hover { background: var(--accent); color: #402d09; text-decoration: none; }
+  .cal-more { font-size: .64rem; color: var(--ink-faint); padding-left: 6px; }
+
+  /* Week view */
+  .cal-week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .cal-wcol { background: var(--surface); min-height: 190px; padding: 8px 7px; display: flex; flex-direction: column; gap: 5px; }
+  .cal-wcol.today { background: var(--primary-softer); }
+  .cal-whead { text-align: center; padding-bottom: 6px; border-bottom: 1px solid var(--line); margin-bottom: 3px; }
+  .cal-wdow { font-size: .66rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-faint); }
+  .cal-wnum { font-family: "Iowan Old Style", "Source Serif Pro", Georgia, serif; font-size: 1.2rem; font-weight: 700; color: var(--ink); }
+  .cal-wcol.today .cal-wnum { color: var(--primary); }
+  .cal-wev { font-size: .7rem; padding: 5px 7px; border-radius: 7px; background: var(--accent-soft); color: var(--accent-ink); border-left: 2px solid var(--accent); cursor: pointer; display: block; }
+  .cal-wev:hover { background: var(--accent); color: #402d09; text-decoration: none; }
+  .cal-wev strong { display: block; font-weight: 600; line-height: 1.25; }
+  .cal-wev span { font-size: .64rem; opacity: .85; }
+  .cal-wnone { font-size: .68rem; color: var(--ink-faint); font-style: italic; text-align: center; padding-top: 8px; }
+
+  /* List view */
+  .ev-list { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .ev-card { display: grid; grid-template-columns: 68px 1fr; gap: 14px; align-items: center; padding: 14px 16px; background: var(--bg); border: 1px solid var(--line); border-radius: 12px; transition: all .15s ease; }
+  a.ev-card:hover { background: var(--surface); border-color: var(--primary); transform: translateX(2px); text-decoration: none; }
+  .ev-date { text-align: center; padding: 6px 0; border-radius: 10px; background: var(--accent-soft); color: var(--accent-ink); }
+  .ev-day { font-family: "Iowan Old Style", "Source Serif Pro", Georgia, serif; font-size: 1.5rem; font-weight: 700; line-height: 1; }
   .ev-mo { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-top: 3px; }
   .ev-body { min-width: 0; }
   .ev-title { font-weight: 600; font-size: .95rem; color: var(--ink); line-height: 1.3; margin-bottom: 3px; }
   .ev-meta { font-size: .78rem; color: var(--ink-faint); display: flex; flex-wrap: wrap; gap: 6px; }
   .ev-desc { font-size: .8rem; color: var(--ink-soft); margin-top: 6px; line-height: 1.4; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-  .ev-source { font-size: .68rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; text-transform: uppercase; letter-spacing: .04em; align-self: start; margin-top: 4px; }
-  .ev-source-senate { background: var(--primary-softer); color: var(--primary-ink); }
-  .ev-source-nymc { background: var(--accent-soft); color: var(--accent-ink); }
+
   .cal-loading, .cal-empty, .cal-error { padding: 32px 16px; text-align: center; color: var(--ink-faint); font-size: .95rem; }
   .cal-error { color: #8c3a2c; background: #fbe6df; border-radius: 12px; }
   .cal-error a { color: #8c3a2c; font-weight: 600; text-decoration: underline; }
-  .cal-actions { margin-top: 8px; display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
-  @media (max-width: 540px) {
-    .ev-card { grid-template-columns: 56px 1fr; }
-    .ev-source { grid-column: 2; margin-top: 6px; justify-self: start; }
-    .ev-day { font-size: 1.3rem; }
+  .cal-actions { margin-top: 12px; display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
+
+  @media (max-width: 780px) {
+    .cal-bar { justify-content: center; }
+    .cal-title { margin-left: 0; font-size: 1.05rem; width: 100%; text-align: center; order: -1; }
+    .cal-cell { min-height: 62px; padding: 4px 3px; }
+    .cal-chip { font-size: 0; padding: 0; height: 5px; border-radius: 3px; border-left: 0; background: var(--accent); }
+    .cal-more { display: none; }
+    .cal-num { width: 22px; height: 22px; font-size: .74rem; }
+    .cal-week { grid-template-columns: 1fr; }
+    .cal-wcol { min-height: 0; }
+    .cal-wcol:not(.has-events) { display: none; }
+    .cal-whead { display: flex; align-items: baseline; gap: 8px; justify-content: flex-start; }
   }
-  .cal-controls { display: flex; gap: 10px; align-items: center; margin-bottom: 14px; flex-wrap: wrap; }
-  .cal-toggle { display: flex; gap: 6px; flex-wrap: wrap; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .toggle { display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--bg); font-size: .82rem; cursor: pointer; user-select: none; white-space: nowrap; }
-  .toggle.on { background: var(--primary-softer); border-color: var(--primary); color: var(--primary-ink); font-weight: 600; }
-  .toggle .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); }
-  .toggle.club .dot { background: var(--accent); }
-  .toggle.acad .dot { background: #6F8FB3; }
-  .toggle.well .dot { background: #2F6B4F; }
-  .cal-month { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; gap: 8px; }
-  .cal-month h3 { margin: 0; font-size: 1.1rem; }
-  .cal-month-btns { display: flex; gap: 6px; }
-  .cal-month-btns button { padding: 6px 10px; font-size: .85rem; }
-  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
-  .cal-day-name { font-size: .68rem; font-weight: 600; color: var(--ink-faint); text-transform: uppercase; padding: 4px; text-align: center; }
-  .cal-cell { aspect-ratio: 1 / 1.05; border: 1px solid var(--line); border-radius: 8px; padding: 4px; background: var(--bg); display: flex; flex-direction: column; gap: 2px; overflow: hidden; min-height: 56px; }
-  .cal-cell.faded { opacity: .35; }
-  .cal-cell .num { font-weight: 600; font-size: .8rem; color: var(--ink); }
-  .cal-cell.today { border-color: var(--primary); background: var(--primary-softer); border-width: 1.5px; }
-  .cal-cell.today .num { color: var(--primary-ink); }
-  .ev { font-size: .65rem; padding: 2px 4px; border-radius: 4px; background: var(--primary-softer); color: var(--primary-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2; }
-  .ev.club { background: var(--accent-soft); color: var(--accent-ink); }
-  .ev.acad { background: var(--info-soft); color: #2c4f78; }
-  .ev.well { background: var(--success-soft); color: #1d4a36; }
-  .ev.hidden { display: none; }
-  @media (max-width: 540px) { .cal-cell { aspect-ratio: 1; min-height: 44px; } .ev { font-size: 0; padding: 3px 4px; } .ev::after { content: ''; display: block; width: 6px; height: 6px; border-radius: 50%; background: currentColor; } }
-  .initiative { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 12px; background: var(--surface); border: 1px solid var(--line); margin-bottom: 8px; }
-  .initiative .progress { flex-shrink: 0; width: 70px; height: 8px; background: var(--line); border-radius: 999px; overflow: hidden; }
-  .initiative .progress span { display: block; height: 100%; background: var(--primary); border-radius: 999px; }
-  .initiative-body { flex: 1; min-width: 0; }
-  .initiative-body strong { display: block; font-size: .92rem; }
-  .initiative-body span { font-size: .78rem; color: var(--ink-faint); }
-  .initiative-status { font-size: .7rem; font-weight: 700; padding: 4px 9px; border-radius: 999px; flex-shrink: 0; text-transform: uppercase; letter-spacing: .03em; }
-  .status-prog { background: var(--accent-soft); color: var(--accent-ink); }
-  .status-done { background: var(--success-soft); color: #1d4a36; }
-  .status-plan { background: var(--info-soft); color: #2c4f78; }
-  @media (max-width: 540px) { .initiative { flex-wrap: wrap; } .initiative .progress { order: 3; width: 100%; } .initiative-body { order: 1; flex: 1; } .initiative-status { order: 2; } }
-  .yeartabs-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; margin: 0 -20px 16px; padding-left: 20px; padding-right: 20px; }
-  .yeartabs { display: inline-flex; gap: 6px; padding: 5px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; }
-  .yeartab { padding: 10px 22px; border-radius: 999px; border: 0; background: transparent; color: var(--ink-soft); font-weight: 600; font-size: .92rem; white-space: nowrap; min-height: 40px; }
-  .yeartab.active { background: var(--primary); color: #fff; }
-  .yeartab:hover:not(.active) { background: var(--surface-2); color: var(--ink); }
-  .resource-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-  @media (max-width: 880px) { .resource-list { grid-template-columns: 1fr; } }
-  .res-cat { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
-  .res-cat h3 { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
-  .res-cat ul { list-style: none; padding: 0; margin: 0; }
-  .res-cat li { display: flex; align-items: center; gap: 10px; padding: 11px 0; border-top: 1px solid var(--line); font-size: .9rem; min-height: 44px; }
-  .res-cat li:first-child { border-top: 0; }
-  .res-cat li .lbl { flex: 1; min-width: 0; }
-  .res-cat li .meta { font-size: .72rem; color: var(--ink-faint); white-space: nowrap; }
-  @media (max-width: 540px) { .res-cat li { flex-wrap: wrap; gap: 4px; } .res-cat li .meta { width: 100%; flex-basis: 100%; order: 3; } }
-  .res-cat li a { display: inline-flex; align-items: center; gap: 4px; font-weight: 600; color: var(--primary); }
-  .feedback-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(20px, 4vw, 36px); box-shadow: var(--shadow); }
-  .feedback-step { display: none; }
-  .feedback-step.active { display: block; }
-  .feedback-progress { display: flex; gap: 6px; margin-bottom: 22px; }
-  .feedback-progress span { flex: 1; height: 4px; border-radius: 999px; background: var(--line); }
-  .feedback-progress span.on { background: var(--primary); }
-  .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 18px; }
-  @media (max-width: 720px) { .cat-grid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 380px) { .cat-grid { grid-template-columns: 1fr; } }
-  .cat-btn { padding: 18px 14px; border-radius: var(--radius); background: var(--bg); border: 1.5px solid var(--line); cursor: pointer; text-align: left; display: flex; flex-direction: column; gap: 8px; transition: all .12s ease; min-height: 110px; }
-  .cat-btn:hover, .cat-btn.selected { border-color: var(--primary); background: var(--primary-softer); }
-  .cat-btn .ic { width: 36px; height: 36px; border-radius: 10px; background: var(--surface); display: grid; place-items: center; border: 1px solid var(--line); }
-  .cat-btn .ic svg { width: 20px; height: 20px; color: var(--primary-ink); }
-  .cat-btn strong { font-size: .92rem; }
-  .cat-btn span { font-size: .76rem; color: var(--ink-faint); line-height: 1.3; }
-  .reason-list { display: flex; flex-direction: column; gap: 8px; margin-top: 18px; }
-  .reason { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 12px; background: var(--bg); border: 1.5px solid var(--line); cursor: pointer; min-height: var(--tap); }
-  .reason:hover { border-color: var(--primary); }
-  .reason input { width: 18px; height: 18px; accent-color: var(--primary); }
-  .reason.selected { border-color: var(--primary); background: var(--primary-softer); }
-  .reason .lbl { flex: 1; }
-  .reason .lbl strong { display: block; font-size: .92rem; }
-  .reason .lbl span { font-size: .78rem; color: var(--ink-faint); }
-  textarea.note { width: 100%; padding: 14px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--bg); font: inherit; resize: vertical; min-height: 110px; }
-  textarea.note:focus { outline: 0; border-color: var(--primary); }
-  .routing-preview { background: var(--info-soft); color: #2c4f78; padding: 14px 16px; border-radius: 12px; font-size: .88rem; display: flex; align-items: flex-start; gap: 10px; margin-top: 16px; }
-  .routing-preview svg { width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px; }
-  .step-actions { display: flex; justify-content: space-between; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
-  .step-actions .btn { flex: 1; justify-content: center; min-width: 140px; }
-  .fb-year { margin-top: 14px; }
-  .fb-year-label { display: block; font-size: .84rem; color: var(--ink-soft); margin-bottom: 8px; }
-  .fb-year-label em { color: var(--ink-faint); font-style: normal; font-size: .78rem; }
-  .fb-year-chips { display: flex; gap: 6px; flex-wrap: wrap; }
-  .fb-year-chip { padding: 8px 18px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--bg); font-weight: 600; font-size: .88rem; cursor: pointer; min-height: 38px; color: var(--ink-soft); }
-  .fb-year-chip.on { background: var(--primary); border-color: var(--primary); color: #fff; }
-  .fb-email-wrap { margin-top: 10px; }
-  .fb-email { min-height: 0; height: auto; }
-  .fb-email-hint { display: block; font-size: .76rem; color: var(--ink-faint); margin-top: 4px; }
-  .fb-email.invalid { border-color: #c0492f; }
-  .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
-  @media (max-width: 720px) { .filter-row { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 0 0 6px; margin: 0 -20px 14px; padding-left: 20px; padding-right: 20px; } }
-  .filter-chip { padding: 8px 14px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); font-size: .85rem; cursor: pointer; user-select: none; white-space: nowrap; min-height: 36px; display: inline-flex; align-items: center; }
-  .filter-chip.on { background: var(--primary); color: #fff; border-color: var(--primary); }
-  .senator-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-  @media (max-width: 880px) { .senator-grid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 540px) { .senator-grid { grid-template-columns: 1fr; } }
-  .senator { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; display: flex; flex-direction: column; gap: 10px; }
-  .senator-top { display: flex; align-items: center; gap: 12px; }
-  .avatar { width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-soft), var(--primary-softer)); display: grid; place-items: center; font-weight: 700; color: var(--primary-ink); flex-shrink: 0; font-family: inherit; }
-  .senator-name strong { display: block; font-size: .94rem; }
-  .senator-name span { font-size: .78rem; color: var(--ink-faint); }
-  .senator .tags { display: flex; gap: 4px; flex-wrap: wrap; }
-  .senator .tags span { font-size: .68rem; padding: 3px 8px; border-radius: 999px; background: var(--surface-2); color: var(--ink-soft); }
-  .senator .ask { background: var(--primary-softer); color: var(--primary-ink); padding: 8px 10px; border-radius: 8px; font-size: .8rem; }
-  .senator .ask strong { display: block; font-size: .68rem; text-transform: uppercase; letter-spacing: .05em; opacity: .7; margin-bottom: 2px; font-family: inherit; }
-  .senator-email { font-size: .78rem; color: var(--primary-ink); word-break: break-all; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
-  .senator-email:hover { text-decoration: underline; }
-  .edit-marker { color: var(--accent-ink); font-style: italic; opacity: .85; }
-  .club-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; display: flex; flex-direction: column; gap: 8px; }
-  .club-card .cat { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--accent-ink); }
-  .club-card h3 { margin-bottom: 0; }
-  .club-card .links { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
-  .lnk { font-size: .76rem; padding: 6px 10px; border-radius: 999px; background: var(--bg); border: 1px solid var(--line); display: inline-flex; align-items: center; gap: 5px; color: var(--ink-soft); min-height: 32px; }
-  .lnk:hover { background: var(--primary-softer); border-color: var(--primary); color: var(--primary-ink); text-decoration: none; }
-  .hub-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-  @media (max-width: 880px) { .hub-grid { grid-template-columns: repeat(2, 1fr); } }
-  .hub-item { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; display: flex; flex-direction: column; gap: 6px; cursor: pointer; transition: all .15s ease; min-height: 110px; }
-  .hub-item:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color: var(--primary); }
-  .hub-item .ic { width: 38px; height: 38px; border-radius: 10px; background: var(--primary-softer); display: grid; place-items: center; }
-  .hub-item .ic svg { width: 22px; height: 22px; color: var(--primary-ink); }
-  .hub-item strong { font-size: .92rem; }
-  .hub-item span { font-size: .76rem; color: var(--ink-faint); }
-  .emergency-strip { background: linear-gradient(135deg, #2A1F22, #4A2A30); color: #fff; border-radius: var(--radius); padding: 16px 20px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-  .emergency-strip h3 { color: #fff; margin: 0; font-family: inherit; font-weight: 700; font-size: .92rem; }
-  .emergency-num { display: flex; flex-direction: column; gap: 2px; padding: 0 12px; border-left: 1px solid rgba(255,255,255,.2); }
-  .emergency-num strong { font-size: 1.02rem; }
-  .emergency-num span { font-size: .7rem; opacity: .7; }
-  @media (max-width: 540px) { .emergency-strip { gap: 10px; padding: 14px 16px; } .emergency-num { padding: 6px 0; border-left: 0; border-top: 1px solid rgba(255,255,255,.15); width: 100%; padding-top: 8px; } .emergency-num:first-of-type { border-top: 0; padding-top: 0; } }
-  .market-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
-  @media (max-width: 720px) { .market-grid { grid-template-columns: 1fr; } }
-  .market-item { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start; }
-  .market-item .thumb { width: 56px; height: 56px; border-radius: 10px; background: var(--surface-2); flex-shrink: 0; display: grid; place-items: center; color: var(--ink-faint); font-size: 1.4rem; }
-  .market-item .body { flex: 1; min-width: 0; }
-  .market-item h4 { margin: 0 0 4px; font-size: .94rem; font-family: inherit; }
-  .market-item p { margin: 0 0 6px; font-size: .8rem; }
-  .market-item .meta { font-size: .7rem; color: var(--ink-faint); display: flex; gap: 8px; flex-wrap: wrap; }
-  .price { color: var(--primary); font-weight: 700; font-size: .88rem; }
-  footer { border-top: 1px solid var(--line); padding: 28px 0; margin-top: 60px; background: var(--surface-2); }
-  .foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 28px; }
-  @media (max-width: 720px) { .foot-grid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 420px) { .foot-grid { grid-template-columns: 1fr; gap: 18px; } }
-  footer h4 { font-family: inherit; font-size: .76rem; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px; color: var(--ink-faint); font-weight: 700; }
-  footer ul { list-style: none; padding: 0; margin: 0; }
-  footer li { padding: 4px 0; font-size: .86rem; }
-  .foot-meta { font-size: .8rem; color: var(--ink-faint); margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--line); }
-  .mobile-cta { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 50; padding: 12px 16px; padding-bottom: calc(12px + env(safe-area-inset-bottom, 0)); background: rgba(251,248,244,.96); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid var(--line); }
-  .mobile-cta .btn { width: 100%; justify-content: center; min-height: 50px; font-size: 1rem; }
-  .note-tbd { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 12px; background: var(--accent-soft); color: var(--accent-ink); font-size: .84rem; margin-bottom: 16px; }
-  .note-tbd svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; }
-  @media (max-width: 920px) { .nav, .topbar-cta { display: none; } .hamburger { display: inline-flex; } .mobile-cta { display: block; } body { padding-bottom: 80px; } .pagehead { padding-top: 12px; } }
+
+  /* ===== "link pending" marker for items we don't have URLs for yet ===== */
+  .link-pending { font-size: .74rem; font-style: italic; color: var(--ink-faint); white-space: nowrap; }
+  .hub-item.pending { cursor: default; }
+  .hub-item.pending:hover { transform: none; box-shadow: none; border-color: var(--line); }
 
   /* ===== Collapsible course blocks (Peer-to-Peer resources) ===== */
   .course-list { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 14px; }
@@ -515,7 +403,20 @@
       <a class="section-link" href="https://www.nymc.edu/events/" target="_blank" rel="noopener">Open full calendar →</a>
     </div>
     <div class="cal-wrap">
-      <div class="ev-list" id="upcoming-events" aria-live="polite">
+      <div class="cal-bar">
+        <div class="cal-nav">
+          <button class="cal-arrow" id="cal-prev" aria-label="Previous">‹</button>
+          <button class="cal-today" id="cal-today">Today</button>
+          <button class="cal-arrow" id="cal-next" aria-label="Next">›</button>
+          <h3 class="cal-title" id="cal-title">Loading…</h3>
+        </div>
+        <div class="cal-views" role="tablist" aria-label="Calendar view">
+          <button class="cal-view active" data-view="month" role="tab" aria-selected="true">Month</button>
+          <button class="cal-view" data-view="week" role="tab" aria-selected="false">Week</button>
+          <button class="cal-view" data-view="list" role="tab" aria-selected="false">List</button>
+        </div>
+      </div>
+      <div id="cal-body" aria-live="polite">
         <div class="cal-loading">Loading upcoming events…</div>
       </div>
       <div class="cal-actions">
@@ -811,21 +712,21 @@
   <div id="year-m4" class="year-block" style="display:none;">
     <div class="resource-list">
       <div class="res-cat"><h3>📝 Residency app</h3><ul>
-        <li><span class="lbl">ERAS application checklist</span><span class="meta">By month, June onward</span><a href="#">Open →</a></li>
-        <li><span class="lbl">Personal statement examples</span><span class="meta">12 anon · all specialties</span><a href="#">Browse →</a></li>
+        <li><span class="lbl">ERAS application checklist</span><span class="meta">By month, June onward</span><span class="link-pending">link pending</span></li>
+        <li><span class="lbl">Personal statement examples</span><span class="meta">12 anon · all specialties</span><span class="link-pending">link pending</span></li>
       </ul></div>
       <div class="res-cat"><h3>🎤 Interview support</h3><ul>
-        <li><span class="lbl">Mock interview signup</span><span class="meta">Faculty + alumni</span><a href="#">Sign up →</a></li>
-        <li><span class="lbl">Common questions bank</span><span class="meta">By specialty</span><a href="#">Open →</a></li>
-        <li><span class="lbl">Travel reimbursement</span><span class="meta">Submit via feedback hub</span><a href="#">Submit →</a></li>
+        <li><span class="lbl">Mock interview signup</span><span class="meta">Faculty + alumni</span><span class="link-pending">link pending</span></li>
+        <li><span class="lbl">Common questions bank</span><span class="meta">By specialty</span><span class="link-pending">link pending</span></li>
+        <li><span class="lbl">Travel reimbursement</span><span class="meta">Submit via feedback hub</span><span class="link-pending">link pending</span></li>
       </ul></div>
       <div class="res-cat"><h3>🎓 Alumni match results</h3><ul>
-        <li><span class="lbl">Class of 2026 placements</span><span class="meta">By specialty &amp; geo</span><a href="#">Browse →</a></li>
-        <li><span class="lbl">Connect with alumni at dream programs</span><span class="meta">Opt-in directory</span><a href="#">Open →</a></li>
+        <li><span class="lbl">Class of 2026 placements</span><span class="meta">By specialty &amp; geo</span><span class="link-pending">link pending</span></li>
+        <li><span class="lbl">Connect with alumni at dream programs</span><span class="meta">Opt-in directory</span><span class="link-pending">link pending</span></li>
       </ul></div>
       <div class="res-cat"><h3>🏠 Housing for residency</h3><ul>
-        <li><span class="lbl">City Slack invites</span><span class="meta">From recent grads</span><a href="#">Join →</a></li>
-        <li><span class="lbl">Sublet your NYMC place</span><span class="meta">Marketplace post</span><a href="#" onclick="go('market')">Open →</a></li>
+        <li><span class="lbl">City Slack invites</span><span class="meta">From recent grads</span><span class="link-pending">link pending</span></li>
+        <li><span class="lbl">Sublet your NYMC place</span><span class="meta">Marketplace post</span><span class="link-pending">link pending</span></li>
       </ul></div>
     </div>
   </div>
@@ -876,56 +777,32 @@
     <p class="lead">Your feedback will be sent to the appropriate parties.</p>
   </div>
   <!--
-    FEEDBACK FORM — LIVE via Netlify Forms
-    --------------------------------------
-    This is a real, working form. How it works:
+    FEEDBACK FORM — LIVE
+    --------------------
+    Path: browser → /.netlify/functions/feedback → Apps Script → Google Sheet
+    (one tab per category + an "All Submissions" master log).
 
-    * The five <form hidden> blocks below register one Netlify form PER
-      CATEGORY (feedback-housing, feedback-cafeteria, feedback-facilities,
-      feedback-year, feedback-curriculum, feedback-other). Netlify detects them at deploy time.
-    * The visible 3-step UI collects the answers, then submitFb() POSTs them
-      to the matching category form. Each category = its own bucket in the
-      Netlify dashboard = its own notification email. That's the routing.
+    Netlify Forms is deliberately NOT used: its free tier caps at 100
+    submissions/month, and silently dropping student feedback is the worst
+    way for this to fail. Netlify Functions allow 125k invocations/month.
 
-    AFTER DEPLOY — one-time setup in the Netlify dashboard:
-      1. Site configuration → Forms → verify the five forms appear after the
-         first deploy (they register on deploy, not on first submission).
-      2. Project configuration → Notifications → Form submission notifications
-         → "Add notification" → Email → pick a form → enter the recipient.
-         Repeat per category. E.g. feedback-cafeteria → facilities liaison,
-         feedback-year → the year reps' shared address.
-      3. Spam: honeypot field is included; Netlify also runs Akismet.
-      4. Free tier = 100 submissions/month across all forms. Upgrade to
-         Level 1 ($19/mo, 1000/mo) if volume grows, or migrate to a
-         Google Apps Script endpoint later.
+    The function also keeps the request same-origin, so the UI can show a
+    truthful success/error state — a direct browser→Apps Script POST would
+    have its response blocked by CORS and we'd have to fake success.
 
-    Exporting data: Netlify dashboard → Forms → pick a form → "Export to CSV"
-    for trend analysis. (Or wire Netlify → Zapier → Google Sheets for live
-    sheets; free Zapier tier covers this volume.)
+    REQUIRED CONFIG (once, in the Netlify dashboard):
+      Site configuration → Environment variables →
+        APPS_SCRIPT_URL = https://script.google.com/macros/s/…/exec
+      Kept out of this repo because the repo is public and the endpoint
+      accepts writes. Redeploy after adding it.
 
-    To switch to Typeform later: replace the .feedback-card block with the
-    Typeform embed snippet and delete the five hidden forms + submitFb().
+    Spam handling lives in the function: honeypot field, length cap, and a
+    link-count heuristic (replacing Netlify's Akismet).
+
+    Full docs: SETUP-SHEETS.md
   -->
 
-  <!-- Netlify form registrations (invisible; one per category) -->
-  <form name="feedback-housing" data-netlify="true" netlify-honeypot="bot-field" hidden>
-    <input type="text" name="bot-field" /><input type="text" name="category" /><input type="text" name="reason" /><textarea name="details"></textarea><input type="text" name="class_year" /><input type="text" name="follow_up" /><input type="email" name="email" /><input type="text" name="routed_to" />
-  </form>
-  <form name="feedback-cafeteria" data-netlify="true" netlify-honeypot="bot-field" hidden>
-    <input type="text" name="bot-field" /><input type="text" name="category" /><input type="text" name="reason" /><textarea name="details"></textarea><input type="text" name="class_year" /><input type="text" name="follow_up" /><input type="email" name="email" /><input type="text" name="routed_to" />
-  </form>
-  <form name="feedback-facilities" data-netlify="true" netlify-honeypot="bot-field" hidden>
-    <input type="text" name="bot-field" /><input type="text" name="category" /><input type="text" name="reason" /><textarea name="details"></textarea><input type="text" name="class_year" /><input type="text" name="follow_up" /><input type="email" name="email" /><input type="text" name="routed_to" />
-  </form>
-  <form name="feedback-year" data-netlify="true" netlify-honeypot="bot-field" hidden>
-    <input type="text" name="bot-field" /><input type="text" name="category" /><input type="text" name="reason" /><textarea name="details"></textarea><input type="text" name="class_year" /><input type="text" name="follow_up" /><input type="email" name="email" /><input type="text" name="routed_to" />
-  </form>
-  <form name="feedback-curriculum" data-netlify="true" netlify-honeypot="bot-field" hidden>
-    <input type="text" name="bot-field" /><input type="text" name="category" /><input type="text" name="reason" /><textarea name="details"></textarea><input type="text" name="class_year" /><input type="text" name="follow_up" /><input type="email" name="email" /><input type="text" name="routed_to" />
-  </form>
-  <form name="feedback-other" data-netlify="true" netlify-honeypot="bot-field" hidden>
-    <input type="text" name="bot-field" /><input type="text" name="category" /><input type="text" name="reason" /><textarea name="details"></textarea><input type="text" name="class_year" /><input type="text" name="follow_up" /><input type="email" name="email" /><input type="text" name="routed_to" />
-  </form>
+
   <div class="feedback-card">
     <div class="feedback-progress"><span class="on" id="prog-1"></span><span id="prog-2"></span><span id="prog-3"></span></div>
     <div class="feedback-step active" id="fb-1">
@@ -1099,10 +976,10 @@
   <div class="section">
     <div class="section-head"><h2>Meeting minutes</h2></div>
     <div class="card"><h3>🗒 Senate meeting minutes</h3><ul style="list-style:none; padding:0; margin:8px 0 0;">
-        <li style="padding:10px 0; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:10px;"><span>Apr 28, 2026</span><a>Open →</a></li>
-        <li style="padding:10px 0; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:10px;"><span>Apr 14, 2026</span><a>Open →</a></li>
-        <li style="padding:10px 0; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:10px;"><span>Mar 31, 2026</span><a>Open →</a></li>
-        <li style="padding:10px 0; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:10px;"><span>Mar 17, 2026</span><a>Open →</a></li>
+        <li style="padding:10px 0; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:10px;"><span>Apr 28, 2026</span><span class="link-pending">link pending</span></li>
+        <li style="padding:10px 0; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:10px;"><span>Apr 14, 2026</span><span class="link-pending">link pending</span></li>
+        <li style="padding:10px 0; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:10px;"><span>Mar 31, 2026</span><span class="link-pending">link pending</span></li>
+        <li style="padding:10px 0; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:10px;"><span>Mar 17, 2026</span><span class="link-pending">link pending</span></li>
       </ul></div>
   </div>
 </section>
@@ -1314,32 +1191,32 @@
       <a class="hub-item" href="https://nymc.mywconline.com/" target="_blank" rel="noopener"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 14l9-5-9-5-9 5 9 5z"/></svg></div><strong>PLP</strong><span>Book a session (WCOnline)</span></a>
       <a class="hub-item" href="https://www.nymc.edu/som/education/md/advising--mentorship/" target="_blank" rel="noopener"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 22a8 8 0 0116 0"/></svg></div><strong>House Deans</strong><span>Advising &amp; mentorship</span></a>
       <a class="hub-item" href="https://guides.library.nymc.edu/ld.php?content_id=56348468" target="_blank" rel="noopener"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21V8l9-5 9 5v13M9 21v-7h6v7"/></svg></div><strong>AOA</strong><span>First year guide</span></a>
-      <div class="hub-item"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21V9l6-6h3a3 3 0 013 3v15a3 3 0 01-3 3H6a3 3 0 01-3-3V12a3 3 0 013-3h3"/></svg></div><strong>Career Planning</strong><span>Specialty advising</span></div>
+      <div class="hub-item pending"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21V9l6-6h3a3 3 0 013 3v15a3 3 0 01-3 3H6a3 3 0 01-3-3V12a3 3 0 013-3h3"/></svg></div><strong>Career Planning</strong><span>Specialty advising</span><span class="link-pending">link pending</span></div>
     </div>
   </div>
   <div class="section">
     <div class="section-head"><h2>Money</h2></div>
     <div class="hub-grid">
       <a class="hub-item" href="https://www.nymc.edu/admissions--aid/financial-aid/" target="_blank" rel="noopener"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><strong>Financial Aid</strong><span>Loans, scholarships</span></a>
-      <div class="hub-item"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="13" rx="2"/></svg></div><strong>Stipends</strong><span>Miami, NJ, away</span></div>
-      <div class="hub-item"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v4H3zM3 11h18v10H3z"/></svg></div><strong>Reimbursements</strong><span>Via feedback hub</span></div>
-      <div class="hub-item"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><strong>CCR</strong><span>Curriculum credit reqs</span></div>
+      <div class="hub-item pending"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="13" rx="2"/></svg></div><strong>Stipends</strong><span>Miami, NJ, away</span><span class="link-pending">link pending</span></div>
+      <div class="hub-item pending"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v4H3zM3 11h18v10H3z"/></svg></div><strong>Reimbursements</strong><span>Via feedback hub</span><span class="link-pending">link pending</span></div>
+      <div class="hub-item pending"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><strong>CCR</strong><span>Curriculum credit reqs</span><span class="link-pending">link pending</span></div>
     </div>
   </div>
   <div class="section">
     <div class="section-head"><h2>Research &amp; opportunities</h2></div>
     <div class="hub-grid">
       <a class="hub-item" href="https://touroc.sharepoint.com/:b:/r/sites/NYMCOfficeofMedicalStudentResearch/Shared%20Documents/Comprehensive%20Research%20Guide%2022Jan2026.pdf?d=w9ec2fef5efac453ebc80b651058b09e1&csf=1&web=1&e=EAAASb" target="_blank" rel="noopener"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg></div><strong>Research Guide</strong><span>Mentors → publishing (Touro login)</span></a>
-      <div class="hub-item"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/></svg></div><strong>Pubs database</strong><span>Searchable past projects</span></div>
-      <div class="hub-item"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l9 4v6c0 5-3.5 9-9 10-5.5-1-9-5-9-10V6z"/></svg></div><strong>IRB / Ethics</strong><span>Templates &amp; tips</span></div>
-      <div class="hub-item"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9h18M9 3v18"/></svg></div><strong>Conferences</strong><span>Funding &amp; deadlines</span></div>
+      <div class="hub-item pending"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/></svg></div><strong>Pubs database</strong><span>Searchable past projects</span><span class="link-pending">link pending</span></div>
+      <div class="hub-item pending"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l9 4v6c0 5-3.5 9-9 10-5.5-1-9-5-9-10V6z"/></svg></div><strong>IRB / Ethics</strong><span>Templates &amp; tips</span><span class="link-pending">link pending</span></div>
+      <div class="hub-item pending"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9h18M9 3v18"/></svg></div><strong>Conferences</strong><span>Funding &amp; deadlines</span><span class="link-pending">link pending</span></div>
     </div>
   </div>
   <div class="section">
     <div class="section-head"><h2>Day-to-day</h2></div>
     <div class="hub-grid">
-      <div class="hub-item"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></div><strong>Library hours</strong><span>24/7 during finals</span></div>
-      <div class="hub-item"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></div><strong>IT help</strong><span>Wifi, EMR, printing</span></div>
+      <div class="hub-item pending"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></div><strong>Library hours</strong><span>24/7 during finals</span><span class="link-pending">link pending</span></div>
+      <div class="hub-item pending"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></div><strong>IT help</strong><span>Wifi, EMR, printing</span><span class="link-pending">link pending</span></div>
       <a class="hub-item" href="https://www.nymc.edu/life-at-nymc/housing--residential-life/" target="_blank" rel="noopener"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 21V8l7-5 7 5v13z"/></svg></div><strong>Housing</strong><span>Residential life · housing@nymc.edu</span></a>
       <a class="hub-item" href="https://drive.google.com/file/d/11heHXt7tAIT3xgxuAkACQPCsm6zcieF_/view?usp=sharing" target="_blank" rel="noopener"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4zM8 4v10M12 4v10M16 4v10"/></svg></div><strong>Piano request</strong><span>Fill out, give to Public Safety</span></a>
       <a class="hub-item" href="https://www.nymc.edu/" target="_blank" rel="noopener"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></div><strong>NYMC main site</strong><span>Calendar, registrar, news</span></a>
@@ -1512,7 +1389,7 @@
     });
 
     try {
-      const res = await fetch('/', {
+      const res = await fetch('/.netlify/functions/feedback', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: payload.toString(),
@@ -1583,137 +1460,239 @@
   });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
 
-  // ===== Event list — fetch & render NYMC (Trumba) ICS =====
-  // Trumba public ICS. If CORS is blocked in the browser console, the fallback
-  // is: subscribe to this ICS inside a Google Calendar (which does allow CORS),
-  // make that GC public, and swap the URL here for the Google Calendar ICS.
-  // NYMC events source. Trumba doesn't send CORS headers, so the browser can't
-  // fetch trumba.com directly. We route through /.netlify/functions/nymc-events
-  // which fetches Trumba server-side and re-serves with CORS headers + 10-min
-  // edge cache. That function lives in /netlify/functions/nymc-events.js at the
-  // repo root — Netlify auto-detects it on deploy.
+  // ===== Calendar — fetch the NYMC (Trumba) ICS and render month/week/list =====
+  // Feed comes through /.netlify/functions/nymc-events, which fetches Trumba
+  // server-side (their endpoint sends no CORS headers) and caches for 10 min.
   const NYMC_ICS = "/.netlify/functions/nymc-events";
 
+  let EVENTS = [];                 // every parsed event
+  let calView = "month";           // month | week | list
+  let calCursor = new Date();      // which month/week we're looking at
+
+  // ---------- ICS parsing ----------
   function parseICS(text) {
-    // Unfold folded lines (RFC 5545: continuation lines start with space or tab)
-    text = text.replace(/\r?\n[ \t]/g, "");
+    text = text.replace(/\r?\n[ \t]/g, "");   // unfold RFC 5545 continuations
     const events = [];
-    const blocks = text.split("BEGIN:VEVENT").slice(1);
-    for (const block of blocks) {
+    for (const block of text.split("BEGIN:VEVENT").slice(1)) {
       const end = block.indexOf("END:VEVENT");
       if (end < 0) continue;
-      const body = block.slice(0, end);
       const ev = {};
-      for (const rawLine of body.split(/\r?\n/)) {
-        const m = rawLine.match(/^([A-Z0-9-]+)(;[^:]*)?:(.*)$/);
+      for (const line of block.slice(0, end).split(/\r?\n/)) {
+        const m = line.match(/^([A-Z0-9-]+)(;[^:]*)?:(.*)$/);
         if (!m) continue;
         const key = m[1], val = m[3];
-        const unesc = s => s.replace(/\\n/g, "\n").replace(/\\,/g, ",").replace(/\\;/g, ";").replace(/\\\\/g, "\\");
+        const unesc = s => s.replace(/\\n/g, "\n").replace(/\\,/g, ",")
+                            .replace(/\\;/g, ";").replace(/\\\\/g, "\\");
         if (key === "SUMMARY") ev.title = unesc(val);
         else if (key === "DTSTART") ev.start = parseICSDate(val);
         else if (key === "DTEND") ev.end = parseICSDate(val);
         else if (key === "LOCATION") ev.location = unesc(val);
         else if (key === "DESCRIPTION") ev.description = unesc(val);
-        else if (key === "URL") ev.url = val;
+        else if (key === "URL" || key === "X-TRUMBA-LINK") ev.url = val;
       }
       if (ev.start) events.push(ev);
     }
     return events;
   }
   function parseICSDate(val) {
-    if (/^\d{8}$/.test(val)) {
-      return new Date(+val.slice(0,4), +val.slice(4,6)-1, +val.slice(6,8));
-    }
+    if (/^\d{8}$/.test(val)) return new Date(+val.slice(0,4), +val.slice(4,6)-1, +val.slice(6,8));
     if (/^\d{8}T\d{6}Z?$/.test(val)) {
-      const iso = `${val.slice(0,4)}-${val.slice(4,6)}-${val.slice(6,8)}T${val.slice(9,11)}:${val.slice(11,13)}:${val.slice(13,15)}${val.endsWith("Z") ? "Z" : ""}`;
+      const iso = `${val.slice(0,4)}-${val.slice(4,6)}-${val.slice(6,8)}T` +
+                  `${val.slice(9,11)}:${val.slice(11,13)}:${val.slice(13,15)}` +
+                  (val.endsWith("Z") ? "Z" : "");
       return new Date(iso);
     }
     return null;
   }
-  function fmtTime(d) {
-    if (!d) return "";
-    return d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
-  }
+
+  // ---------- helpers ----------
+  const fmtTime = d => d ? d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }) : "";
+  const sameDay = (a, b) => a.getFullYear() === b.getFullYear() &&
+                            a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+  const startOfWeek = d => { const x = new Date(d); x.setDate(x.getDate() - x.getDay()); x.setHours(0,0,0,0); return x; };
+  const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
+
   function isAllDay(ev) {
     if (!ev.start) return false;
-    const h = ev.start.getHours(), m = ev.start.getMinutes();
-    return h === 0 && m === 0 && (!ev.end || (ev.end - ev.start) % 86400000 === 0);
+    return ev.start.getHours() === 0 && ev.start.getMinutes() === 0 &&
+           (!ev.end || (ev.end - ev.start) % 86400000 === 0);
+  }
+  function eventsOn(day) {
+    return EVENTS.filter(e => {
+      if (sameDay(e.start, day)) return true;
+      if (e.end && e.end > e.start) {          // multi-day event spans this day
+        const dayStart = new Date(day); dayStart.setHours(0,0,0,0);
+        return e.start <= addDays(dayStart, 1) && e.end > dayStart;
+      }
+      return false;
+    }).sort((a, b) => a.start - b.start);
   }
   function stripHTML(s) {
-    // Remove HTML tags and decode a few common entities. Good enough for the
-    // preview snippet; we're not trying to preserve formatting.
     return String(s || "")
       .replace(/<br\s*\/?>/gi, " ")
-      .replace(/<\/?(p|div|ul|ol|li|strong|em|b|i|span|a)[^>]*>/gi, "")
       .replace(/<[^>]+>/g, "")
-      .replace(/&nbsp;/g, " ")
-      .replace(/&amp;/g, "&")
-      .replace(/&lt;/g, "<")
-      .replace(/&gt;/g, ">")
-      .replace(/&quot;/g, '"')
-      .replace(/&#39;/g, "'")
+      .replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'")
       .replace(/&#160;/g, " ");
   }
   function escHTML(s) {
-    return String(s || "").replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+    return String(s || "").replace(/[&<>"']/g, c =>
+      ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
   }
-  function renderNYMCEvents(events) {
-    const container = document.getElementById("upcoming-events");
-    if (!container) return;
-    const now = Date.now() - 3 * 3600 * 1000;
-    const list = events
-      .filter(e => e.start && e.start.getTime() >= now)
-      .sort((a, b) => a.start - b.start)
-      .slice(0, 12);
-    if (list.length === 0) {
-      container.innerHTML = `<div class="cal-empty">No upcoming NYMC events on the calendar.</div>`;
-      return;
+  // Wrap in a link when the event has a URL, otherwise a plain element
+  function wrap(ev, cls, inner, title) {
+    const t = title ? ` title="${escHTML(title)}"` : "";
+    return ev.url
+      ? `<a class="${cls}" href="${escHTML(ev.url)}" target="_blank" rel="noopener"${t}>${inner}</a>`
+      : `<div class="${cls}"${t}>${inner}</div>`;
+  }
+
+  // ---------- views ----------
+  function renderMonth() {
+    const y = calCursor.getFullYear(), m = calCursor.getMonth();
+    const first = new Date(y, m, 1);
+    const gridStart = startOfWeek(first);
+    const today = new Date();
+    let cells = "";
+    for (let i = 0; i < 42; i++) {
+      const day = addDays(gridStart, i);
+      const evs = eventsOn(day);
+      const dim = day.getMonth() !== m ? " dim" : "";
+      const isToday = sameDay(day, today) ? " today" : "";
+      const shown = evs.slice(0, 3).map(e => {
+        const when = isAllDay(e) ? "All day" : fmtTime(e.start);
+        const tip = `${when} — ${e.title}${e.location ? " · " + e.location : ""}`;
+        return wrap(e, "cal-chip", escHTML(e.title), tip);
+      }).join("");
+      const more = evs.length > 3 ? `<span class="cal-more">+${evs.length - 3} more</span>` : "";
+      cells += `<div class="cal-cell${dim}${isToday}"><span class="cal-num">${day.getDate()}</span>${shown}${more}</div>`;
     }
-    container.innerHTML = list.map(e => {
-      const timeStr = isAllDay(e) ? "All day" : (fmtTime(e.start) + (e.end && !isAllDay(e) ? " – " + fmtTime(e.end) : ""));
-      const meta = [escHTML(timeStr), e.location ? "· " + escHTML(e.location) : ""].filter(Boolean).join(" ");
-      const cleanDesc = e.description ? stripHTML(e.description).replace(/\s+/g, " ").trim() : "";
-      const desc = cleanDesc ? `<div class="ev-desc">${escHTML(cleanDesc.slice(0, 220))}${cleanDesc.length > 220 ? "…" : ""}</div>` : "";
-      return `
-        <div class="ev-card" data-source="nymc">
-          <div class="ev-date ev-date-nymc">
+    const dows = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
+      .map(d => `<div class="cal-dow">${d}</div>`).join("");
+    return `<div class="cal-grid">${dows}${cells}</div>`;
+  }
+
+  function renderWeek() {
+    const ws = startOfWeek(calCursor);
+    const today = new Date();
+    let cols = "";
+    for (let i = 0; i < 7; i++) {
+      const day = addDays(ws, i);
+      const evs = eventsOn(day);
+      const isToday = sameDay(day, today) ? " today" : "";
+      const has = evs.length ? " has-events" : "";
+      const items = evs.length
+        ? evs.map(e => {
+            const when = isAllDay(e) ? "All day" : fmtTime(e.start);
+            const meta = [when, e.location].filter(Boolean).join(" · ");
+            return wrap(e, "cal-wev",
+              `<strong>${escHTML(e.title)}</strong><span>${escHTML(meta)}</span>`);
+          }).join("")
+        : `<div class="cal-wnone">—</div>`;
+      cols += `<div class="cal-wcol${isToday}${has}">
+          <div class="cal-whead">
+            <div class="cal-wdow">${day.toLocaleString("en-US", { weekday: "short" })}</div>
+            <div class="cal-wnum">${day.getDate()}</div>
+          </div>${items}</div>`;
+    }
+    return `<div class="cal-week">${cols}</div>`;
+  }
+
+  function renderList() {
+    const cutoff = Date.now() - 3 * 3600 * 1000;   // keep events that began <3h ago
+    const list = EVENTS.filter(e => e.start.getTime() >= cutoff)
+                       .sort((a, b) => a.start - b.start).slice(0, 15);
+    if (!list.length) return `<div class="cal-empty">No upcoming NYMC events on the calendar.</div>`;
+    return `<div class="ev-list">` + list.map(e => {
+      const when = isAllDay(e) ? "All day"
+        : fmtTime(e.start) + (e.end && !isAllDay(e) ? " – " + fmtTime(e.end) : "");
+      const meta = [escHTML(when), e.location ? "· " + escHTML(e.location) : ""].filter(Boolean).join(" ");
+      const clean = e.description ? stripHTML(e.description).replace(/\s+/g, " ").trim() : "";
+      const desc = clean ? `<div class="ev-desc">${escHTML(clean.slice(0, 200))}${clean.length > 200 ? "…" : ""}</div>` : "";
+      const inner = `<div class="ev-date">
             <div class="ev-day">${e.start.getDate()}</div>
             <div class="ev-mo">${e.start.toLocaleString("en-US", { month: "short" })}</div>
           </div>
           <div class="ev-body">
             <div class="ev-title">${escHTML(e.title || "Untitled")}</div>
-            <div class="ev-meta">${meta}</div>
-            ${desc}
-          </div>
-          <span class="ev-source ev-source-nymc">NYMC</span>
-        </div>`;
-    }).join("");
+            <div class="ev-meta">${meta}</div>${desc}
+          </div>`;
+      return wrap(e, "ev-card", inner);
+    }).join("") + `</div>`;
   }
+
+  function renderCalendar() {
+    const body = document.getElementById("cal-body");
+    const title = document.getElementById("cal-title");
+    if (!body) return;
+
+    if (calView === "month") {
+      title.textContent = calCursor.toLocaleString("en-US", { month: "long", year: "numeric" });
+      body.innerHTML = renderMonth();
+    } else if (calView === "week") {
+      const ws = startOfWeek(calCursor), we = addDays(ws, 6);
+      const sameMonth = ws.getMonth() === we.getMonth();
+      title.textContent = sameMonth
+        ? `${ws.toLocaleString("en-US", { month: "long" })} ${ws.getDate()}–${we.getDate()}, ${we.getFullYear()}`
+        : `${ws.toLocaleString("en-US", { month: "short", day: "numeric" })} – ${we.toLocaleString("en-US", { month: "short", day: "numeric" })}, ${we.getFullYear()}`;
+      body.innerHTML = renderWeek();
+    } else {
+      title.textContent = "Upcoming";
+      body.innerHTML = renderList();
+    }
+  }
+
+  // ---------- controls ----------
+  document.querySelectorAll(".cal-view").forEach(btn => {
+    btn.addEventListener("click", () => {
+      calView = btn.dataset.view;
+      document.querySelectorAll(".cal-view").forEach(b => {
+        const on = b === btn;
+        b.classList.toggle("active", on);
+        b.setAttribute("aria-selected", on ? "true" : "false");
+      });
+      renderCalendar();
+    });
+  });
+  function step(dir) {
+    if (calView === "month") calCursor.setMonth(calCursor.getMonth() + dir);
+    else if (calView === "week") calCursor = addDays(calCursor, dir * 7);
+    else return;                       // list view is always "upcoming"
+    renderCalendar();
+  }
+  document.getElementById("cal-prev")?.addEventListener("click", () => step(-1));
+  document.getElementById("cal-next")?.addEventListener("click", () => step(1));
+  document.getElementById("cal-today")?.addEventListener("click", () => {
+    calCursor = new Date();
+    renderCalendar();
+  });
+
+  // ---------- load ----------
   async function loadNYMCEvents() {
-    const container = document.getElementById("upcoming-events");
-    if (!container) return;
-    // Local file:// origin: fetch will fail silently. Tell the user what's happening.
+    const body = document.getElementById("cal-body");
+    if (!body) return;
+
     if (location.protocol === "file:") {
-      container.innerHTML = `<div class="cal-error"><strong>Local preview:</strong> the NYMC calendar can't load when this file is opened directly from disk (browsers block cross-origin fetches from file:// URLs). Deploy to GitHub Pages / Netlify to see live events. Meanwhile: <a href="https://www.nymc.edu/events/" target="_blank" rel="noopener">open nymc.edu/events →</a></div>`;
+      body.innerHTML = `<div class="cal-error"><strong>Local preview:</strong> the NYMC calendar can't load when this file is opened straight from disk. Deploy the site to see live events. Meanwhile: <a href="https://www.nymc.edu/events/" target="_blank" rel="noopener">open nymc.edu/events →</a></div>`;
       return;
     }
     try {
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 10000);
+      const timer = setTimeout(() => controller.abort(), 12000);
       const res = await fetch(NYMC_ICS, { signal: controller.signal });
-      clearTimeout(timeout);
+      clearTimeout(timer);
       if (!res.ok) throw new Error("HTTP " + res.status);
-      const text = await res.text();
-      const events = parseICS(text);
-      renderNYMCEvents(events);
+      EVENTS = parseICS(await res.text());
+
+      // Open on the month that actually holds the next event, so the
+      // calendar isn't empty when the current month has nothing left.
+      const next = EVENTS.filter(e => e.start >= new Date()).sort((a, b) => a.start - b.start)[0];
+      if (next) calCursor = new Date(next.start);
+
+      renderCalendar();
     } catch (err) {
       console.warn("Could not fetch NYMC calendar:", err);
-      // Detect whether the Netlify Function isn't deployed (404) vs. an actual fetch error
-      const looks404 = String(err && err.message || "").includes("404") || String(err).includes("404");
-      const msg = looks404
-        ? `The <code>/.netlify/functions/nymc-events</code> endpoint isn't responding. Make sure <code>netlify/functions/nymc-events.js</code> and <code>netlify.toml</code> are both in the deployment.`
-        : `Couldn't load the NYMC events feed right now.`;
-      container.innerHTML = `<div class="cal-error">${msg} <a href="https://www.nymc.edu/events/" target="_blank" rel="noopener">Open nymc.edu/events →</a></div>`;
+      body.innerHTML = `<div class="cal-error">Couldn't load the NYMC events feed. <a href="https://www.nymc.edu/events/" target="_blank" rel="noopener">Open nymc.edu/events →</a></div>`;
     }
   }
   loadNYMCEvents();
