@@ -46,9 +46,20 @@ var HEADERS = [
 
 // ---- Entry point ------------------------------------------------------
 function doPost(e) {
+  var lock = LockService.getScriptLock();
   try {
+    // Serialize writes so retries can't interleave
+    lock.waitLock(20000);
+
     var payload = parsePayload(e);
     if (!payload) return json({ ok: false, error: 'no payload' });
+
+    // Apps Script answers with a 302, and Netlify treats that as worth
+    // retrying — so the same submission can arrive several times. Skip
+    // anything already filed.
+    if (alreadyProcessed(payload.id)) {
+      return json({ ok: true, skipped: 'duplicate', id: payload.id });
+    }
 
     var row = buildRow(payload);
     var tabName = TABS[payload.formName] || 'Other';
@@ -61,7 +72,22 @@ function doPost(e) {
     // Log to the script's execution log so failures are debuggable
     console.error('Feedback router failed: ' + err);
     return json({ ok: false, error: String(err) });
+  } finally {
+    try { lock.releaseLock(); } catch (releaseErr) { /* never held */ }
   }
+}
+
+/**
+ * True if this Netlify submission id has already been filed.
+ * Ids are remembered for 6 hours, well past Netlify's retry window.
+ */
+function alreadyProcessed(id) {
+  if (!id) return false;              // no id (direct POST) → always file
+  var cache = CacheService.getScriptCache();
+  var key = 'sub_' + id;
+  if (cache.get(key)) return true;
+  cache.put(key, '1', 21600);
+  return false;
 }
 
 // Lets you sanity-check the deployment in a browser
@@ -216,4 +242,13 @@ function json(obj) {
   return ContentService
     .createTextOutput(JSON.stringify(obj))
     .setMimeType(ContentService.MimeType.JSON);
+}
+
+// One-off cleanup: wipe every data row from every tab (headers stay).
+function clearTestRows() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  ss.getSheets().forEach(function (sh) {
+    var last = sh.getLastRow();
+    if (last > 1) sh.deleteRows(2, last - 1);
+  });
 }

@@ -1,5 +1,10 @@
 # Routing feedback into Google Sheets
 
+> **Status: live.** Sheet "NYMC Senate — Feedback", Apps Script deployed
+> (v2), and the Netlify webhook is wired to *any form*. Verified
+> end-to-end on Aug 6, 2026. The steps below document how it was built
+> and how to rebuild or hand it off.
+
 Every feedback submission lands on its own tab — Housing, Cafeteria,
 Facilities, Class Year, Curriculum, Other — plus an **All Submissions**
 master tab for trend analysis.
@@ -121,3 +126,4 @@ in place if you switch.
 | Rows land only on "Other" | Form name didn't match — check the `TABS` map in `Code.gs` against Netlify's form names |
 | Nothing after editing the script | Apps Script serves the *deployed* version. **Deploy → Manage deployments → ✏️ → Version: New version** |
 | Want to see errors | Apps Script → **Executions** shows every call and its logs |
+| Duplicate rows | Already handled — `alreadyProcessed()` drops repeats using the Netlify submission id. Apps Script replies with a 302 and Netlify retries on it, so without the check one submission writes several rows. |
