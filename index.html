@@ -504,6 +504,14 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
     .cal-pop { padding: 0; align-items: flex-end; }
     .cal-pop-card { max-width: none; border-radius: 18px 18px 0 0; max-height: 88vh; padding: 24px 20px 28px; }
   }
+
+  .cal-pop-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 11px; }
+  .cal-pop-tag { font-size: .7rem; padding: 3px 9px; border-radius: 999px; background: var(--primary-softer); color: var(--primary); border: 1px solid var(--line); }
+  .cal-pop-meta { margin: 9px 0 0; font-size: .8rem; color: var(--ink-soft); }
+  .cal-pop-meta strong { color: var(--ink-faint); font-weight: 600; margin-right: 5px; }
+  .cal-pop-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .cal-pop-links:empty { display: none; }
+  .cal-pop-link { margin-top: 0; }
 </style>
 </head>
 <body>
@@ -1776,6 +1784,31 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
   }
 
 
+
+  // Trumba stuffs a run of "Key: value" pairs into DESCRIPTION. Split it on a
+  // known key list so the detail card can lay the fields out properly instead
+  // of showing one long metadata blob.
+  const TRUMBA_KEYS = ["Off Campus Location","Campus Location","Department/Division",
+    "Type of Event","Contact Name","Contact Phone","Contact Email","Presented by",
+    "Audience","Room","Title","Link","RSVP"];
+  function parseDescription(raw) {
+    const text = stripHTML(raw).replace(/\s+/g, " ").trim();
+    if (!text) return { fields: {}, blurb: "" };
+    const keyRe = new RegExp("(" + TRUMBA_KEYS.map(k =>
+      k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|") + "):", "g");
+    const hits = [...text.matchAll(keyRe)];
+    if (!hits.length) return { fields: {}, blurb: text };
+    const fields = {};
+    const blurb = text.slice(0, hits[0].index).trim();
+    hits.forEach((h, i) => {
+      const from = h.index + h[0].length;
+      const to = i + 1 < hits.length ? hits[i + 1].index : text.length;
+      const val = text.slice(from, to).trim().replace(/[,;]$/, "");
+      if (val) fields[h[1]] = val;
+    });
+    return { fields, blurb };
+  }
+
   // ---------- categories ----------
   // Trumba tags each event with CATEGORIES; we fold those into a handful of
   // buckets that actually mean something to a student looking at the month.
@@ -1971,17 +2004,37 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
       ? e.start.toLocaleDateString("en-US", { weekday:"long", month:"long", day:"numeric", year:"numeric" }) + " · All day"
       : e.start.toLocaleDateString("en-US", { weekday:"long", month:"long", day:"numeric", year:"numeric" })
         + " · " + fmtTime(e.start) + (e.end ? " – " + fmtTime(e.end) : "");
-    const clean = e.description ? stripHTML(e.description).replace(/\s+/g, " ").trim() : "";
     const kind = KINDS[e.kind] || KINDS.other;
+    const { fields, blurb } = parseDescription(e.description);
+
+    const where = [e.location, fields["Campus Location"], fields["Off Campus Location"]]
+      .filter(Boolean).filter((v, i, a) => a.indexOf(v) === i).join(" · ");
+    const room = fields["Room"] ? ` · Room ${fields["Room"]}` : "";
+
+    const tags = ["Type of Event", "Department/Division", "Audience"]
+      .map(k => fields[k] ? `<span class="cal-pop-tag">${escHTML(fields[k])}</span>` : "")
+      .join("");
+
+    const body = fields["Title"] || blurb;
+    const contactBits = [];
+    if (fields["Contact Name"])  contactBits.push(escHTML(fields["Contact Name"]));
+    if (fields["Contact Email"]) contactBits.push(`<a href="mailto:${escHTML(fields["Contact Email"])}">${escHTML(fields["Contact Email"])}</a>`);
+    if (fields["Contact Phone"]) contactBits.push(`<a href="tel:${escHTML(fields["Contact Phone"].replace(/[^0-9+]/g, ""))}">${escHTML(fields["Contact Phone"])}</a>`);
+
     document.getElementById("cal-pop-content").innerHTML = `
       <span class="cal-pop-kind ${kind.cls}">${escHTML(kind.label)}</span>
       <h3 id="cal-pop-title">${escHTML(e.title || "Untitled event")}</h3>
       <p class="cal-pop-when">${escHTML(when)}</p>
-      ${e.location ? `<p class="cal-pop-where">📍 ${escHTML(e.location)}</p>` : ""}
-      ${clean ? `<p class="cal-pop-desc">${escHTML(clean.slice(0, 420))}${clean.length > 420 ? "…" : ""}</p>` : ""}
-      ${e.url
-        ? `<a class="btn cal-pop-link" href="${escHTML(e.url)}" target="_blank" rel="noopener">More info on nymc.edu →</a>`
-        : `<p class="cal-pop-nolink">No detail page published for this event.</p>`}`;
+      ${where ? `<p class="cal-pop-where">📍 ${escHTML(where)}${escHTML(room)}</p>` : ""}
+      ${tags ? `<div class="cal-pop-tags">${tags}</div>` : ""}
+      ${body ? `<p class="cal-pop-desc">${escHTML(body.slice(0, 420))}${body.length > 420 ? "…" : ""}</p>` : ""}
+      ${fields["Presented by"] ? `<p class="cal-pop-meta"><strong>Presented by</strong> ${escHTML(fields["Presented by"])}</p>` : ""}
+      ${contactBits.length ? `<p class="cal-pop-meta"><strong>Contact</strong> ${contactBits.join(" · ")}</p>` : ""}
+      <div class="cal-pop-links">
+        ${e.url ? `<a class="btn cal-pop-link" href="${escHTML(e.url)}" target="_blank" rel="noopener">More info on nymc.edu →</a>` : ""}
+        ${fields["Link"] && /^https?:/.test(fields["Link"]) ? `<a class="btn ghost cal-pop-link" href="${escHTML(fields["Link"])}" target="_blank" rel="noopener">Join / event link →</a>` : ""}
+      </div>
+      ${!e.url && !fields["Link"] ? `<p class="cal-pop-nolink">No detail page published for this event.</p>` : ""}`;
     pop.hidden = false;
     document.body.style.overflow = "hidden";
   }
