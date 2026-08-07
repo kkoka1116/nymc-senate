@@ -31,6 +31,13 @@ var TABS = {
 
 var MASTER_TAB = 'All Submissions';
 
+// Curriculum feedback is kept in its own spreadsheet at the Curriculum
+// Committee's request — it must not be visible to everyone who can see the
+// general feedback sheet. These submissions are written ONLY here, never to
+// the main sheet or the master tab.
+var CURRICULUM_FORM = 'feedback-curriculum';
+var CURRICULUM_SHEET_ID = '10pUkeTjQdZLNt1d-Dz2CQaaOj0lpxQvxy9Rz7IwMJ9A';
+
 var HEADERS = [
   'Timestamp',
   'Category',
@@ -62,8 +69,14 @@ function doPost(e) {
     }
 
     var row = buildRow(payload);
-    var tabName = TABS[payload.formName] || 'Other';
 
+    // Curriculum goes to the private spreadsheet and nowhere else.
+    if (payload.formName === CURRICULUM_FORM) {
+      appendRowTo(SpreadsheetApp.openById(CURRICULUM_SHEET_ID), 'Curriculum', row);
+      return json({ ok: true, tab: 'Curriculum (private)' });
+    }
+
+    var tabName = TABS[payload.formName] || 'Other';
     appendRow(tabName, row);
     appendRow(MASTER_TAB, row);
 
@@ -153,7 +166,11 @@ function buildRow(payload) {
 
 // ---- Sheet helpers ----------------------------------------------------
 function appendRow(tabName, row) {
-  var sheet = getOrCreateTab(tabName);
+  appendRowTo(SpreadsheetApp.getActiveSpreadsheet(), tabName, row);
+}
+
+function appendRowTo(ss, tabName, row) {
+  var sheet = getOrCreateTabIn(ss, tabName);
   sheet.appendRow(row);
 
   // Keep the newest submission visible without manual scrolling
@@ -162,7 +179,10 @@ function appendRow(tabName, row) {
 }
 
 function getOrCreateTab(tabName) {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  return getOrCreateTabIn(SpreadsheetApp.getActiveSpreadsheet(), tabName);
+}
+
+function getOrCreateTabIn(ss, tabName) {
   var sheet = ss.getSheetByName(tabName);
 
   if (!sheet) {
@@ -197,8 +217,12 @@ function formatHeader(sheet) {
 function setupTabs() {
   getOrCreateTab(MASTER_TAB);
   Object.keys(TABS).forEach(function (formName) {
+    if (formName === CURRICULUM_FORM) return;   // lives in its own spreadsheet
     getOrCreateTab(TABS[formName]);
   });
+
+  // Curriculum's private spreadsheet gets its own tab + header
+  getOrCreateTabIn(SpreadsheetApp.openById(CURRICULUM_SHEET_ID), 'Curriculum');
 
   // Drop the default empty "Sheet1" if it's still there and unused
   var ss = SpreadsheetApp.getActiveSpreadsheet();

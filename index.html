@@ -512,6 +512,86 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
   .cal-pop-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
   .cal-pop-links:empty { display: none; }
   .cal-pop-link { margin-top: 0; }
+
+  .market-links { display: grid; gap: 12px; margin-bottom: 20px; }
+  .market-link { display: flex; align-items: center; gap: 16px; padding: 20px 22px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); transition: all .12s ease; }
+  .market-link:hover { border-color: var(--primary); background: var(--primary-softer); text-decoration: none; transform: translateY(-1px); }
+  .market-link.primary { border-color: var(--accent); background: var(--accent-soft); }
+  .market-link.primary:hover { border-color: var(--accent); background: #F7EBCE; }
+  .market-link-ic { font-size: 1.7rem; flex: none; }
+  .market-link-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+  .market-link-body strong { font-size: 1rem; color: var(--ink); }
+  .market-link-body span { font-size: .85rem; color: var(--ink-soft); line-height: 1.45; }
+  .market-link-go { flex: none; font-weight: 600; font-size: .87rem; color: var(--primary); white-space: nowrap; }
+  @media (max-width: 560px) {
+    .market-link { padding: 16px; gap: 12px; flex-wrap: wrap; }
+    .market-link-go { width: 100%; }
+  }
+
+  /* --- Executive Board --- */
+  .eb-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 14px; }
+  .eb-card { background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--accent); border-radius: var(--radius); padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+  .eb-top { display: flex; align-items: center; gap: 13px; }
+  .eb-avatar { width: 52px; height: 52px; border-radius: 50%; background: var(--primary); color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 1.02rem; flex: none; letter-spacing: .02em; }
+  .eb-id { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .eb-id strong { font-size: 1.04rem; line-height: 1.2; }
+  .eb-id span { font-size: .8rem; color: var(--accent-ink); font-weight: 600; }
+  .eb-role { margin: 0; font-size: .87rem; line-height: 1.6; color: var(--ink-soft); flex: 1; }
+  .eb-email { font-size: .82rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--primary); word-break: break-all; }
+  @media (max-width: 560px) {
+    .eb-grid { grid-template-columns: 1fr; }
+    .eb-card { padding: 16px; }
+  }
+
+  /* --- What Senate does --- */
+  .win-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 14px; }
+  .win { background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--primary); border-radius: var(--radius); padding: 18px 20px; display: flex; flex-direction: column; gap: 8px; }
+  .win-tag { align-self: flex-start; font-size: .64rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink); }
+  .win h4 { margin: 0; font-size: 1rem; line-height: 1.3; }
+  .win p { margin: 0; font-size: .86rem; line-height: 1.6; color: var(--ink-soft); flex: 1; }
+  .win-who { font-size: .73rem; color: var(--ink-faint); border-top: 1px solid var(--line); padding-top: 9px; }
+  .win-note { margin: 16px 0 0; font-size: .87rem; color: var(--ink-soft); }
+
+  .sub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+  .sub-card { background: var(--primary-softer); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; }
+  .sub-card h4 { margin: 0 0 7px; font-size: .98rem; }
+  .sub-card p { margin: 0; font-size: .86rem; line-height: 1.6; color: var(--ink-soft); }
+
+  .slc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; }
+  .slc { display: flex; align-items: flex-start; gap: 13px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 15px 17px; }
+  .slc-ic { font-size: 1.3rem; flex: none; }
+  .slc div { display: flex; flex-direction: column; gap: 3px; }
+  .slc strong { font-size: .93rem; }
+  .slc span { font-size: .8rem; color: var(--ink-soft); line-height: 1.45; }
+
+  .ev-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+  .evt { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; display: flex; flex-direction: column; gap: 5px; }
+  .evt strong { font-size: .94rem; }
+  .evt span { font-size: .83rem; color: var(--ink-soft); line-height: 1.5; }
+
+  .guide-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 14px; }
+  .gcard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 22px; display: flex; flex-direction: column; gap: 8px; transition: all .12s ease; }
+  .gcard:hover { border-color: var(--primary); transform: translateY(-2px); text-decoration: none; }
+  .gcard-ours { background: linear-gradient(150deg, var(--primary-softer), var(--surface)); border-color: var(--primary); }
+  .gcard-by { align-self: flex-start; font-size: .63rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink); }
+  .gcard-ours .gcard-by { background: var(--primary); color: #fff; }
+  .gcard h3 { margin: 0; font-size: 1.05rem; line-height: 1.3; }
+  .gcard p { margin: 0; font-size: .86rem; line-height: 1.6; color: var(--ink-soft); flex: 1; }
+  .gcard-cta { font-weight: 600; font-size: .87rem; color: var(--primary); }
+  .gcard-cta em { font-style: normal; font-weight: 400; font-size: .76rem; color: var(--ink-faint); }
+
+  .res-archive { margin-top: 26px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .res-archive > summary { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 18px 20px; cursor: pointer; list-style: none; }
+  .res-archive > summary::-webkit-details-marker { display: none; }
+  .res-archive > summary:hover { background: var(--primary-softer); }
+  .res-archive[open] > summary { border-bottom: 1px solid var(--line); background: var(--primary-softer); }
+  .res-archive-t { display: flex; flex-direction: column; gap: 4px; }
+  .res-archive-t strong { font-size: .98rem; }
+  .res-archive-t span { font-size: .82rem; color: var(--ink-soft); line-height: 1.5; }
+  .res-archive-x { flex: none; font-size: .8rem; font-weight: 600; color: var(--primary); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; background: var(--surface); }
+  .res-archive[open] .res-archive-x::after { content: ""; }
+  .res-archive[open] .res-archive-x { color: var(--ink-faint); }
+  .res-archive-body { padding: 18px 20px 22px; }
 </style>
 </head>
 <body>
@@ -545,7 +625,7 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
       <button data-page="home" class="active">Home</button>
       <button data-page="resources">Resources</button>
       <button data-page="feedback">Feedback</button>
-      <button data-page="senate">Senate</button>
+      <button data-page="senate">About Us</button>
       <button data-page="clubs">Clubs</button>
       <button data-page="hub">Quick Hub</button>
       <button data-page="market">Marketplace</button>
@@ -648,21 +728,63 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
 <section class="page" id="page-resources">
   <div class="pagehead"><span class="pill">Resources</span><h1>Built around your year.</h1><p class="lead">Study resources for every course and clerkship, mirrored from the NYMC library's <a href="https://guides.library.nymc.edu/SOM_PeerToPeerResources/Home" target="_blank" rel="noopener">SOM Peer to Peer guide</a>. Tap a subject to expand.</p></div>
 
-  <div class="guide-grid">
-    <a class="guide-card" href="https://docs.google.com/document/d/1lBilPXWGLYrGsAqhDG32dsTvkfw60sV8R-keWYuO3cU/edit?usp=sharing" target="_blank" rel="noopener">
-      <span class="guide-tag">Featured guide</span>
-      <h3>📘 NYMC Survival Guide 2026</h3>
-      <p>The student-written guide to everything — academics, housing, food, transport, and what nobody tells you before you get here.</p>
-      <span class="guide-cta">Open the guide →</span>
-    </a>
-    <a class="guide-card guide-card-alt" href="https://touroc.sharepoint.com/:b:/r/sites/NYMCOfficeofMedicalStudentResearch/Shared%20Documents/Comprehensive%20Research%20Guide%2022Jan2026.pdf?d=w9ec2fef5efac453ebc80b651058b09e1&csf=1&web=1&e=EAAASb" target="_blank" rel="noopener">
-      <span class="guide-tag">Featured guide</span>
-      <h3>🔬 Comprehensive Research Guide</h3>
-      <p>From finding a mentor to publishing — the Senate Research Committee's full walkthrough of research at NYMC. Updated Jan 2026.</p>
-      <span class="guide-cta">Open the guide → <em>(Touro login)</em></span>
-    </a>
+  <div class="section" style="margin-top:0;">
+    <div class="section-head"><div><h2>Guides we and AOA wrote</h2><p>Written by NYMC students for NYMC students — not scraped from a database. Start here.</p></div></div>
+    <div class="guide-grid">
+
+      <a class="gcard gcard-ours" href="https://docs.google.com/document/d/1lBilPXWGLYrGsAqhDG32dsTvkfw60sV8R-keWYuO3cU/edit" target="_blank" rel="noopener">
+        <span class="gcard-by">Written by students</span>
+        <h3>📗 NYMC Survival Guide</h3>
+        <p>The guide to everything nobody tells you before you arrive — academics, housing, food, transport, what to buy and what not to. Written and maintained by students who had just been through it.</p>
+        <span class="gcard-cta">Open the guide → <em>(Touro login)</em></span>
+      </a>
+
+      <a class="gcard gcard-ours" href="https://touroc.sharepoint.com/:b:/r/sites/NYMCOfficeofMedicalStudentResearch/Shared%20Documents/Comprehensive%20Research%20Guide%2022Jan2026.pdf?d=w9ec2fef5efac453ebc80b651058b09e1&amp;csf=1&amp;web=1&amp;e=EAAASb" target="_blank" rel="noopener">
+        <span class="gcard-by">Written by Senate</span>
+        <h3>🔬 Comprehensive Research Guide</h3>
+        <p>Built by the Senate Research Subcommittee to answer the question nobody wants to ask out loud: how do I actually start research here? Finding a mentor, scoping a project, getting to a poster or a paper.</p>
+        <span class="gcard-cta">Open the guide → <em>(Touro login)</em></span>
+      </a>
+
+      <a class="gcard" href="https://guides.library.nymc.edu/ld.php?content_id=56348468" target="_blank" rel="noopener">
+        <span class="gcard-by">AOA</span>
+        <h3>🎓 First Year Guide</h3>
+        <p>AOA's guide to surviving and doing well in M1.</p>
+        <span class="gcard-cta">Open →</span>
+      </a>
+
+      <a class="gcard" href="https://drive.google.com/file/d/1ZwjvN2gO-MnR2Uc9MQzRm977_ct78V4l/view?usp=sharing" target="_blank" rel="noopener">
+        <span class="gcard-by">AOA</span>
+        <h3>📖 M2 Study Guide</h3>
+        <p>How to study for M2 and Step 1, from the people who did it well.</p>
+        <span class="gcard-cta">Open →</span>
+      </a>
+
+      <a class="gcard" href="https://guides.library.nymc.edu/ld.php?content_id=67337815" target="_blank" rel="noopener">
+        <span class="gcard-by">AOA / PLP</span>
+        <h3>🏥 Guide to Clerkships</h3>
+        <p>What each rotation is actually like and how to prepare for it.</p>
+        <span class="gcard-cta">Open →</span>
+      </a>
+
+      <a class="gcard" href="https://guides.library.nymc.edu/ld.php?content_id=56264283" target="_blank" rel="noopener">
+        <span class="gcard-by">AOA / PLP</span>
+        <h3>📝 Step 2 CK Guide</h3>
+        <p>Dedicated planning and resources for Step 2 CK.</p>
+        <span class="gcard-cta">Open →</span>
+      </a>
+
+    </div>
   </div>
-  <div class="yeartabs-wrap">
+
+  <details class="res-archive">
+    <summary>
+      <span class="res-archive-t"><strong>Everything else — the full library index</strong>
+      <span>146 course-by-course links mirrored from the NYMC library's Peer to Peer guide, M1–M3. Deliberately tucked away: most students only need the guides above.</span></span>
+      <span class="res-archive-x">Show</span>
+    </summary>
+    <div class="res-archive-body">
+<div class="yeartabs-wrap">
     <div class="yeartabs">
       <button class="yeartab active" onclick="setYear('m1', this)">M1</button>
       <button class="yeartab" onclick="setYear('m2', this)">M2</button>
@@ -676,8 +798,6 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
       <div class="res-cat"><h3>🚀 Start here</h3><ul>
           <li><span class="lbl">NYMC Survival Guide 2026</span><span class="meta">Student-written</span><a href="https://docs.google.com/document/d/1lBilPXWGLYrGsAqhDG32dsTvkfw60sV8R-keWYuO3cU/edit?usp=sharing" target="_blank" rel="noopener">Open →</a></li>
           <li><span class="lbl">AOA First Year Guide</span><span class="meta">NYMC library</span><a href="https://guides.library.nymc.edu/ld.php?content_id=56348468" target="_blank" rel="noopener">Open →</a></li>
-          <li><span class="lbl">Library Step 1 Guide</span><span class="meta">What the library has</span><a href="https://guides.library.nymc.edu/USMLEstep1" target="_blank" rel="noopener">Open →</a></li>
-          <li><span class="lbl">USMLE Step 1 — official</span><span class="meta">usmle.org</span><a href="https://www.usmle.org/step-exams/step-1" target="_blank" rel="noopener">Open →</a></li>
           <li><span class="lbl">Peer to Peer Resources (full guide)</span><span class="meta">Source of everything below</span><a href="https://guides.library.nymc.edu/SOM_PeerToPeerResources/Home" target="_blank" rel="noopener">Open →</a></li>
         </ul></div>
     </div>
@@ -784,7 +904,6 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
       <div class="res-cat"><h3>🚀 Start here</h3><ul>
           <li><span class="lbl">AOA M2 Study Guide</span><span class="meta">How to study — from AOA</span><a href="https://drive.google.com/file/d/1ZwjvN2gO-MnR2Uc9MQzRm977_ct78V4l/view?usp=sharing" target="_blank" rel="noopener">Open →</a></li>
           <li><span class="lbl">Library Step 1 Guide</span><span class="meta">What the library has</span><a href="https://guides.library.nymc.edu/USMLEstep1" target="_blank" rel="noopener">Open →</a></li>
-          <li><span class="lbl">USMLE Step 1 — official</span><span class="meta">usmle.org</span><a href="https://www.usmle.org/step-exams/step-1" target="_blank" rel="noopener">Open →</a></li>
           <li><span class="lbl">First Aid for the USMLE Step 1</span><span class="meta">Online via library</span><a href="https://widgets.ebscohost.com/prod/customlink/proxify/proxify.php?count=1&amp;encode=1&amp;proxy=https%3A%2F%2Fgo.openathens.net%2Fredirector%2Ftouro.edu%3Furl%3D&amp;target=https://mhebooklibrary.com/doi/book/10.1036/9781260143683" target="_blank" rel="noopener">Open →</a></li>
           <li><span class="lbl">UWorld</span><span class="meta">The QBank</span><a href="https://www.uworld.com/" target="_blank" rel="noopener">Open →</a></li>
           <li><span class="lbl">USMLE-Rx</span><span class="meta">First Aid integration</span><a href="https://www.usmle-rx.com/" target="_blank" rel="noopener">Open →</a></li>
@@ -903,10 +1022,7 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
       <details class="course-block">
         <summary><span class="course-name">📝 Step 2 CK prep</span><span class="course-count">8</span></summary>
         <ul>
-          <li><span class="lbl">USMLE Step 2 CK — official</span><span class="meta">usmle.org</span><a href="https://usmle.org/step-2-ck/" target="_blank" rel="noopener">Open →</a></li>
           <li><span class="lbl">Library Step 2 Guide</span><span class="meta">What the library has</span><a href="https://guides.library.nymc.edu/USMLEstep2" target="_blank" rel="noopener">Open →</a></li>
-          <li><span class="lbl">USMLE Step 2 CK sample test questions</span><span class="meta">100+ questions · PDF + interactive</span><a href="https://www.usmle.org/prepare-your-exam/step-2-ck-materials/step-2-ck-sample-test-questions" target="_blank" rel="noopener">Open →</a></li>
-          <li><span class="lbl">USMLE Step 2 test question formats</span><span class="meta">Format review</span><a href="https://www.usmle.org/prepare-your-exam/step-2-ck-materials/step-2-ck-test-question-formats" target="_blank" rel="noopener">Open →</a></li>
           <li><span class="lbl">NBME Step 2 practice exams (CCSSA)</span><span class="meta">Self-assessment forms</span><a href="https://www.nbme.org/examinees/nbme-self-assessments/comprehensive-clinical-science-self-assessment" target="_blank" rel="noopener">Open →</a></li>
           <li><span class="lbl">Divine Intervention Podcast</span><span class="meta">Free · high-yield review</span><a href="https://divineinterventionpodcasts.com/category/usmle-step-2-CK/" target="_blank" rel="noopener">Open →</a></li>
           <li><span class="lbl">Health Systems Science, 2nd ed.</span><span class="meta">Expanded Step 2 content</span><a href="https://www.elsevier.com/books/health-systems-science/skochelak/978-0-323-69462-9" target="_blank" rel="noopener">Open →</a></li>
@@ -986,6 +1102,9 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
       </div>
     </div>
   </div>
+    </div>
+  </details>
+
 </section>
 
 <section class="page" id="page-feedback">
@@ -1027,12 +1146,11 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
       <h2>What's the issue about?</h2>
       <p>Pick the closest one — we route from here.</p>
       <div class="cat-grid">
-        <button class="cat-btn" data-cat="housing" onclick="pickCat(this)"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg></div><strong>Housing</strong><span>Maintenance, neighbors, billing</span></button>
+        <button class="cat-btn" data-cat="housing" onclick="pickCat(this)"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg></div><strong>Housing</strong><span>General housing complaints</span></button>
         <button class="cat-btn" data-cat="cafeteria" onclick="pickCat(this)"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3v18M5 8h6a4 4 0 010 8H5M19 3v18"/></svg></div><strong>Cafeteria</strong><span>Food, hours, dietary needs</span></button>
         <button class="cat-btn" data-cat="facilities" onclick="pickCat(this)"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a4 4 0 11-5.4 5.4L3 18v3h3l6.3-6.3M21 7l-4 4-4-4 4-4z"/></svg></div><strong>Facilities</strong><span>Gym, library, classrooms, safety</span></button>
-        <button class="cat-btn" data-cat="year" onclick="pickCat(this)"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><strong>Class Year-Specific</strong><span>Issues related to M1/M2/M3/M4 Year</span></button>
         <button class="cat-btn" data-cat="curriculum" onclick="pickCat(this)"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5a2 2 0 012-2h12v18H6a2 2 0 01-2-2zm0 0a2 2 0 012-2h12"/></svg></div><strong>Curriculum</strong><span>Academic concerns — routed to the Curriculum Committee</span></button>
-        <button class="cat-btn" data-cat="other" onclick="pickCat(this)"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 015.8 1c0 2-3 3-3 3M12 17h.01"/></svg></div><strong>Something else</strong><span>We'll figure it out</span></button>
+        <button class="cat-btn" data-cat="other" onclick="pickCat(this)"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 015.8 1c0 2-3 3-3 3M12 17h.01"/></svg></div><strong>Something else</strong><span>Class-year issues and anything not above</span></button>
       </div>
       <div class="step-actions">
         <span style="font-size:.82rem; color:var(--ink-faint); align-self:center;">Anonymous by default</span>
@@ -1052,7 +1170,7 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
       <p>Optional. Even one sentence helps.</p>
       <textarea class="note" id="fb-details" placeholder="e.g. it's been like this for 2 weeks…"></textarea>
       <div class="fb-year">
-        <span class="fb-year-label">Your year <em>(optional — helps us spot year-specific trends)</em></span>
+        <span class="fb-year-label">What class are you in? <em>(helps us spot year-specific trends)</em></span>
         <div class="fb-year-chips" id="fb-year-chips">
           <button type="button" class="fb-year-chip" data-year="M1">M1</button>
           <button type="button" class="fb-year-chip" data-year="M2">M2</button>
@@ -1088,57 +1206,79 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
 </section>
 
 <section class="page" id="page-senate">
-  <div class="pagehead"><span class="pill">The Senate</span><h1>Meet your Senate.</h1><p class="lead">16 elected students from the M2, M3, and M4 classes. M1 reps are elected each fall after matriculation.</p></div>
-  <div class="filter-row" data-filter-target=".senator-grid">
-    <span class="filter-chip on" data-value="all">All</span>
-    <span class="filter-chip" data-value="m1">M1</span>
-    <span class="filter-chip" data-value="m2">M2</span>
-    <span class="filter-chip" data-value="m3">M3</span>
-    <span class="filter-chip" data-value="m4">M4</span>
-    <span class="filter-chip" data-value="eboard">Executive Board</span>
-    <span class="filter-chip" data-value="service">Service Subcommittee</span>
-    <span class="filter-chip" data-value="research">Research Subcommittee</span>
+  <div class="pagehead"><span class="pill">About Us</span><h1>Who we are.</h1><p class="lead">The Student Senate is the elected voice of the NYMC School of Medicine student body — 16 students across M2, M3 and M4 who bring student concerns to the administration and run the committees, subcommittees and events below. M1 representatives are elected each fall after matriculation.</p></div>
+    <div class="section" style="margin-top:0;">
+    <div class="section-head"><div><h2>Executive Board</h2><p>Elected each spring. These five run the Senate day to day and are the people to contact first.</p></div></div>
+    <div class="eb-grid">
+      <div class="eb-card">
+        <div class="eb-top">
+          <div class="eb-avatar">AZ</div>
+          <div class="eb-id"><strong>Amber Zhao</strong><span>President · M4</span></div>
+        </div>
+        <p class="eb-role">Chairs the general meetings, carries the student body's position to the deans and administration, sets the Senate's agenda for the year, and oversees Senate elections.</p>
+        <a href="mailto:azhao3@student.nymc.edu" class="eb-email">azhao3@student.nymc.edu</a>
+      </div>
+      <div class="eb-card">
+        <div class="eb-top">
+          <div class="eb-avatar">KJ</div>
+          <div class="eb-id"><strong>Kathryn Jano</strong><span>Vice President · M2</span></div>
+        </div>
+        <p class="eb-role">Runs class and course-representative elections, supports the President across the Senate's work, and chairs meetings in their absence.</p>
+        <a href="mailto:Kjano@student.nymc.edu" class="eb-email">Kjano@student.nymc.edu</a>
+      </div>
+      <div class="eb-card">
+        <div class="eb-top">
+          <div class="eb-avatar">JA</div>
+          <div class="eb-id"><strong>Joseph Annabi</strong><span>Treasurer · M4</span></div>
+        </div>
+        <p class="eb-role">Holds the Senate budget and runs the monthly reimbursement process that clubs and class events depend on.</p>
+        <a href="mailto:jannabi@student.nymc.edu" class="eb-email">jannabi@student.nymc.edu</a>
+      </div>
+      <div class="eb-card">
+        <div class="eb-top">
+          <div class="eb-avatar">KC</div>
+          <div class="eb-id"><strong>Kevin Cutler</strong><span>Secretary · M2</span></div>
+        </div>
+        <p class="eb-role">Records and circulates the minutes of every general meeting, and coordinates Senate-wide communications and distributions.</p>
+        <a href="mailto:kcutler2@student.nymc.edu" class="eb-email">kcutler2@student.nymc.edu</a>
+      </div>
+      <div class="eb-card">
+        <div class="eb-top">
+          <div class="eb-avatar">DL</div>
+          <div class="eb-id"><strong>Dorothy Liu</strong><span>Outreach Coordinator · M4</span></div>
+        </div>
+        <p class="eb-role">Publishes Synapse, the student newspaper, and works with the Office of Alumni and Development on mixers, homecoming, and alumni programming.</p>
+        <a href="mailto:Dliu4@student.nymc.edu" class="eb-email">Dliu4@student.nymc.edu</a>
+      </div>
+    </div>
   </div>
-  <!--
-    EDIT HERE: SENATOR ROSTER
-    -------------------------
-    16 cards below = current Senate roster (as of July 2026).
-    Data provided: name, E-Board role (for 5 of them), email.
-    Still TBD (marked with (EDIT) in the UI):
-      - Class year          → replace "(EDIT year)" in each subtitle
-      - Committee assignment → non-E-Board senators just say "Senator"
-                                for now. When committee lists come in,
-                                append: "· Service Subcommittee" etc.
-      - "Ask me about"       → currently "(EDIT)" — fill in when known
-      - Photos               → avatar shows initials for now. To use
-                                a real photo, replace <div class="avatar">
-                                with <img class="avatar" src="senators/firstname-last.jpg" alt="">
-                                and add CSS: .avatar img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
-  -->
-  <div class="senator-grid">
-    <!-- Executive Board (5) — listed first -->
-    <div class="senator" data-tags="m4 eboard"><div class="senator-top"><div class="avatar">AZ</div><div class="senator-name"><strong>Amber Zhao</strong><span>President · M4</span></div></div><div class="ask"><strong>Ask me about</strong><span class="edit-marker">(EDIT)</span></div><a href="mailto:azhao3@student.nymc.edu" class="senator-email">azhao3@student.nymc.edu</a></div>
-    <div class="senator" data-tags="m2 eboard"><div class="senator-top"><div class="avatar">KJ</div><div class="senator-name"><strong>Kathryn Jano</strong><span>Vice President · M2</span></div></div><div class="ask"><strong>Ask me about</strong><span class="edit-marker">(EDIT)</span></div><a href="mailto:Kjano@student.nymc.edu" class="senator-email">Kjano@student.nymc.edu</a></div>
-    <div class="senator" data-tags="m2 eboard"><div class="senator-top"><div class="avatar">KC</div><div class="senator-name"><strong>Kevin Cutler</strong><span>Secretary · M2</span></div></div><div class="ask"><strong>Ask me about</strong><span class="edit-marker">(EDIT)</span></div><a href="mailto:kcutler2@student.nymc.edu" class="senator-email">kcutler2@student.nymc.edu</a></div>
-    <div class="senator" data-tags="m4 eboard"><div class="senator-top"><div class="avatar">JA</div><div class="senator-name"><strong>Joseph Annabi</strong><span>Treasurer · M4</span></div></div><div class="ask"><strong>Ask me about</strong><span class="edit-marker">(EDIT)</span></div><a href="mailto:jannabi@student.nymc.edu" class="senator-email">jannabi@student.nymc.edu</a></div>
-    <div class="senator" data-tags="m4 eboard"><div class="senator-top"><div class="avatar">DL</div><div class="senator-name"><strong>Dorothy Liu</strong><span>Outreach Coordinator · M4</span></div></div><div class="ask"><strong>Ask me about</strong><span class="edit-marker">(EDIT)</span></div><a href="mailto:Dliu4@student.nymc.edu" class="senator-email">Dliu4@student.nymc.edu</a></div>
 
-    <!-- Senators (11) — committee assignments TBD -->
-    <div class="senator" data-tags="m3"><div class="senator-top"><div class="avatar">AL</div><div class="senator-name"><strong>AJ Lee</strong><span>Senator · M3</span></div></div><div class="ask"><strong>Ask me about</strong><span class="edit-marker">(EDIT)</span></div><a href="mailto:alee51@student.nymc.edu" class="senator-email">alee51@student.nymc.edu</a></div>
-    <div class="senator" data-tags="m3"><div class="senator-top"><div class="avatar">AM</div><div class="senator-name"><strong>Atikul Miah</strong><span>Senator · M3</span></div></div><div class="ask"><strong>Ask me about</strong><span class="edit-marker">(EDIT)</span></div><a href="mailto:amiah3@student.nymc.edu" class="senator-email">amiah3@student.nymc.edu</a></div>
-    <div class="senator" data-tags="m2"><div class="senator-top"><div class="avatar">CE</div><div class="senator-name"><strong>Christopher Elwell</strong><span>Senator · M2</span></div></div><div class="ask"><strong>Ask me about</strong><span class="edit-marker">(EDIT)</span></div><a href="mailto:celwell@student.touro.edu" class="senator-email">celwell@student.touro.edu</a></div>
-    <div class="senator" data-tags="m2"><div class="senator-top"><div class="avatar">DL</div><div class="senator-name"><strong>David Leigh</strong><span>Senator · M2</span></div></div><div class="ask"><strong>Ask me about</strong><span class="edit-marker">(EDIT)</span></div><a href="mailto:dleigh@student.nymc.edu" class="senator-email">dleigh@student.nymc.edu</a></div>
-    <div class="senator" data-tags="m3"><div class="senator-top"><div class="avatar">HP</div><div class="senator-name"><strong>Haley Pascal</strong><span>Senator · M3</span></div></div><div class="ask"><strong>Ask me about</strong><span class="edit-marker">(EDIT)</span></div><a href="mailto:hpascal2@student.nymc.edu" class="senator-email">hpascal2@student.nymc.edu</a></div>
-    <div class="senator" data-tags="m4"><div class="senator-top"><div class="avatar">JC</div><div class="senator-name"><strong>Jackie Contento</strong><span>Senator · M4</span></div></div><div class="ask"><strong>Ask me about</strong><span class="edit-marker">(EDIT)</span></div><a href="mailto:jcontent@student.nymc.edu" class="senator-email">jcontent@student.nymc.edu</a></div>
-    <div class="senator" data-tags="m4"><div class="senator-top"><div class="avatar">JS</div><div class="senator-name"><strong>Jared Sasaki</strong><span>Senator · M4</span></div></div><div class="ask"><strong>Ask me about</strong><span class="edit-marker">(EDIT)</span></div><a href="mailto:jsasaki@student.nymc.edu" class="senator-email">jsasaki@student.nymc.edu</a></div>
-    <div class="senator" data-tags="m2"><div class="senator-top"><div class="avatar">KK</div><div class="senator-name"><strong>Krishna Sai Koka</strong><span>Senator · M2</span></div></div><div class="ask"><strong>Ask me about</strong><span class="edit-marker">(EDIT)</span></div><a href="mailto:kkoka@student.nymc.edu" class="senator-email">kkoka@student.nymc.edu</a></div>
-    <div class="senator" data-tags="m3"><div class="senator-top"><div class="avatar">LJ</div><div class="senator-name"><strong>Lydia Jackson</strong><span>Senator · M3</span></div></div><div class="ask"><strong>Ask me about</strong><span class="edit-marker">(EDIT)</span></div><a href="mailto:ljackson16@student.nymc.edu" class="senator-email">ljackson16@student.nymc.edu</a></div>
-    <div class="senator" data-tags="m4"><div class="senator-top"><div class="avatar">NB</div><div class="senator-name"><strong>Nadia Briones</strong><span>Senator · M4</span></div></div><div class="ask"><strong>Ask me about</strong><span class="edit-marker">(EDIT)</span></div><a href="mailto:nbriones@student.nymc.edu" class="senator-email">nbriones@student.nymc.edu</a></div>
-    <div class="senator" data-tags="m3"><div class="senator-top"><div class="avatar">RM</div><div class="senator-name"><strong>Ryan Mohebpour</strong><span>Senator · M3</span></div></div><div class="ask"><strong>Ask me about</strong><span class="edit-marker">(EDIT)</span></div><a href="mailto:rmohebpo@student.nymc.edu" class="senator-email">rmohebpo@student.nymc.edu</a></div>
+  <div class="section">
+    <div class="section-head"><div><h2>Class senators</h2><p>Elected by each class to carry that year's concerns into Senate meetings and sit on the student-life committees.</p></div></div>
+    <div class="filter-row" data-filter-target=".senator-grid">
+      <span class="filter-chip on" data-value="all">All</span>
+      <span class="filter-chip" data-value="m2">M2</span>
+      <span class="filter-chip" data-value="m3">M3</span>
+      <span class="filter-chip" data-value="m4">M4</span>
+    </div>
+    <div class="senator-grid">
+<div class="senator" data-tags="m3"><div class="senator-top"><div class="avatar">AL</div><div class="senator-name"><strong>AJ Lee</strong><span>Senator · M3</span></div></div><div class="ask"><strong>Ask me about</strong><span class="edit-marker">(EDIT)</span></div><a href="mailto:alee51@student.nymc.edu" class="senator-email">alee51@student.nymc.edu</a></div>
+      <div class="senator" data-tags="m3"><div class="senator-top"><div class="avatar">AM</div><div class="senator-name"><strong>Atikul Miah</strong><span>Senator · M3</span></div></div><div class="ask"><strong>Ask me about</strong><span class="edit-marker">(EDIT)</span></div><a href="mailto:amiah3@student.nymc.edu" class="senator-email">amiah3@student.nymc.edu</a></div>
+      <div class="senator" data-tags="m2"><div class="senator-top"><div class="avatar">CE</div><div class="senator-name"><strong>Christopher Elwell</strong><span>Senator · M2</span></div></div><div class="ask"><strong>Ask me about</strong><span class="edit-marker">(EDIT)</span></div><a href="mailto:celwell@student.touro.edu" class="senator-email">celwell@student.touro.edu</a></div>
+      <div class="senator" data-tags="m2"><div class="senator-top"><div class="avatar">DL</div><div class="senator-name"><strong>David Leigh</strong><span>Senator · M2</span></div></div><div class="ask"><strong>Ask me about</strong><span class="edit-marker">(EDIT)</span></div><a href="mailto:dleigh@student.nymc.edu" class="senator-email">dleigh@student.nymc.edu</a></div>
+      <div class="senator" data-tags="m3"><div class="senator-top"><div class="avatar">HP</div><div class="senator-name"><strong>Haley Pascal</strong><span>Senator · M3</span></div></div><div class="ask"><strong>Ask me about</strong><span class="edit-marker">(EDIT)</span></div><a href="mailto:hpascal2@student.nymc.edu" class="senator-email">hpascal2@student.nymc.edu</a></div>
+      <div class="senator" data-tags="m4"><div class="senator-top"><div class="avatar">JC</div><div class="senator-name"><strong>Jackie Contento</strong><span>Senator · M4</span></div></div><div class="ask"><strong>Ask me about</strong><span class="edit-marker">(EDIT)</span></div><a href="mailto:jcontent@student.nymc.edu" class="senator-email">jcontent@student.nymc.edu</a></div>
+      <div class="senator" data-tags="m4"><div class="senator-top"><div class="avatar">JS</div><div class="senator-name"><strong>Jared Sasaki</strong><span>Senator · M4</span></div></div><div class="ask"><strong>Ask me about</strong><span class="edit-marker">(EDIT)</span></div><a href="mailto:jsasaki@student.nymc.edu" class="senator-email">jsasaki@student.nymc.edu</a></div>
+      <div class="senator" data-tags="m2"><div class="senator-top"><div class="avatar">KK</div><div class="senator-name"><strong>Krishna Sai Koka</strong><span>Senator · M2</span></div></div><div class="ask"><strong>Ask me about</strong><span class="edit-marker">(EDIT)</span></div><a href="mailto:kkoka@student.nymc.edu" class="senator-email">kkoka@student.nymc.edu</a></div>
+      <div class="senator" data-tags="m3"><div class="senator-top"><div class="avatar">LJ</div><div class="senator-name"><strong>Lydia Jackson</strong><span>Senator · M3</span></div></div><div class="ask"><strong>Ask me about</strong><span class="edit-marker">(EDIT)</span></div><a href="mailto:ljackson16@student.nymc.edu" class="senator-email">ljackson16@student.nymc.edu</a></div>
+      <div class="senator" data-tags="m4"><div class="senator-top"><div class="avatar">NB</div><div class="senator-name"><strong>Nadia Briones</strong><span>Senator · M4</span></div></div><div class="ask"><strong>Ask me about</strong><span class="edit-marker">(EDIT)</span></div><a href="mailto:nbriones@student.nymc.edu" class="senator-email">nbriones@student.nymc.edu</a></div>
+      <div class="senator" data-tags="m3"><div class="senator-top"><div class="avatar">RM</div><div class="senator-name"><strong>Ryan Mohebpour</strong><span>Senator · M3</span></div></div><div class="ask"><strong>Ask me about</strong><span class="edit-marker">(EDIT)</span></div><a href="mailto:rmohebpo@student.nymc.edu" class="senator-email">rmohebpo@student.nymc.edu</a></div>
+    </div>
   </div>
+
   <div class="note-tbd" style="margin-top:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><div>Real roster: names, class years, E-Board roles, and emails are current. Still TBD (marked <span class="edit-marker">(EDIT)</span>): committee assignments and "Ask me about" details. Photos to come.</div></div>
   <div class="section">
-    <div class="section-head"><div><h2>Our committees</h2><p>Anything you see on this site — events, initiatives, projects — you can play a role in. Have an idea, want to help, or just curious how to get started? Reach out.</p></div></div>
+    <div class="section-head"><div><h2>Our committees</h2></div></div>
     <div class="grid-2">
 
       <div class="cmte-card">
@@ -1189,6 +1329,60 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
       <p style="margin:0; font-size:.9rem;">The Senate believes in the power of teamwork — we collaborate with the House of Representatives, Curriculum Committee, Liaison Committee, Wellness Club, and more. Part of a student group with an idea? <a onclick="go('feedback')" style="cursor:pointer; font-weight:600;">We'd love to work with you →</a></p>
     </div>
     <div class="note-tbd" style="margin-top:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><div>Committee details carried over from the 2025–26 site. Chairs and members will be refreshed when new committee assignments are finalized.</div></div>
+  </div>
+
+
+  <div class="section" id="senate-work">
+    <div class="section-head"><div><h2>What Senate actually does</h2><p>Concrete things that changed on this campus because students raised them. Every item below traces to a Senate meeting.</p></div></div>
+
+    <div class="win-grid">
+      <div class="win"><span class="win-tag">Facilities</span><h4>Quiet in the library during dedicated</h4><p>Noise and disruption during Step study time was raised repeatedly. Senate library reps worked with Public Safety and the Dean of Students on new signage and a campus-wide message on library conduct.</p><span class="win-who">Library reps · with Capozzi Library &amp; Public Safety</span></div>
+
+      <div class="win"><span class="win-tag">Research</span><h4>50% poster printing discount</h4><p>Students were paying full price to present their own work. The Research Subcommittee pushed for a subsidy; a standing 50% discount on standard research posters is now live with its own request form.</p><span class="win-who">Senate Research Subcommittee · with the Library</span></div>
+
+      <div class="win"><span class="win-tag">Food</span><h4>Personal health vending machine</h4><p>Students asked for after-hours access to basics the campus stores don't stock. Food services reps carried specific student requests to Dining and the machine was ordered.</p><span class="win-who">Food services reps · with Dining Services</span></div>
+
+      <div class="win"><span class="win-tag">Research</span><h4>Alumni Research Repository</h4><p>Finding a mentor used to mean asking around. The Research Subcommittee built and distributed a searchable record of what NYMC alumni actually researched, so students can find people in their field.</p><span class="win-who">Senate Research Subcommittee</span></div>
+
+      <div class="win"><span class="win-tag">Facilities</span><h4>Building temperature and fans</h4><p>Raised at the quarterly Public Safety meeting after complaints about heat in teaching spaces. Facilities ordered additional fans and began work on a longer-term contingency plan.</p><span class="win-who">Public Safety reps · with Facilities</span></div>
+
+      <div class="win"><span class="win-tag">Food</span><h4>Utensils and closure calendar</h4><p>Two small things that made daily life worse: no utensils in Grab &amp; Go, and cafeteria closures nobody knew about. Both were fixed — utensils stocked, and the holiday closure calendar now circulates in advance.</p><span class="win-who">Food services reps · with Dining Services</span></div>
+    </div>
+
+    <p class="win-note">Have something that belongs on this list — or something that should be? <a href="#" data-goto="feedback">Send it through the feedback form</a> and it goes to the senator who owns that area.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><div><h2>Subcommittees</h2><p>Standing groups that run Senate's own programming.</p></div></div>
+    <div class="sub-grid">
+      <div class="sub-card"><h4>🔬 Senate Research Subcommittee (SRS)</h4><p>Makes research at NYMC less opaque — the Research Onboarding Guide, the Alumni Research Repository, and the push for the poster printing subsidy all came out of SRS.</p></div>
+      <div class="sub-card"><h4>🤝 Senate Service Subcommittee (SSS)</h4><p>Organises volunteering across the year, maintains the Senate service calendar, and is building a school-wide Service Week with the Office of Student Affairs.</p></div>
+      <div class="sub-card"><h4>📣 Social Media Subcommittee</h4><p>Runs Senate's channels and makes sure students actually hear about what's happening and what's changed.</p></div>
+      <div class="sub-card"><h4>📰 Synapse</h4><p>The student newspaper, published on a monthly-ish cycle by the Outreach Coordinator — including the traditional April satire edition.</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><div><h2>Student life committees</h2><p>Two senators sit on each. These are the people to contact about that specific part of campus — they meet directly with the administrators who can change it.</p></div></div>
+    <div class="slc-grid">
+      <div class="slc"><span class="slc-ic">🏋️</span><div><strong>Gym &amp; Housing</strong><span>Equipment, hours, the housing task force, recycling</span></div></div>
+      <div class="slc"><span class="slc-ic">📚</span><div><strong>Library</strong><span>Study space, noise, research resources, renovations</span></div></div>
+      <div class="slc"><span class="slc-ic">🍽️</span><div><strong>Cafeteria &amp; Grab-and-Go</strong><span>Food quality, hours, dietary needs, vending</span></div></div>
+      <div class="slc"><span class="slc-ic">🔧</span><div><strong>Facilities</strong><span>Classrooms, temperature, building issues</span></div></div>
+      <div class="slc"><span class="slc-ic">🛡️</span><div><strong>Public Safety</strong><span>Lighting, escorts, parking, quarterly safety meeting</span></div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><div><h2>Events we run</h2><p>Senate programming across the year.</p></div></div>
+    <div class="ev-grid">
+      <div class="evt"><strong>NYMedTalks</strong><span>Student-organised speaker series, built and booked by the M1 senators.</span></div>
+      <div class="evt"><strong>Senate + House of Reps Family Feud</strong><span>The one where the classes and the deans get competitive.</span></div>
+      <div class="evt"><strong>Senate Spills</strong><span>In-person and virtual sessions supporting M4s through the graduation questionnaire.</span></div>
+      <div class="evt"><strong>Study with Senate</strong><span>Open office hours with coffee and snacks — come with a problem or just come.</span></div>
+      <div class="evt"><strong>Med Formal</strong><span>The annual M1/M2 formal, run with the Office of Student Activities.</span></div>
+      <div class="evt"><strong>Service events</strong><span>Volunteering throughout the year via SSS, plus the planned school-wide Service Week.</span></div>
+    </div>
   </div>
 
   <div class="section">
@@ -1467,11 +1661,14 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
       <a class="hub-item" href="https://nymc.mywconline.com/" target="_blank" rel="noopener"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 14l9-5-9-5-9 5 9 5z"/></svg></div><strong>PLP</strong><span>Book a session (WCOnline)</span></a>
       <a class="hub-item" href="https://www.nymc.edu/som/education/md/advising--mentorship/" target="_blank" rel="noopener"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 22a8 8 0 0116 0"/></svg></div><strong>House Deans</strong><span>Advising &amp; mentorship</span></a>
       <a class="hub-item" href="https://guides.library.nymc.edu/ld.php?content_id=56348468" target="_blank" rel="noopener"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21V8l9-5 9 5v13M9 21v-7h6v7"/></svg></div><strong>AOA</strong><span>First year guide</span></a>
-      <div class="hub-item pending"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21V9l6-6h3a3 3 0 013 3v15a3 3 0 01-3 3H6a3 3 0 01-3-3V12a3 3 0 013-3h3"/></svg></div><strong>Career Planning</strong><span>Specialty advising</span><span class="link-pending">link pending</span></div>
-    </div>
+      <a class="hub-item" href="https://www.nymc.edu/som/education/md/advising--mentorship/career-planning/" target="_blank" rel="noopener"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21V9l6-6h3a3 3 0 013 3v15a3 3 0 01-3 3H6a3 3 0 01-3-3V12a3 3 0 013-3h3"/></svg></div><strong>Career Planning</strong><span>Specialty advising</span></a>
+          <a class="hub-item" href="https://www.nymc.edu/som/education/md/" target="_blank" rel="noopener"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div><strong>Undergraduate Medical Education</strong><span>Curriculum, MD program, calendar</span></a>
+      <a class="hub-item" href="https://www.nymc.edu/departments/office-of-academic-excellence/" target="_blank" rel="noopener"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div><strong>Office of Academic Excellence</strong><span>Study strategies, tutoring, writing</span></a>
+      <a class="hub-item" href="https://www.nymc.edu/life-at-nymc/mental-health--wellness/" target="_blank" rel="noopener"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div><strong>Student Mental Health &amp; Wellness</strong><span>Counseling, TimelyCare, drop-in hours</span></a>
+</div>
   </div>
   <div class="section">
-    <div class="section-head"><h2>Money</h2></div>
+    <div class="section-head"><h2>Finances</h2></div>
     <div class="hub-grid">
       <a class="hub-item" href="https://www.nymc.edu/admissions--aid/financial-aid/" target="_blank" rel="noopener"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><strong>Financial Aid</strong><span>Loans, scholarships</span></a>
       <div class="hub-item pending"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="13" rx="2"/></svg></div><strong>Stipends</strong><span>Miami, NJ, away</span><span class="link-pending">link pending</span></div>
@@ -1491,34 +1688,48 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
   <div class="section">
     <div class="section-head"><h2>Day-to-day</h2></div>
     <div class="hub-grid">
-      <div class="hub-item pending"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></div><strong>Library hours</strong><span>24/7 during finals</span><span class="link-pending">link pending</span></div>
-      <div class="hub-item pending"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></div><strong>IT help</strong><span>Wifi, EMR, printing</span><span class="link-pending">link pending</span></div>
+      <a class="hub-item" href="https://help.touro.edu" target="_blank" rel="noopener"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></div><strong>IT help</strong><span>Wifi, printing, accounts</span></a>
       <a class="hub-item" href="https://www.nymc.edu/life-at-nymc/housing--residential-life/" target="_blank" rel="noopener"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 21V8l7-5 7 5v13z"/></svg></div><strong>Housing</strong><span>Residential life · housing@nymc.edu</span></a>
-      <a class="hub-item" href="https://drive.google.com/file/d/11heHXt7tAIT3xgxuAkACQPCsm6zcieF_/view?usp=sharing" target="_blank" rel="noopener"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4zM8 4v10M12 4v10M16 4v10"/></svg></div><strong>Piano request</strong><span>Fill out, give to Public Safety</span></a>
+      <a class="hub-item" href="https://drive.google.com/file/d/11heHXt7tAIT3xgxuAkACQPCsm6zcieF_/view?usp=sharing" target="_blank" rel="noopener"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4zM8 4v10M12 4v10M16 4v10"/></svg></div><strong>Piano community</strong><span>Fill out, give to Public Safety</span></a>
       <a class="hub-item" href="https://www.nymc.edu/" target="_blank" rel="noopener"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></div><strong>NYMC main site</strong><span>Calendar, registrar, news</span></a>
     </div>
   </div>
 </section>
 
 <section class="page" id="page-market">
-  <div class="pagehead"><span class="pill gold">Marketplace</span><h1>Books, gear, sublets, rides.</h1><p class="lead">A community board, not a store. Posts expire after 30 days unless renewed.</p></div>
-  <div class="filter-row" style="margin-bottom:18px;" data-filter-target=".market-grid">
-    <span class="filter-chip on" data-value="all">All</span>
-    <span class="filter-chip" data-value="books">Books</span>
-    <span class="filter-chip" data-value="equipment">Equipment</span>
-    <span class="filter-chip" data-value="sublets">Sublets</span>
-    <span class="filter-chip" data-value="rides">Rides</span>
-    <span class="filter-chip" data-value="free">Free</span>
+  <div class="pagehead"><span class="pill gold">Marketplace</span><h1>Books, gear, sublets, rides.</h1><p class="lead">The NYMC student marketplace runs on GroupMe and a shared sheet — not on this site. Everything you need to buy, sell, or pass something on is linked below.</p></div>
+
+  <div class="market-links">
+    <a class="market-link primary" href="https://groupme.com/join_group/114119217/yvLvV54b" target="_blank" rel="noopener">
+      <span class="market-link-ic">💬</span>
+      <span class="market-link-body">
+        <strong>Join the Marketplace GroupMe</strong>
+        <span>Where posts actually happen. Books, stethoscopes, sublets, rides, giveaways.</span>
+      </span>
+      <span class="market-link-go">Join →</span>
+    </a>
+
+    <a class="market-link" href="https://docs.google.com/document/d/1E8kaeTtZ5GUp-S0qC0v7i-jS9tNCu5CfgB8cf9ZVXDo/edit" target="_blank" rel="noopener">
+      <span class="market-link-ic">📋</span>
+      <span class="market-link-body">
+        <strong>Marketplace guidelines</strong>
+        <span>Read this first — how to post, what's allowed, and how listings are handled.</span>
+      </span>
+      <span class="market-link-go">Open →</span>
+    </a>
+
+    <a class="market-link" href="https://docs.google.com/spreadsheets/d/1-CrjCeYdR3-Q2GucR9pmUqfGK1qzOOi8/edit?gid=1113906583#gid=1113906583" target="_blank" rel="noopener">
+      <span class="market-link-ic">📗</span>
+      <span class="market-link-body">
+        <strong>Marketplace sheet</strong>
+        <span>The running list of what's for sale and who's selling it.</span>
+      </span>
+      <span class="market-link-go">Open →</span>
+    </a>
   </div>
-  <div style="text-align:right; margin-bottom:14px;"><button class="btn">+ New post</button></div>
-  <div class="market-grid">
-    <div class="market-item" data-tags="books"><div class="thumb">📘</div><div class="body"><h4>Costanzo Physiology · 7th ed</h4><p>Light highlighting. Pickup near campus.</p><div class="meta"><span class="price">$22</span><span>· Books</span><span>· 2d ago</span></div></div></div>
-    <div class="market-item" data-tags="equipment"><div class="thumb">🩺</div><div class="body"><h4>Littmann Cardiology IV (black)</h4><p>Used 2 yrs. Selling — matched into rads.</p><div class="meta"><span class="price">$140</span><span>· Equipment</span><span>· 5d ago</span></div></div></div>
-    <div class="market-item" data-tags="sublets"><div class="thumb">🏠</div><div class="body"><h4>Sublet · 1BR near Sunshine · Jun–Aug</h4><p>Furnished. Quiet. Great for summer research.</p><div class="meta"><span class="price">$1,400/mo</span><span>· Sublets</span><span>· 1d ago</span></div></div></div>
-    <div class="market-item" data-tags="rides"><div class="thumb">🚗</div><div class="body"><h4>Rideshare · Newark airport · May 18</h4><p>Leaving 9 AM. 2 spots. Split gas.</p><div class="meta"><span class="price">$15</span><span>· Rides</span><span>· 3d ago</span></div></div></div>
-    <div class="market-item" data-tags="free"><div class="thumb">🎁</div><div class="body"><h4>Free: anatomy atlas + dissection kit</h4><p>From a recently matched M4. First M1 to claim, gets it.</p><div class="meta"><span class="price">Free</span><span>· Giveaway</span><span>· 6d ago</span></div></div></div>
-    <div class="market-item" data-tags="books"><div class="thumb">📚</div><div class="body"><h4>First Aid 2026 + UWorld notes</h4><p>Annotated through systems.</p><div class="meta"><span class="price">$45</span><span>· Books</span><span>· 1w ago</span></div></div></div>
-  </div>
+
+  <div class="note-tbd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><div>Buying and selling is between students directly — Senate hosts the space but isn't part of any transaction. Meet on campus and use your judgement.</div></div>
+
 </section>
 
 </main>
@@ -1536,7 +1747,7 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
         <li><a onclick="go('home')">Home</a></li>
         <li><a onclick="go('resources')">Resources</a></li>
         <li><a onclick="go('feedback')">Feedback</a></li>
-        <li><a onclick="go('senate')">Senate</a></li>
+        <li><a onclick="go('senate')">About Us</a></li>
       </ul></div>
       <div><h4>Touch grass</h4><ul>
         <li><a onclick="go('clubs')">Clubs</a></li>
@@ -1574,12 +1785,11 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
     ['m1','m2','m3','m4'].forEach(yr => { const el = document.getElementById('year-'+yr); if (!el) return; el.style.display = (y === 'all' || y === yr) ? '' : 'none'; });
   }
   const reasonsByCat = {
-    housing: [{label:'Maintenance request not responded to',meta:'AC, plumbing, etc.'},{label:'Billing or charges',meta:'Rent, fees, deposit'},{label:'Roommate / neighbor concern',meta:''},{label:'Lockout or key issue',meta:''},{label:'Other housing issue',meta:''}],
+    housing: [{label:'Housing conditions',meta:'Something wrong with the buildings or grounds'},{label:'Housing policy or process',meta:'Assignment, renewal, move-in/move-out'},{label:'Housing communication',meta:'Hard to reach someone, slow responses'},{label:'Cost or value concern',meta:'Something Senate should raise collectively'},{label:'Other housing complaint',meta:''}],
     cafeteria: [{label:'Hours / availability',meta:'Especially dinner hours'},{label:'Food quality or variety',meta:''},{label:'Dietary needs',meta:'Kosher, halal, veg, allergies'},{label:'Pricing',meta:''},{label:'Cleanliness',meta:''},{label:'Other cafeteria issue',meta:''}],
     facilities: [{label:'Library',meta:'Hours, study spaces, AC, noise'},{label:'Gym',meta:'Equipment, hours, cleanliness'},{label:'Classrooms',meta:'AV, AC, layout'},{label:'Public Safety',meta:'Lighting, escorts, parking'},{label:'Bathrooms',meta:''},{label:'Other facilities issue',meta:''}],
-    year: [{label:'M1 issue',meta:'FPoL, onboarding, anatomy'},{label:'M2 issue',meta:'Step 1, rotations starting, NJ transit'},{label:'M3 issue',meta:'Clerkships, shelf, scheduling'},{label:'M4 issue',meta:'Match, Sub-I, away rotations'}],
     curriculum: [{label:'A specific course or block',meta:'Pacing, content, materials'},{label:'Exam scheduling or density',meta:'Conflicts, spacing, timing'},{label:'Lecture quality or consistency',meta:''},{label:'Grading or assessment concern',meta:''},{label:'Suggestion for new content',meta:''},{label:'Other academic concern',meta:''}],
-    other: [{label:'Suggest a new resource',meta:''},{label:'Positive shoutout',meta:''},{label:'A senator or staff issue',meta:'Confidential'},{label:'Something else',meta:''}],
+    other: [{label:'Something specific to my class year',meta:'M1 / M2 / M3 / M4 issues'},{label:'Suggest a new resource',meta:''},{label:'Positive shoutout',meta:''},{label:'A senator or staff issue',meta:'Confidential'},{label:'Something else',meta:''}],
   };
   const routingByCat = {
     housing: 'Housing Director + your year rep',
