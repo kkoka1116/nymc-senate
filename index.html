@@ -603,6 +603,18 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
   .fb-route-opt.on { border-color: var(--primary); background: var(--surface); box-shadow: 0 0 0 2px var(--primary-softer); }
   .fb-route-opt strong { font-size: .87rem; }
   .fb-route-opt span { font-size: .79rem; color: var(--ink-soft); line-height: 1.45; }
+
+  .fb-route-explain { margin: 0 0 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); overflow: hidden; }
+  .fb-route-explain > summary { padding: 10px 13px; font-size: .82rem; font-weight: 600; color: var(--primary); cursor: pointer; list-style: none; }
+  .fb-route-explain > summary::-webkit-details-marker { display: none; }
+  .fb-route-explain > summary::after { content: " ↓"; font-weight: 400; }
+  .fb-route-explain[open] > summary { border-bottom: 1px solid var(--line); }
+  .fb-route-explain[open] > summary::after { content: " ↑"; }
+  .fb-route-explain-body { padding: 13px; display: grid; gap: 12px; }
+  .fb-who { display: flex; flex-direction: column; gap: 4px; }
+  .fb-who strong { font-size: .84rem; }
+  .fb-who span { font-size: .8rem; line-height: 1.55; color: var(--ink-soft); }
+  .fb-who-note { margin: 0; font-size: .79rem; line-height: 1.5; color: var(--ink-faint); border-top: 1px solid var(--line); padding-top: 10px; }
 </style>
 </head>
 <body>
@@ -1191,19 +1203,35 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
       </div>
       <div class="fb-route" id="fb-route" hidden>
         <span class="fb-route-label">Who should see this?</span>
-        <p class="fb-route-why">Academic concerns can be sensitive. You choose who reads it — this is the only category where that's up to you.</p>
+        <p class="fb-route-why">Academic concerns can be sensitive, so this is the one category where you choose. The two groups do different things — it's worth knowing which you want.</p>
+
+        <details class="fb-route-explain">
+          <summary>What's the difference?</summary>
+          <div class="fb-route-explain-body">
+            <div class="fb-who">
+              <strong>The Curriculum Committee</strong>
+              <span>The body that formally owns the curriculum — course content, how it's sequenced, how you're assessed, and the policies around it. They review course evaluations and decide what changes. Sending it here puts it in front of the people with direct authority over the thing you're describing.</span>
+            </div>
+            <div class="fb-who">
+              <strong>The Student Senate</strong>
+              <span>Senate can't change a course directly. What Senate has is aggregation and persistence: one student saying an exam block was brutal is an anecdote, but Senate showing that eleven students reported the same thing in the same month is evidence. Senate raises it at the general meeting with the deans in the room, and keeps asking until something moves.</span>
+            </div>
+            <p class="fb-who-note">Short version: the Curriculum Committee is where the authority is. Senate is where the weight of numbers is. Pick both if you want both.</p>
+          </div>
+        </details>
+
         <div class="fb-route-opts" id="fb-route-opts">
           <button type="button" class="fb-route-opt on" data-route="cc">
             <strong>Curriculum Committee only</strong>
-            <span>Goes to a private sheet the Senate can't see. Choose this if you'd rather senators not read it.</span>
+            <span>Straight to the people who can change the course. Goes to a private sheet the Senate can't see — choose this if you'd rather senators not read it.</span>
           </button>
           <button type="button" class="fb-route-opt" data-route="both">
             <strong>Curriculum Committee and Senate</strong>
-            <span>Both see it. Best if you want Senate to push on it too.</span>
+            <span>Authority and numbers. The committee can act on it; Senate can count it, raise it with the deans, and follow up on whether anything changed.</span>
           </button>
           <button type="button" class="fb-route-opt" data-route="senate">
             <strong>Senate only</strong>
-            <span>Stays with Senate and doesn't go to the Curriculum Committee.</span>
+            <span>For when you'd rather have students raise it collectively first. Doesn't go to the Curriculum Committee.</span>
           </button>
         </div>
       </div>
