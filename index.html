@@ -177,18 +177,18 @@ a:hover { text-decoration: underline; }
 button { font: inherit; cursor: pointer; }
 .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
 .topbar { position: sticky; color: var(--ink); top: 0; z-index: 60; background: var(--chrome); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
-.topbar-inner { display: flex; align-items: center; gap: 16px; padding: 12px 20px; max-width: var(--maxw); margin: 0 auto; }
+.topbar-inner { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 16px; padding: 12px 20px; max-width: var(--maxw); margin: 0 auto; }
 .brand { display: flex; align-items: center; gap: 10px; cursor: pointer; min-width: 0; }
 .brand:hover { text-decoration: none; }
 .brand-mark { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, var(--primary), var(--primary-ink)); display: grid; place-items: center; color: #fff; font-weight: 700; font-size: 15px; box-shadow: 0 1px 2px rgba(0,0,0,.1), inset 0 1px 0 rgba(255,255,255,.15); flex-shrink: 0; }
 .brand-meta { line-height: 1.15; min-width: 0; }
 .brand-meta strong { font-size: .92rem; color: var(--ink); display: block; }
-.nav { display: flex; gap: 2px; margin-left: auto; flex-wrap: wrap; }
+.nav { display: flex; gap: 2px; justify-content: center; flex-wrap: wrap; }
 .nav button { background: transparent; border: 0; padding: 9px 14px; border-radius: 999px; color: var(--ink-soft); font-weight: 500; font-size: .92rem; min-height: var(--tap); }
 .nav button:hover { background: var(--primary-softer); color: var(--primary-ink); }
 .nav button.active { background: var(--primary); color: var(--on-primary); }
 .nav button.active:hover { background: var(--primary-ink); }
-.topbar-cta { display: flex; gap: 8px; }
+.topbar-cta { display: flex; gap: 8px; align-items: center; justify-self: end; }
 .hamburger { display: none; width: var(--tap); height: var(--tap); border-radius: 12px; border: 1px solid var(--line); background: var(--surface); align-items: center; justify-content: center; margin-left: auto; flex-shrink: 0; }
 .hamburger svg { width: 22px; height: 22px; color: var(--ink); }
 .btn { border: 0; padding: 10px 18px; border-radius: 999px; background: var(--primary); color: var(--on-primary); font-weight: 600; font-size: .92rem; transition: transform .08s ease, background .15s ease; min-height: var(--tap); display: inline-flex; align-items: center; gap: 6px; }
@@ -589,18 +589,6 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
   .gcard-cta { font-weight: 600; font-size: .87rem; color: var(--primary); }
   .gcard-cta em { font-style: normal; font-weight: 400; font-size: .76rem; color: var(--ink-faint); }
 
-  .res-archive { margin-top: 26px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
-  .res-archive > summary { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 18px 20px; cursor: pointer; list-style: none; }
-  .res-archive > summary::-webkit-details-marker { display: none; }
-  .res-archive > summary:hover { background: var(--primary-softer); }
-  .res-archive[open] > summary { border-bottom: 1px solid var(--line); background: var(--primary-softer); }
-  .res-archive-t { display: flex; flex-direction: column; gap: 4px; }
-  .res-archive-t strong { font-size: .98rem; }
-  .res-archive-t span { font-size: .82rem; color: var(--ink-soft); line-height: 1.5; }
-  .res-archive-x { flex: none; font-size: .8rem; font-weight: 600; color: var(--primary); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; background: var(--surface); }
-  .res-archive[open] .res-archive-x::after { content: ""; }
-  .res-archive[open] .res-archive-x { color: var(--ink-faint); }
-  .res-archive-body { padding: 18px 20px 22px; }
 
   .fb-route { margin-top: 18px; padding: 16px 18px; border: 1px solid var(--line); border-left: 3px solid var(--primary); border-radius: 12px; background: var(--primary-softer); }
   .fb-route[hidden] { display: none; }
@@ -804,9 +792,9 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
           <button class="btn ghost lg" onclick="go('feedback')">Got something to say?</button>
         </div>
         <div class="hero-stats">
-          <div class="stat"><strong>16</strong><span>Senators · M2 · M3 · M4</span></div>
-          <div class="stat"><strong>1</strong><span>Feedback form for everything</span></div>
-          <div class="stat"><strong>M1–M4</strong><span>Resources by class year</span></div>
+          <a class="stat" href="#" data-goto="senate"><strong>16</strong><span>Senators · M2 · M3 · M4</span></a>
+          <a class="stat" href="#" data-goto="feedback"><strong>1</strong><span>Feedback form for everything</span></a>
+          <a class="stat" href="#" data-goto="resources"><strong>M1–M4</strong><span>Resources by class year</span></a>
         </div>
       </div>
       <div class="quickjump">
@@ -864,64 +852,59 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
 </section>
 
 <section class="page" id="page-resources">
-  <div class="pagehead"><span class="pill">Resources</span><h1>Built around your year.</h1><p class="lead">Study resources for every course and clerkship, mirrored from the NYMC library's <a href="https://guides.library.nymc.edu/SOM_PeerToPeerResources/Home" target="_blank" rel="noopener">SOM Peer to Peer guide</a>. Tap a subject to expand.</p></div>
+  <div class="pagehead"><span class="pill">Resources</span><h1>Resources.</h1><p class="lead">Study resources for every course and clerkship, mirrored from the NYMC library's <a href="https://guides.library.nymc.edu/SOM_PeerToPeerResources/Home" target="_blank" rel="noopener">SOM Peer to Peer guide</a>. Tap a subject to expand.</p></div>
 
   <div class="section" style="margin-top:0;">
-    <div class="section-head"><div><h2>Guides we and AOA wrote</h2><p>Written by NYMC students for NYMC students — not scraped from a database. Start here.</p></div></div>
+    <div class="section-head"><div><h2>Guides</h2><p>Written by NYMC students, for NYMC students.</p></div></div>
     <div class="guide-grid">
 
       <a class="gcard gcard-ours" href="https://docs.google.com/document/d/1lBilPXWGLYrGsAqhDG32dsTvkfw60sV8R-keWYuO3cU/edit" target="_blank" rel="noopener">
-        <span class="gcard-by">Written by students</span>
+        <span class="gcard-by">Senate</span>
         <h3>📗 NYMC Survival Guide</h3>
-        <p>The guide to everything nobody tells you before you arrive — academics, housing, food, transport, what to buy and what not to. Written and maintained by students who had just been through it.</p>
+        <p>Everything nobody tells you before you arrive — academics, housing, food, transport.</p>
         <span class="gcard-cta">Open the guide → <em>(Touro login)</em></span>
       </a>
 
       <a class="gcard gcard-ours" href="https://touroc.sharepoint.com/:b:/r/sites/NYMCOfficeofMedicalStudentResearch/Shared%20Documents/Comprehensive%20Research%20Guide%2022Jan2026.pdf?d=w9ec2fef5efac453ebc80b651058b09e1&amp;csf=1&amp;web=1&amp;e=EAAASb" target="_blank" rel="noopener">
-        <span class="gcard-by">Written by Senate</span>
+        <span class="gcard-by">Senate</span>
         <h3>🔬 Comprehensive Research Guide</h3>
-        <p>Built by the Senate Research Subcommittee to answer the question nobody wants to ask out loud: how do I actually start research here? Finding a mentor, scoping a project, getting to a poster or a paper.</p>
+        <p>How to actually start research here — finding a mentor, scoping a project, getting to a paper.</p>
         <span class="gcard-cta">Open the guide → <em>(Touro login)</em></span>
       </a>
 
       <a class="gcard" href="https://guides.library.nymc.edu/ld.php?content_id=56348468" target="_blank" rel="noopener">
         <span class="gcard-by">AOA</span>
         <h3>🎓 First Year Guide</h3>
-        <p>AOA's guide to surviving and doing well in M1.</p>
+        <p>Surviving and doing well in M1.</p>
         <span class="gcard-cta">Open →</span>
       </a>
 
       <a class="gcard" href="https://drive.google.com/file/d/1ZwjvN2gO-MnR2Uc9MQzRm977_ct78V4l/view?usp=sharing" target="_blank" rel="noopener">
         <span class="gcard-by">AOA</span>
         <h3>📖 M2 Study Guide</h3>
-        <p>How to study for M2 and Step 1, from the people who did it well.</p>
+        <p>How to study for M2 and Step 1.</p>
         <span class="gcard-cta">Open →</span>
       </a>
 
       <a class="gcard" href="https://guides.library.nymc.edu/ld.php?content_id=67337815" target="_blank" rel="noopener">
-        <span class="gcard-by">AOA / PLP</span>
+        <span class="gcard-by">AOA</span>
         <h3>🏥 Guide to Clerkships</h3>
-        <p>What each rotation is actually like and how to prepare for it.</p>
+        <p>What each rotation is like and how to prepare.</p>
         <span class="gcard-cta">Open →</span>
       </a>
 
       <a class="gcard" href="https://guides.library.nymc.edu/ld.php?content_id=56264283" target="_blank" rel="noopener">
-        <span class="gcard-by">AOA / PLP</span>
+        <span class="gcard-by">AOA</span>
         <h3>📝 Step 2 CK Guide</h3>
-        <p>Dedicated planning and resources for Step 2 CK.</p>
+        <p>Dedicated planning for Step 2 CK.</p>
         <span class="gcard-cta">Open →</span>
       </a>
 
     </div>
   </div>
 
-  <details class="res-archive">
-    <summary>
-      <span class="res-archive-t"><strong>Everything else — the full library index</strong>
-      <span>146 course-by-course links mirrored from the NYMC library's Peer to Peer guide, M1–M3. Deliberately tucked away: most students only need the guides above.</span></span>
-      <span class="res-archive-x">Show</span>
-    </summary>
-    <div class="res-archive-body">
+  <div class="section">
+    <div class="section-head"><div><h2>By class year</h2><p>Course-by-course study resources mirrored from the NYMC library's Peer to Peer guide. Pick a subject to open it.</p></div></div>
 <div class="yeartabs-wrap">
     <div class="yeartabs">
       <button class="yeartab active" onclick="setYear('m1', this)">M1</button>
@@ -940,7 +923,7 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
         </ul></div>
     </div>
     <div class="course-list">
-      <details class="course-block" open>
+      <details class="course-block">
         <summary><span class="course-name">🦴 Gross Anatomy &amp; Embryology</span><span class="course-count">18</span></summary>
         <ul>
           <li><span class="lbl">Moore&#x27;s Clinical Anatomy Review — PrepU</span><span class="meta">Adaptive quizzes</span><a href="https://thepoint.lww.com/Book/Show/245450#/about-this-product?groupby=learningactivity&amp;ts=1560536209231" target="_blank" rel="noopener">Open →</a></li>
@@ -1048,7 +1031,7 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
         </ul></div>
     </div>
     <div class="course-list">
-      <details class="course-block" open>
+      <details class="course-block">
         <summary><span class="course-name">🦠 Medical Microbiology</span><span class="course-count">8</span></summary>
         <ul>
           <li><span class="lbl">Sketchy Micro</span><span class="meta">100+ videos</span><a href="https://www.sketchy.com/explore/medical-pre-clinical" target="_blank" rel="noopener">Open →</a></li>
@@ -1133,7 +1116,7 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
         </ul></div>
     </div>
     <div class="course-list">
-      <details class="course-block" open>
+      <details class="course-block">
         <summary><span class="course-name">🏥 Clerkship-specific resources</span><span class="course-count">7</span></summary>
         <ul>
           <li><span class="lbl">Internal Medicine</span><a href="https://guides.library.nymc.edu/SOM_PeerToPeerResources/InternalMedicine" target="_blank" rel="noopener">Open →</a></li>
@@ -1240,8 +1223,7 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
       </div>
     </div>
   </div>
-    </div>
-  </details>
+  </div>
 
 </section>
 
@@ -1459,8 +1441,6 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
         <p>The Research Committee (Senate Research Subcommittee + Medical Student Research Committee) is focused on making research more accessible and less intimidating. Between the Research Onboarding Guide, the Alumni Research Repository, and the MSR SharePoint, our projects aim to demystify the process — finding mentors, building skills, and engaging in scholarship.</p>
         <div class="cmte-people">
           <details class="cmte-person"><summary>Kathryn Jano <span class="cmte-role">Chair · M2 · Senate VP</span></summary><p>I have greatly enjoyed my time conducting research throughout undergrad and my gap years. At NYMC, I have been very passionate about continuing this work, while simultaneously helping to make research accessible to fellow students. To that end, Audrey, Shray, and I developed a Comprehensive Research Guide to address the barriers students face from beginning research to publishing. I can't wait to continue our work!</p></details>
-          <details class="cmte-person"><summary>Shray Khanna <span class="cmte-role">Chair</span></summary><p>I like the idea of helping my peers get more out of their med school experience. Medical school research is a great way to bolster candidacy for residency, but more importantly, it's an opportunity to develop know-how and actually move our fields of interest forward. Having been involved in research in different ways over the past few years, it's really gratifying to use that experience to make the process a little smoother for my classmates. And working with Audrey and Kathryn is always a plus!</p></details>
-          <div class="cmte-person-plain">Audrey Huang <span class="cmte-role">Chair</span></div>
         </div>
         <ul class="cmte-links">
           <li><span class="lbl">Comprehensive Research Guide <span class="cmte-role">(Touro login)</span></span><a href="https://touroc.sharepoint.com/:b:/r/sites/NYMCOfficeofMedicalStudentResearch/Shared%20Documents/Comprehensive%20Research%20Guide%2022Jan2026.pdf?d=w9ec2fef5efac453ebc80b651058b09e1&csf=1&web=1&e=EAAASb" target="_blank" rel="noopener">Open →</a></li>
@@ -1473,11 +1453,11 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
       <div class="cmte-card">
         <span class="pill success">Service Subcommittee</span>
         <h3 style="margin-top:8px;">Centralizing volunteering.</h3>
-        <p>Founded in Fall 2024 in response to strong student interest in service, the Senate Service Subcommittee builds a centralized system for finding and creating service opportunities — on and off campus. Formed with students across all four years, it partners with Westchester organizations like Feeding Westchester and the Community Food Pantry of Tarrytown, and with NYMC clubs, to remove the barriers between students and meaningful volunteering.</p>
+        <p>Founded in Fall 2024 by Gregory Spaulding (Class of 2026) in response to strong student interest in service, the Senate Service Subcommittee builds a centralized system for finding and creating service opportunities — on and off campus. Formed with students across all four years, it partners with Westchester organizations like Feeding Westchester and the Community Food Pantry of Tarrytown, and with NYMC clubs, to remove the barriers between students and meaningful volunteering.</p>
         <div class="cmte-people">
           <details class="cmte-person"><summary>Amber Zhao <span class="cmte-role">Co-Chair · M4 · Senate President</span></summary><p>I'm so honored to be serving as co-chair for the Senate Service Committee this year! I believe that connecting with community is essential for physicians to be well-rounded health care providers and that service is a core tenet of medicine. I'm excited to help the NYMC SOM connect more deeply with the local Westchester community and foster longitudinal relationships with volunteer organizations around the county.</p></details>
           <details class="cmte-person"><summary>Kevin Cutler <span class="cmte-role">Co-Chair · M2 · Senate Secretary</span></summary><p>I joined the Senate Service Subcommittee (SSS) because service was a passion of mine in college, and I was eager to find ways to connect with and give back to my new community. I hope that by facilitating event organization as SSS Co-Chair, I am able to get my class involved in Westchester and highlight the great community service that NYMC students do. The SSS team is wonderful and passionate about new service opportunities, and I am super excited to be a part of the crew.</p></details>
-          <details class="cmte-person"><summary>Gregory Spaulding <span class="cmte-role">Co-Founder &amp; Co-Chair</span></summary><p>Greg has a strong history of service going back to high school. He was highly motivated to continue volunteering in medical school and co-founded the Senate Service Subcommittee to help create opportunities for his fellow students who are also interested in service. He is constantly inspired by the great work of the other members on the committee and grateful for their collaboration in growing the subcommittee over the past year.</p></details>
+          
         </div>
         <details class="cmte-person"><summary>Subcommittee members <span class="cmte-role">by class</span></summary>
           <p><strong>Class of 2029:</strong> Mariam Alex — "Having grown up in Rockland County, neighboring Westchester County, I feel a strong connection to the communities our school serves. Service has always been central to who I am and why I chose medicine." · Amy Hao</p>
@@ -1600,11 +1580,11 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
     <div class="section-head"><div><h2>Class town halls</h2><p>Held monthly. Students submit feedback anonymously, senators put it to the faculty in the room, and the responses are written down.</p></div></div>
     <div class="note-tbd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l9 4.5v5c0 5-3.8 9.7-9 10.5-5.2-.8-9-5.5-9-10.5v-5L12 2z"/></svg><div><strong>Touro login required.</strong> Town hall notes quote student feedback and name specific courses and faculty, so they stay inside the College. You'll be asked to sign in with your Touro account.</div></div>
     <div class="th-list">
-      <a class="th-item" href="https://drive.google.com/file/d/1AZWGQOTvYIgOfmKrPt5eNUG8mhXcWi1z/view?usp=sharing" target="_blank" rel="noopener"><strong>M1 Town Hall — March 9, 2026</strong><span>Curriculum content, lecture recordings, mandatory session timing, UWorld access</span></a>
-      <a class="th-item" href="https://drive.google.com/file/d/1S4b4K8ZlW-ZxVqrviPyiQ2A87_HNf0Lv/view?usp=sharing" target="_blank" rel="noopener"><strong>Town hall notes</strong><span>Open to read →</span></a>
-      <a class="th-item" href="https://drive.google.com/file/d/1fIiM0yv6hp0Hwh2cuxkpD0wzbb-3LXot/view?usp=sharing" target="_blank" rel="noopener"><strong>Town hall notes</strong><span>Open to read →</span></a>
-      <a class="th-item" href="https://drive.google.com/file/d/1w01kd7udxFaECy4UEDPQzHVK4plmX0iZ/view?usp=sharing" target="_blank" rel="noopener"><strong>Town hall notes</strong><span>Open to read →</span></a>
-      <a class="th-item" href="https://drive.google.com/file/d/1wNFR62WryStFmhI994fb00-7Sduqh8vG/view?usp=sharing" target="_blank" rel="noopener"><strong>Town hall notes</strong><span>Open to read →</span></a>
+      <a class="th-item" href="https://drive.google.com/file/d/1wNFR62WryStFmhI994fb00-7Sduqh8vG/view?usp=sharing" target="_blank" rel="noopener"><strong>M2 Town Hall — August 7, 2026</strong><span>Most recent · Class of 2029</span></a>
+      <a class="th-item" href="https://drive.google.com/file/d/1AZWGQOTvYIgOfmKrPt5eNUG8mhXcWi1z/view?usp=sharing" target="_blank" rel="noopener"><strong>M1 Town Hall — March 9, 2026</strong><span>Curriculum content, lecture recordings, session timing, UWorld access</span></a>
+      <a class="th-item" href="https://drive.google.com/file/d/1S4b4K8ZlW-ZxVqrviPyiQ2A87_HNf0Lv/view?usp=sharing" target="_blank" rel="noopener"><strong>M1 Town Hall — December 3, 2025</strong><span>Fourth town hall of the M1 year</span></a>
+      <a class="th-item" href="https://drive.google.com/file/d/1w01kd7udxFaECy4UEDPQzHVK4plmX0iZ/view?usp=sharing" target="_blank" rel="noopener"><strong>M1 Town Hall — September 26, 2025</strong><span>Second town hall of the M1 year</span></a>
+      <a class="th-item" href="https://drive.google.com/file/d/1fIiM0yv6hp0Hwh2cuxkpD0wzbb-3LXot/view?usp=sharing" target="_blank" rel="noopener"><strong>M1 Town Hall — August 29, 2025</strong><span>First town hall after matriculation</span></a>
     </div>
     <p class="th-note">Town halls are where curriculum feedback gets a direct answer from the people who set it. If you have something for the next one, <a href="#" data-goto="feedback">send it through the feedback form</a>.</p>
   </div>
