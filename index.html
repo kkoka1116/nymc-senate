@@ -133,9 +133,9 @@ footer li { padding: 4px 0; font-size: .86rem; }
     --primary-soft: #F5DCE2;
     --primary-softer: #FBEAEE;
     --primary-ink: #5A1E2C;
-    --accent: #C8A24C;
-    --accent-soft: #F6E8C5;
-    --accent-ink: #8C6F2A;
+    --accent: #A87A3C;
+    --accent-soft: #F3E7D2;
+    --accent-ink: #6B4A18;
     --bg: #FBF8F4;
     --surface: #FFFFFF;
     --surface-2: #F4ECE0;
@@ -468,7 +468,7 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
 
   /* --- calendar categories --- */
   .k-holiday { --k: #64748B; --k-soft: #EEF1F5; --k-ink: #3A4652; }
-  .k-student { --k: #C8A24C; --k-soft: #FBF3DF; --k-ink: #6B5216; }
+  .k-student { --k: #A87A3C; --k-soft: #F5EADA; --k-ink: #5E4114; }
   .k-lecture { --k: #7E2D40; --k-soft: #F7E9EC; --k-ink: #5C1F2E; }
   .k-alumni  { --k: #2F7D74; --k-soft: #E4F2F0; --k-ink: #1E534D; }
   .k-other   { --k: #6B5B95; --k-soft: #EEEAF5; --k-ink: #463A66; }
@@ -647,7 +647,59 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
   .th-item strong { font-size: .92rem; }
   .th-item span { font-size: .81rem; color: var(--ink-soft); line-height: 1.45; }
   .th-note { margin: 14px 0 0; font-size: .86rem; color: var(--ink-soft); }
+
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --primary: #D98BA0;
+    --primary-soft: #4A2A34;
+    --primary-softer: #2A1C22;
+    --primary-ink: #F0C3CF;
+    --accent: #D6A860;
+    --accent-soft: #33281A;
+    --accent-ink: #EBC98D;
+    --bg: #14100F;
+    --surface: #1D1719;
+    --surface-2: #241D1F;
+    --ink: #F1EAE8;
+    --ink-soft: #BFB2B4;
+    --ink-faint: #8B7F81;
+    --line: #332A2C;
+    --info: #8FB0DE;
+    --info-soft: #1E2733;
+    --success: #7FBF9E;
+    --success-soft: #1B2A22;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+  }
+  :root[data-theme="dark"] .k-holiday { --k: #93A2B3; --k-soft: #232A31; --k-ink: #C3CEDA; }
+  :root[data-theme="dark"] .k-student { --k: #D6A860; --k-soft: #322718; --k-ink: #EBC98D; }
+  :root[data-theme="dark"] .k-lecture { --k: #D98BA0; --k-soft: #33212A; --k-ink: #F0C3CF; }
+  :root[data-theme="dark"] .k-alumni  { --k: #6FBFB2; --k-soft: #1B2C2A; --k-ink: #A5DBD2; }
+  :root[data-theme="dark"] .k-other   { --k: #A192C7; --k-soft: #262231; --k-ink: #CBC1E4; }
+  :root[data-theme="dark"] .gcard-ours { background: linear-gradient(150deg, var(--primary-softer), var(--surface)); }
+  :root[data-theme="dark"] .stat { background: linear-gradient(155deg, var(--primary-softer), var(--surface)); }
+  :root[data-theme="dark"] .s-prog { background: #1B2C2A; color: #A5DBD2; }
+  :root[data-theme="dark"] .s-new  { background: #232A31; color: #C3CEDA; }
+  :root[data-theme="dark"] .cal-pop-backdrop { background: rgba(0,0,0,.66); }
+  :root[data-theme="dark"] .brand-logo { filter: brightness(1.12); }
+
+  .theme-btn { display: inline-grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--ink-soft); cursor: pointer; flex: none; padding: 0; }
+  .theme-btn:hover { border-color: var(--primary); color: var(--primary); }
+  .theme-btn svg { width: 17px; height: 17px; }
+  .theme-btn .icon-moon { display: none; }
+  :root[data-theme="dark"] .theme-btn .icon-moon { display: block; }
+  :root[data-theme="dark"] .theme-btn .icon-sun { display: none; }
+
+  .brand-logo { display: block; height: 100%; width: auto; object-fit: contain; }
+  .brand-mark:has(.brand-logo) { background: none !important; border: 0 !important; padding: 0; }
 </style>
+<script>
+  (function () {
+    var saved = null;
+    try { saved = localStorage.getItem('nymc-theme'); } catch (e) {}
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
+  })();
+</script>
 </head>
 <body>
 <!--
@@ -673,7 +725,7 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
 <header class="topbar">
   <div class="topbar-inner">
     <div class="brand" onclick="go('home')">
-      <div class="brand-mark">N</div>
+      <div class="brand-mark"><img class="brand-logo" src="assets/senate-logo.png" alt="NYMC SOM Student Senate" onerror="this.remove();this.parentNode.classList.add('brand-mark-fallback');this.parentNode.textContent='N';"></div>
       <div class="brand-meta"><strong>NYMC School of Medicine Student Senate</strong></div>
     </div>
     <nav class="nav" id="nav" aria-label="Main navigation">
@@ -685,7 +737,11 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
       <button data-page="hub">Quick Hub</button>
       <button data-page="market">Marketplace</button>
     </nav>
-    <div class="topbar-cta"><button class="btn accent" onclick="go('feedback')">Submit feedback</button></div>
+    <div class="topbar-cta"><button class="theme-btn" id="theme-btn" type="button" aria-label="Switch between light and dark" title="Switch theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2 12h2.4M19.6 12H22M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 14.5A8.2 8.2 0 019.5 4a8.3 8.3 0 1010.5 10.5z"/></svg>
+      </button>
+      <button class="btn accent" onclick="go('feedback')">Submit feedback</button></div>
     <button class="hamburger" onclick="openDrawer()" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
   </div>
 </header>
@@ -2204,6 +2260,28 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
     });
     return { fields, blurb };
   }
+
+
+  // ---------- theme ----------
+  (function () {
+    var btn = document.getElementById('theme-btn');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      // Persistence is a nicety — if storage is unavailable the toggle still works
+      // for the session, it just won't be remembered.
+      try { localStorage.setItem('nymc-theme', next); } catch (e) {}
+    });
+    // Follow the OS only while the user hasn't expressed a preference
+    if (window.matchMedia) {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
+        var chosen = null;
+        try { chosen = localStorage.getItem('nymc-theme'); } catch (err) {}
+        if (!chosen) document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+      });
+    }
+  })();
 
   // ---------- categories ----------
   // Trumba tags each event with CATEGORIES; we fold those into a handful of
