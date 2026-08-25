@@ -83,6 +83,8 @@ exports.handler = async (event) => {
       follow_up: fields.follow_up || "no",
       email: fields.email || "",
       routed_to: fields.routed_to || "",
+      // curriculum only: "cc" (private), "both", or "senate"
+      visibility: fields.visibility || "senate",
     },
   };
 

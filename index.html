@@ -592,6 +592,17 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
   .res-archive[open] .res-archive-x::after { content: ""; }
   .res-archive[open] .res-archive-x { color: var(--ink-faint); }
   .res-archive-body { padding: 18px 20px 22px; }
+
+  .fb-route { margin-top: 18px; padding: 16px 18px; border: 1px solid var(--line); border-left: 3px solid var(--primary); border-radius: 12px; background: var(--primary-softer); }
+  .fb-route[hidden] { display: none; }
+  .fb-route-label { display: block; font-size: .9rem; font-weight: 600; }
+  .fb-route-why { margin: 5px 0 12px; font-size: .82rem; color: var(--ink-soft); line-height: 1.5; }
+  .fb-route-opts { display: grid; gap: 8px; }
+  .fb-route-opt { text-align: left; font: inherit; background: var(--surface); border: 1.5px solid var(--line); border-radius: 10px; padding: 12px 14px; cursor: pointer; display: flex; flex-direction: column; gap: 3px; transition: all .12s ease; }
+  .fb-route-opt:hover { border-color: var(--primary); }
+  .fb-route-opt.on { border-color: var(--primary); background: var(--surface); box-shadow: 0 0 0 2px var(--primary-softer); }
+  .fb-route-opt strong { font-size: .87rem; }
+  .fb-route-opt span { font-size: .79rem; color: var(--ink-soft); line-height: 1.45; }
 </style>
 </head>
 <body>
@@ -1176,6 +1187,24 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
           <button type="button" class="fb-year-chip" data-year="M2">M2</button>
           <button type="button" class="fb-year-chip" data-year="M3">M3</button>
           <button type="button" class="fb-year-chip" data-year="M4">M4</button>
+        </div>
+      </div>
+      <div class="fb-route" id="fb-route" hidden>
+        <span class="fb-route-label">Who should see this?</span>
+        <p class="fb-route-why">Academic concerns can be sensitive. You choose who reads it — this is the only category where that's up to you.</p>
+        <div class="fb-route-opts" id="fb-route-opts">
+          <button type="button" class="fb-route-opt on" data-route="cc">
+            <strong>Curriculum Committee only</strong>
+            <span>Goes to a private sheet the Senate can't see. Choose this if you'd rather senators not read it.</span>
+          </button>
+          <button type="button" class="fb-route-opt" data-route="both">
+            <strong>Curriculum Committee and Senate</strong>
+            <span>Both see it. Best if you want Senate to push on it too.</span>
+          </button>
+          <button type="button" class="fb-route-opt" data-route="senate">
+            <strong>Senate only</strong>
+            <span>Stays with Senate and doesn't go to the Curriculum Committee.</span>
+          </button>
         </div>
       </div>
       <div class="routing-preview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg><div><strong id="route-target">→ Sent to: Facilities Director (cafeteria) + your year rep</strong><div style="font-size:.82rem; margin-top:2px;">Your submission also goes into trends data.</div></div></div>
@@ -1800,6 +1829,19 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
     other: 'Senate Executive Board',
   };
   let chosenCat=null, chosenReason=null, chosenReasonLabel='';
+  let chosenRoute='cc';                 // curriculum only: cc | both | senate
+  const ROUTE_TEXT = {
+    cc:     'Curriculum Committee only — private, not visible to Senate',
+    both:   'Curriculum Committee and the Senate Executive Board',
+    senate: 'Senate Executive Board only',
+  };
+  document.getElementById('fb-route-opts')?.addEventListener('click', ev => {
+    const b = ev.target.closest('.fb-route-opt');
+    if (!b) return;
+    chosenRoute = b.dataset.route;
+    document.querySelectorAll('.fb-route-opt').forEach(x => x.classList.toggle('on', x === b));
+    document.getElementById('route-target').textContent = '→ Sent to: ' + ROUTE_TEXT[chosenRoute];
+  });
   function pickCat(btn) {
     document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('selected'));
     btn.classList.add('selected');
@@ -1826,7 +1868,13 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
     document.querySelectorAll('.feedback-step').forEach(s => s.classList.remove('active'));
     document.getElementById('fb-'+step).classList.add('active');
     [1,2,3].forEach(n => document.getElementById('prog-'+n).classList.toggle('on', n <= step));
-    if (step === 3) document.getElementById('route-target').textContent = '→ Sent to: ' + (routingByCat[chosenCat] || 'Senate Executive Board');
+    if (step === 3) {
+      const isCurriculum = chosenCat === 'curriculum';
+      const box = document.getElementById('fb-route');
+      if (box) box.hidden = !isCurriculum;
+      document.getElementById('route-target').textContent = '→ Sent to: ' +
+        (isCurriculum ? ROUTE_TEXT[chosenRoute] : (routingByCat[chosenCat] || 'Senate Executive Board'));
+    }
   }
   function showFbStep(id) {
     document.querySelectorAll('.feedback-step').forEach(s => s.classList.remove('active'));
@@ -1871,7 +1919,10 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
       'class_year': classYear,
       'follow_up': followUp ? 'yes' : 'no',
       'email': email,
-      'routed_to': routingByCat[chosenCat] || 'Senate Executive Board',
+      'routed_to': chosenCat === 'curriculum'
+        ? ROUTE_TEXT[chosenRoute]
+        : (routingByCat[chosenCat] || 'Senate Executive Board'),
+      'visibility': chosenCat === 'curriculum' ? chosenRoute : 'senate',
     });
 
     try {
@@ -1893,7 +1944,8 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
     }
   }
   function resetFb() {
-    chosenCat=null; chosenReason=null; chosenReasonLabel='';
+    chosenCat=null; chosenReason=null; chosenReasonLabel=''; chosenRoute='cc';
+    document.querySelectorAll('.fb-route-opt').forEach((x,i) => x.classList.toggle('on', i===0));
     document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('selected'));
     ['next-1','next-2'].forEach(id => { const e=document.getElementById(id); e.disabled=true; e.style.opacity=.4; e.style.cursor='not-allowed'; });
     const d=document.getElementById('fb-details'); if (d) d.value='';

@@ -47,6 +47,7 @@ var HEADERS = [
   'Follow-up requested?',
   'Email',
   'Routed to',
+  'Shared with',
   'Form',
   'Netlify ID',
 ];
@@ -70,10 +71,24 @@ function doPost(e) {
 
     var row = buildRow(payload);
 
-    // Curriculum goes to the private spreadsheet and nowhere else.
+    // Curriculum: the student picks who reads it. "cc" is the default and
+    // means the Senate never sees it — that was the Curriculum Committee's
+    // condition for accepting feedback through this form at all, so the
+    // Senate sheet must not get a copy.
     if (payload.formName === CURRICULUM_FORM) {
-      appendRowTo(SpreadsheetApp.openById(CURRICULUM_SHEET_ID), 'Curriculum', row);
-      return json({ ok: true, tab: 'Curriculum (private)' });
+      var visibility = (payload.data && payload.data.visibility) || 'cc';
+      var wroteTo = [];
+
+      if (visibility === 'cc' || visibility === 'both') {
+        appendRowTo(SpreadsheetApp.openById(CURRICULUM_SHEET_ID), 'Curriculum', row);
+        wroteTo.push('Curriculum (private)');
+      }
+      if (visibility === 'senate' || visibility === 'both') {
+        appendRow('Curriculum', row);
+        appendRow(MASTER_TAB, row);
+        wroteTo.push('Senate');
+      }
+      return json({ ok: true, tab: wroteTo.join(' + ') });
     }
 
     var tabName = TABS[payload.formName] || 'Other';
@@ -159,9 +174,17 @@ function buildRow(payload) {
     (d.follow_up === 'yes') ? 'Yes' : 'No',
     d.email || '',
     d.routed_to || '',
+    visibilityLabel(d.visibility),
     payload.formName || '',
     payload.id || '',
   ];
+}
+
+function visibilityLabel(v) {
+  if (v === 'both')   return 'Curriculum Committee + Senate';
+  if (v === 'senate') return 'Senate only';
+  if (v === 'cc')     return 'Curriculum Committee only (private)';
+  return '';
 }
 
 // ---- Sheet helpers ----------------------------------------------------
@@ -217,7 +240,6 @@ function formatHeader(sheet) {
 function setupTabs() {
   getOrCreateTab(MASTER_TAB);
   Object.keys(TABS).forEach(function (formName) {
-    if (formName === CURRICULUM_FORM) return;   // lives in its own spreadsheet
     getOrCreateTab(TABS[formName]);
   });
 
