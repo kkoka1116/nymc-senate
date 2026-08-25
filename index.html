@@ -640,6 +640,13 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
     .track-row { flex-direction: column; gap: 9px; }
     .stat strong { font-size: 1.7rem; }
   }
+
+  .th-list { display: grid; gap: 8px; margin-top: 14px; }
+  .th-item { display: flex; flex-direction: column; gap: 3px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 17px; transition: all .12s ease; }
+  .th-item:hover { border-color: var(--primary); background: var(--primary-softer); text-decoration: none; }
+  .th-item strong { font-size: .92rem; }
+  .th-item span { font-size: .81rem; color: var(--ink-soft); line-height: 1.45; }
+  .th-note { margin: 14px 0 0; font-size: .86rem; color: var(--ink-soft); }
 </style>
 </head>
 <body>
@@ -1420,12 +1427,19 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
     <div class="stat-strip">
       <div class="stat"><strong>16</strong><span>senators across M1–M4, elected by their classes</span></div>
       <div class="stat"><strong>8</strong><span>standing committees and subcommittees</span></div>
-      <div class="stat"><strong>269</strong><span>students at the four research seminars run this spring</span></div>
+      <div class="stat"><strong>269</strong><span>students across four research seminars last spring, with the series now into its next year</span></div>
       <div class="stat"><strong>133</strong><span>student clubs supported through Senate and Student Activities</span></div>
     </div>
 
     <h3 class="work-h">Things that changed</h3>
     <div class="win-grid">
+      <div class="win"><span class="win-tag">Food</span><h4>Dry goods vending machine — installed</h4><p>Students had no after-hours access to basics. Senate food reps collected specific requests, took them to Dining, and tracked it across five meetings. It's now in the cafeteria by the microwaves.</p><span class="win-who">Food services reps · raised Feb 2026, installed Aug 2026</span></div>
+
+      <div class="win"><span class="win-tag">Safety</span><h4>AED coverage expanded across campus</h4><p>All 19 existing defibrillators were serviced and eight more installed, with Facilities painting the walls around each one so they can actually be found in an emergency.</p><span class="win-who">Public Safety reps · with Campus Operations</span></div>
+
+      <div class="win"><span class="win-tag">Campus</span><h4>The garden behind the gym</h4><p>A stone patio, outdoor furniture and six raised garden beds — all six already claimed by students. Hummingbird feeders and string lights are going in next.</p><span class="win-who">Housing &amp; Gym reps</span></div>
+
+      <div class="win"><span class="win-tag">Facilities</span><h4>A work order portal that students can use</h4><p>Temperature in the MEC, missing paper towels, broken water fountains — there's now a direct portal for reporting them instead of hoping someone notices.</p><span class="win-who">Facilities rep · with Campus Operations</span></div>
       <div class="win"><span class="win-tag">Facilities</span><h4>Quiet in the library during dedicated</h4><p>Noise during Step study was raised meeting after meeting. Senate library reps worked with Public Safety and the Dean of Students on new signage and a campus-wide message on library conduct.</p><span class="win-who">Library reps · with Capozzi Library &amp; Public Safety</span></div>
 
       <div class="win"><span class="win-tag">Research</span><h4>50% poster printing discount</h4><p>Students were paying full price to present their own work. The Research Subcommittee pushed for a subsidy; a standing 50% discount on standard research posters is now live with its own request form.</p><span class="win-who">Senate Research Subcommittee · with the Library</span></div>
@@ -1448,7 +1462,8 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
     <h3 class="work-h">Open right now</h3>
     <p class="work-sub">Things Senate is currently pushing on. Status as of the most recent meeting.</p>
     <div class="track">
-      <div class="track-row"><span class="track-status s-move">Arriving</span><div class="track-body"><strong>Personal health vending machine</strong><span>Requested after students raised the lack of after-hours access to basics. Specific item requests were collected and passed to Dining. Reported roughly a week out at the April meeting.</span><span class="track-arc">Raised Feb → item list Mar → ordered Apr</span></div></div>
+
+      <div class="track-row"><span class="track-status s-prog">In progress</span><div class="track-body"><strong>Emergency preparedness</strong><span>Knox boxes with master keys are installed at every school building for fire rescue. Unannounced fire and lockdown drills plus active-threat training are planned for the fall.</span><span class="track-arc">Started Aug → fall rollout</span></div></div>
 
       <div class="track-row"><span class="track-status s-prog">In progress</span><div class="track-body"><strong>Gym and housing task force</strong><span>Students recruited to a standing task force covering gym layout, housing and recycling, meeting directly with campus operations.</span><span class="track-arc">Raised Feb → recruiting Mar → scheduling Apr</span></div></div>
 
@@ -1497,6 +1512,20 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
     </div>
   </div>
 
+
+  <div class="section">
+    <div class="section-head"><div><h2>Class town halls</h2><p>Held monthly. Students submit feedback anonymously, senators put it to the faculty in the room, and the responses are written down.</p></div></div>
+    <div class="note-tbd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l9 4.5v5c0 5-3.8 9.7-9 10.5-5.2-.8-9-5.5-9-10.5v-5L12 2z"/></svg><div><strong>Touro login required.</strong> Town hall notes quote student feedback and name specific courses and faculty, so they stay inside the College. You'll be asked to sign in with your Touro account.</div></div>
+    <div class="th-list">
+      <a class="th-item" href="https://drive.google.com/file/d/1AZWGQOTvYIgOfmKrPt5eNUG8mhXcWi1z/view?usp=sharing" target="_blank" rel="noopener"><strong>M1 Town Hall — March 9, 2026</strong><span>Curriculum content, lecture recordings, mandatory session timing, UWorld access</span></a>
+      <a class="th-item" href="https://drive.google.com/file/d/1S4b4K8ZlW-ZxVqrviPyiQ2A87_HNf0Lv/view?usp=sharing" target="_blank" rel="noopener"><strong>Town hall notes</strong><span>Open to read →</span></a>
+      <a class="th-item" href="https://drive.google.com/file/d/1fIiM0yv6hp0Hwh2cuxkpD0wzbb-3LXot/view?usp=sharing" target="_blank" rel="noopener"><strong>Town hall notes</strong><span>Open to read →</span></a>
+      <a class="th-item" href="https://drive.google.com/file/d/1w01kd7udxFaECy4UEDPQzHVK4plmX0iZ/view?usp=sharing" target="_blank" rel="noopener"><strong>Town hall notes</strong><span>Open to read →</span></a>
+      <a class="th-item" href="https://drive.google.com/file/d/1wNFR62WryStFmhI994fb00-7Sduqh8vG/view?usp=sharing" target="_blank" rel="noopener"><strong>Town hall notes</strong><span>Open to read →</span></a>
+    </div>
+    <p class="th-note">Town halls are where curriculum feedback gets a direct answer from the people who set it. If you have something for the next one, <a href="#" data-goto="feedback">send it through the feedback form</a>.</p>
+  </div>
+
   <div class="section">
     <div class="section-head"><h2>Meeting minutes</h2></div>
     <p class="minutes-intro">Full minutes for each general meeting. Open one to see what came out of it and what shifted since the meeting before.</p>
@@ -1504,8 +1533,30 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
 
       <details class="minutes-item is-latest" open>
         <summary>
-          <span class="minutes-when"><strong>April 15, 2026</strong><span>Alumni House</span></span>
+          <span class="minutes-when"><strong>August 5, 2026</strong><span>Alumni House</span></span>
           <span class="minutes-badges"><span class="minutes-latest">Most recent</span></span>
+        </summary>
+        <div class="minutes-body">
+          <p class="minutes-delta"><strong>What changed since April:</strong> the things Senate had been chasing all spring actually landed — the vending machine is in, AED coverage is expanded, and the garden behind the gym is nearly finished. New academic year, new officers in post, and the Class of 2030 has arrived.</p>
+          <ul>
+            <li><strong>Step 1 results for the Class of 2028</strong> — 208 students have taken it and 206 passed on the first attempt.</li>
+            <li><strong>Summer Research Fellowship</strong> — 150 applications, 120 awards, and a funding increase approved for 30 more students next year.</li>
+            <li><strong>LCME reported 14 areas of significant improvement</strong>; the College remains fully accredited, with further feedback expected in November.</li>
+            <li><strong>Step 1 and Step 2 testing dates are changing.</strong> UME is working with the USMLE on what it means for students with disabilities and will issue guidance.</li>
+            <li><strong>AEDs and emergency preparedness</strong> — all 19 units serviced, eight more added, walls painted for visibility, Knox boxes installed at every building, and drills planned for the fall.</li>
+            <li><strong>The dry goods vending machine is installed</strong> in the cafeteria by the microwaves, closing out a request first raised in February.</li>
+            <li><strong>A new facilities work order portal</strong> is live for temperature, restroom supplies and broken fixtures.</li>
+            <li><strong>Logan-Perla House</strong> joins as the twelfth advisory house, named for Dr. Myra Adele Logan, an alumna and surgeon, and Dr. Perla, a longtime Student Affairs dean.</li>
+            <li>Room bookings move to CourseDog on September 1; the campus wifi SSID is being standardised; club fair is August 26.</li>
+          </ul>
+          <a class="minutes-open" href="https://drive.google.com/file/d/11oqf0OhG39W72DBgAqwE862nNdJa2WeD/view?usp=sharing" target="_blank" rel="noopener">Read the full August minutes →</a>
+        </div>
+      </details>
+
+      <details class="minutes-item">
+        <summary>
+          <span class="minutes-when"><strong>April 15, 2026</strong><span>Alumni House</span></span>
+          <span class="minutes-badges"></span>
         </summary>
         <div class="minutes-body">
           <p class="minutes-delta"><strong>What changed since March:</strong> the leadership handoff finished — a full new e-board was seated. The big practical news is that the student research account ran dry for the fiscal year, so publication and conference-support reimbursements are paused until July 1.</p>
