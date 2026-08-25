@@ -1,3 +1,17 @@
+function applyHeaders() {
+  var targets = [SpreadsheetApp.getActiveSpreadsheet(),
+                 SpreadsheetApp.openById(CURRICULUM_SHEET_ID)];
+  var touched = [];
+  targets.forEach(function (ss) {
+    ss.getSheets().forEach(function (sh) {
+      sh.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]);
+      formatHeader(sh);
+      touched.push(ss.getName() + ' / ' + sh.getName());
+    });
+  });
+  console.log('Headers rewritten on: ' + touched.join(', '));
+}
+
 /**
  * NYMC Student Senate — feedback → Google Sheets router
  * =====================================================
@@ -253,12 +267,7 @@ function setupTabs() {
     ss.deleteSheet(blank);
   }
 
-  SpreadsheetApp.getUi().alert(
-    'Done — created ' + (Object.keys(TABS).length + 1) + ' tabs.\n\n' +
-    'Next: Deploy → New deployment → Web app,\n' +
-    'Execute as: Me · Who has access: Anyone,\n' +
-    'then paste the /exec URL into Netlify.'
-  );
+  console.log('setupTabs done');
 }
 
 // ---- Optional: verify the whole path without touching the website -----
@@ -298,3 +307,9 @@ function clearTestRows() {
     if (last > 1) sh.deleteRows(2, last - 1);
   });
 }
+
+// ---- Run once after changing HEADERS ----------------------------------
+// Rewrites row 1 on every tab in both spreadsheets. Existing rows were
+// written against the old 10-column header, so without this the new
+// 'Shared with' column would sit under the wrong label.
+
