@@ -691,6 +691,12 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
 
   .brand-logo { display: block; height: 100%; width: auto; object-fit: contain; }
   .brand-mark:has(.brand-logo) { background: none !important; border: 0 !important; padding: 0; }
+
+  /* The logo art sits on a white square, so lean into it: a white chip reads as
+     deliberate and survives dark mode, where a blend-mode trick would not. */
+  .brand-mark:has(.brand-logo) { background: #fff !important; border: 1px solid var(--line) !important; padding: 3px; overflow: hidden; }
+  .brand-logo { display: block; width: 100%; height: 100%; object-fit: contain; }
+  :root[data-theme="dark"] .brand-mark:has(.brand-logo) { border-color: #4A3C40 !important; }
 </style>
 <script>
   (function () {
@@ -725,7 +731,7 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
 <header class="topbar">
   <div class="topbar-inner">
     <div class="brand" onclick="go('home')">
-      <div class="brand-mark"><img class="brand-logo" src="assets/senate-logo.png" alt="NYMC SOM Student Senate" onerror="this.remove();this.parentNode.classList.add('brand-mark-fallback');this.parentNode.textContent='N';"></div>
+      <div class="brand-mark"><img class="brand-logo" src="https://drive.google.com/thumbnail?id=1f4EY--JGiMLd56GjZq6gIKq0fGx4Pjfm&amp;sz=w256" alt="NYMC SOM Student Senate" width="40" height="40" loading="eager" onerror="this.remove();this.parentNode.classList.remove('has-logo');this.parentNode.textContent='N';"></div>
       <div class="brand-meta"><strong>NYMC School of Medicine Student Senate</strong></div>
     </div>
     <nav class="nav" id="nav" aria-label="Main navigation">
