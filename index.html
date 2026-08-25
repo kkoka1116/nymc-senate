@@ -615,6 +615,31 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
   .fb-who strong { font-size: .84rem; }
   .fb-who span { font-size: .8rem; line-height: 1.55; color: var(--ink-soft); }
   .fb-who-note { margin: 0; font-size: .79rem; line-height: 1.5; color: var(--ink-faint); border-top: 1px solid var(--line); padding-top: 10px; }
+
+  .stat-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 26px; }
+  .stat { background: linear-gradient(155deg, var(--primary-softer), var(--surface)); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; display: flex; flex-direction: column; gap: 5px; }
+  .stat strong { font-family: var(--font-display, inherit); font-size: 2rem; line-height: 1; color: var(--primary); }
+  .stat span { font-size: .8rem; line-height: 1.45; color: var(--ink-soft); }
+
+  .work-h { margin: 30px 0 4px; font-size: 1.12rem; }
+  .work-h:first-of-type { margin-top: 0; }
+  .work-sub { margin: 0 0 14px; font-size: .86rem; color: var(--ink-soft); }
+  .win-grid + .work-h { margin-top: 34px; }
+
+  .track { display: grid; gap: 8px; }
+  .track-row { display: flex; align-items: flex-start; gap: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 15px 17px; }
+  .track-status { flex: none; font-size: .66rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; white-space: nowrap; margin-top: 2px; }
+  .s-move { background: var(--accent-soft); color: var(--accent-ink); }
+  .s-prog { background: #E4F2F0; color: #1E534D; }
+  .s-new  { background: #EEF1F5; color: #3A4652; }
+  .track-body { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .track-body strong { font-size: .93rem; }
+  .track-body > span { font-size: .84rem; line-height: 1.55; color: var(--ink-soft); }
+  .track-arc { font-size: .74rem !important; color: var(--ink-faint) !important; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  @media (max-width: 560px) {
+    .track-row { flex-direction: column; gap: 9px; }
+    .stat strong { font-size: 1.7rem; }
+  }
 </style>
 </head>
 <body>
@@ -1390,23 +1415,53 @@ a.hub-item, a.hub-item:hover { text-decoration: none; color: inherit; }
 
 
   <div class="section" id="senate-work">
-    <div class="section-head"><div><h2>What Senate actually does</h2><p>Concrete things that changed on this campus because students raised them. Every item below traces to a Senate meeting.</p></div></div>
+    <div class="section-head"><div><h2>What Senate actually does</h2><p>Senate meets monthly with the deans, the library, dining, facilities, public safety, financial aid and IT in the room. Below is what came out of it — every item traceable to a specific meeting.</p></div></div>
 
+    <div class="stat-strip">
+      <div class="stat"><strong>16</strong><span>senators across M1–M4, elected by their classes</span></div>
+      <div class="stat"><strong>8</strong><span>standing committees and subcommittees</span></div>
+      <div class="stat"><strong>269</strong><span>students at the four research seminars run this spring</span></div>
+      <div class="stat"><strong>133</strong><span>student clubs supported through Senate and Student Activities</span></div>
+    </div>
+
+    <h3 class="work-h">Things that changed</h3>
     <div class="win-grid">
-      <div class="win"><span class="win-tag">Facilities</span><h4>Quiet in the library during dedicated</h4><p>Noise and disruption during Step study time was raised repeatedly. Senate library reps worked with Public Safety and the Dean of Students on new signage and a campus-wide message on library conduct.</p><span class="win-who">Library reps · with Capozzi Library &amp; Public Safety</span></div>
+      <div class="win"><span class="win-tag">Facilities</span><h4>Quiet in the library during dedicated</h4><p>Noise during Step study was raised meeting after meeting. Senate library reps worked with Public Safety and the Dean of Students on new signage and a campus-wide message on library conduct.</p><span class="win-who">Library reps · with Capozzi Library &amp; Public Safety</span></div>
 
       <div class="win"><span class="win-tag">Research</span><h4>50% poster printing discount</h4><p>Students were paying full price to present their own work. The Research Subcommittee pushed for a subsidy; a standing 50% discount on standard research posters is now live with its own request form.</p><span class="win-who">Senate Research Subcommittee · with the Library</span></div>
 
-      <div class="win"><span class="win-tag">Food</span><h4>Personal health vending machine</h4><p>Students asked for after-hours access to basics the campus stores don't stock. Food services reps carried specific student requests to Dining and the machine was ordered.</p><span class="win-who">Food services reps · with Dining Services</span></div>
+      <div class="win"><span class="win-tag">Research</span><h4>Alumni Research Repository</h4><p>Finding a mentor used to mean asking around. SRS built and distributed a searchable record of what NYMC alumni actually researched, so students can find people in their field instead of guessing.</p><span class="win-who">Senate Research Subcommittee</span></div>
 
-      <div class="win"><span class="win-tag">Research</span><h4>Alumni Research Repository</h4><p>Finding a mentor used to mean asking around. The Research Subcommittee built and distributed a searchable record of what NYMC alumni actually researched, so students can find people in their field.</p><span class="win-who">Senate Research Subcommittee</span></div>
+      <div class="win"><span class="win-tag">Food</span><h4>Utensils in Grab &amp; Go</h4><p>A small thing that made every day worse. Raised with Dining, stocked, then chased again when supply ran short.</p><span class="win-who">Food services reps · with Dining Services</span></div>
 
-      <div class="win"><span class="win-tag">Facilities</span><h4>Building temperature and fans</h4><p>Raised at the quarterly Public Safety meeting after complaints about heat in teaching spaces. Facilities ordered additional fans and began work on a longer-term contingency plan.</p><span class="win-who">Public Safety reps · with Facilities</span></div>
+      <div class="win"><span class="win-tag">Food</span><h4>Cafeteria closure calendar</h4><p>Closures kept surprising people. Students asked for advance notice; the holiday closure calendar now circulates ahead of time, and a missed notification in March was flagged and fixed.</p><span class="win-who">Food services reps · with Dining Services</span></div>
 
-      <div class="win"><span class="win-tag">Food</span><h4>Utensils and closure calendar</h4><p>Two small things that made daily life worse: no utensils in Grab &amp; Go, and cafeteria closures nobody knew about. Both were fixed — utensils stocked, and the holiday closure calendar now circulates in advance.</p><span class="win-who">Food services reps · with Dining Services</span></div>
+      <div class="win"><span class="win-tag">Food</span><h4>Dietary restrictions accommodated</h4><p>Senate worked directly with students who couldn't eat what was on offer and got additional options added to the cafeteria.</p><span class="win-who">Food services reps · with Dining Services</span></div>
+
+      <div class="win"><span class="win-tag">Facilities</span><h4>Fans for overheated buildings</h4><p>Raised at the April quarterly Public Safety meeting after complaints about heat in teaching spaces. Facilities ordered additional fans and started on a longer-term plan.</p><span class="win-who">Public Safety reps · with Facilities</span></div>
+
+      <div class="win"><span class="win-tag">Academics</span><h4>Course representatives elected</h4><p>Senate runs the elections that put students on Patient Care, Career Planning and Brain &amp; Behavior — the course-level seats where curriculum feedback actually lands.</p><span class="win-who">Vice President</span></div>
+
+      <div class="win"><span class="win-tag">Community</span><h4>Service calendar and Service Week</h4><p>SSS put every volunteering opportunity in one place instead of scattered emails, and is building a school-wide Service Week with the Office of Student Affairs.</p><span class="win-who">Senate Service Subcommittee</span></div>
     </div>
 
-    <p class="win-note">Have something that belongs on this list — or something that should be? <a href="#" data-goto="feedback">Send it through the feedback form</a> and it goes to the senator who owns that area.</p>
+    <h3 class="work-h">Open right now</h3>
+    <p class="work-sub">Things Senate is currently pushing on. Status as of the most recent meeting.</p>
+    <div class="track">
+      <div class="track-row"><span class="track-status s-move">Arriving</span><div class="track-body"><strong>Personal health vending machine</strong><span>Requested after students raised the lack of after-hours access to basics. Specific item requests were collected and passed to Dining. Reported roughly a week out at the April meeting.</span><span class="track-arc">Raised Feb → item list Mar → ordered Apr</span></div></div>
+
+      <div class="track-row"><span class="track-status s-prog">In progress</span><div class="track-body"><strong>Gym and housing task force</strong><span>Students recruited to a standing task force covering gym layout, housing and recycling, meeting directly with campus operations.</span><span class="track-arc">Raised Feb → recruiting Mar → scheduling Apr</span></div></div>
+
+      <div class="track-row"><span class="track-status s-prog">In progress</span><div class="track-body"><strong>Library renovations and study space</strong><span>Senate library reps met with the library director on soundproof pods, carrel layout and getting research resources in front of students more often.</span><span class="track-arc">Raised Mar → planning Apr</span></div></div>
+
+      <div class="track-row"><span class="track-status s-prog">In progress</span><div class="track-body"><strong>Building temperature contingency plan</strong><span>Fans were the immediate fix. Senate is still pressing for something better before next summer.</span><span class="track-arc">Raised Apr → ongoing</span></div></div>
+
+      <div class="track-row"><span class="track-status s-new">Raised</span><div class="track-body"><strong>Emergency contraception in Grab &amp; Go</strong><span>Brought to Dining as a possible addition alongside the health vending machine.</span><span class="track-arc">Raised Mar</span></div></div>
+
+      <div class="track-row"><span class="track-status s-prog">In progress</span><div class="track-body"><strong>Longitudinal QI project</strong><span>SRS is building continuity into how research support carries from one Senate to the next, alongside the annual bylaws review.</span><span class="track-arc">Started Apr</span></div></div>
+    </div>
+
+    <p class="win-note">Something belong on either list — or something that should? <a href="#" data-goto="feedback">Send it through the feedback form</a> and it goes to the senator who owns that area.</p>
   </div>
 
   <div class="section">
