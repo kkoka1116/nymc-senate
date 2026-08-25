@@ -78,3 +78,10 @@ each fall (Dean Sozzo / Treasurer has the approved list). Site questions:
 Dliu4@student.nymc.edu (Outreach Coordinator).
 
 Code is MIT-licensed — adapt freely for other student governments.
+
+
+## Branches
+
+- `main` - the published site at nymc-student-senate.netlify.app
+- - `v2` - the Senate-first rebuild, deployed separately for review at v2--nymc-student-senate.netlify.app
+  - 
